@@ -22,23 +22,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-const user;
-auth.onAuthStateChanged(userTemp => {
-  if (userTemp) {
-    user = userTemp;
-    console.log(userTemp);
-  } else {
-    user = null;
-    console.log('not logged in');
-  }
-});
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
+      user: undefined,
       items: []
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -47,7 +37,15 @@ class App extends React.Component {
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    auth.onAuthStateChanged(userTemp => {
+      if (userTemp) {
+        this.setState({ user: userTemp });
+      } else {
+        console.log('not logged in');
+      }
+    });
+  }
 
   handleInputChange(e) {
     e.preventDefault();
@@ -59,42 +57,67 @@ class App extends React.Component {
   handleLogIn() {
     auth
       .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() =>
+        this.setState({
+          email: '',
+          password: ''
+        })
+      )
       .catch(err => console.log(err));
   }
 
   handleLogOut() {
-    auth.signOut();
+    auth.signOut().then(() => {
+      this.setState({
+        email: '',
+        password: '',
+        user: undefined
+      });
+    });
   }
 
   handleSignUp() {
     //TODO: validate real email
     auth
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .catch(err => console.log(err));
+      .then(() => {
+        this.setState({
+          email: '',
+          password: ''
+        });
+      })
+      .catch(err => {
+        alert(err.message);
+      });
   }
 
   render() {
+    console.log(this.state.user);
     return (
       <div>
-        <div>
-          <input
-            name="email"
-            type="email"
-            placeholder="email"
-            value={this.state.email}
-            onChange={this.handleInputChange}
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="password"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-          />
-          <button onClick={this.handleLogIn}>Log In</button>
-          <button onClick={this.handleSignUp}>Sign Up</button>
+        {!this.state.user && (
+          <div id="signInPanel">
+            <input
+              name="email"
+              type="email"
+              placeholder="email"
+              value={this.state.email}
+              onChange={this.handleInputChange}
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="password"
+              value={this.state.password}
+              onChange={this.handleInputChange}
+            />
+            <button onClick={this.handleLogIn}>Log In</button>
+            <button onClick={this.handleSignUp}>Sign Up</button>
+          </div>
+        )}
+        {this.state.user && (
           <button onClick={this.handleLogOut}>Log Out</button>
-        </div>
+        )}
         <h1>Item List</h1>
         <List items={this.state.items} />
       </div>
