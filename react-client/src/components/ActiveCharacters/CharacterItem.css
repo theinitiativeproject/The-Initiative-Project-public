@@ -1,0 +1,40 @@
+.character-item-wrapper {
+    border: 1px solid #28F0B2;
+    height: 40px;
+    line-height: 40px;
+    padding: 10px;
+    margin: 20px 0px;
+}
+
+.character-level {
+    float: left;
+    margin-right: 10px;
+}
+
+.character-name {
+    font-size: 20px;
+}
+
+.character-description-wrapper {
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.character-description-wrapper span {
+    margin: 0 5px;
+}
+
+.character-description-hit-point, .character-description-perception, .character-description-armour {
+    line-height: 40px;
+    margin: auto;
+    display: flex;
+    align-items:center;
+}
+
+.character-description-hit-point > img, .character-description-perception > img, .character-description-armour > img {
+    display: inline-block;
+    margin-right: 0.4em;
+    vertical-align: middle;
+}

@@ -1,0 +1,49 @@
+.create-character-form-wrapper {
+    width: 100%;
+    height: 40px;
+    padding: 10px 0px;
+    margin: 0px 20px 20px 0px;
+    background: none;
+    line-height: 40px;
+    background: linear-gradient(to right, #ffffff 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(#ffffff 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(to right, #ffffff 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(#ffffff 50%, rgba(255, 255, 255, 0) 0%);
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y;
+    background-size: 10px 1px, 1px 10px;
+}
+
+.create-character-form input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid #ffffff;
+}
+
+.create-character-form input[type="number"], .create-character-form input[type="text"] {
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+    margin: 0px 8px;
+}
+
+.create-character-form input[type="number"]:focus, .create-character-form input[type="text"]:focus {
+    border-bottom: 1px solid #c53030;
+}
+
+.create-character-form input[type="number"] {
+    width: 70px;
+}
+
+.create-character-form input[type="text"] {
+    width: 120px;
+}
+
+.create-character-button {
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.create-character-button img{
+    background-color: #292929;
+}
