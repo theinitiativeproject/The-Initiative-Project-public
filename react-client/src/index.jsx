@@ -31,24 +31,71 @@ class App extends React.Component {
       password: '',
       user: undefined,
       srdMonsters: [],
-      items: []
+      homebrewMonsters: [],
+      partyMembers: []
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
+    this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
   }
 
   componentDidMount() {
     this.retrieveSRDMonsters();
     auth.onAuthStateChanged(userTemp => {
       if (userTemp) {
-        this.setState({ user: userTemp });
+        this.setState({ user: userTemp }, () => {
+          this.retrieveHomebrewMonsters(userTemp.uid);
+          this.retrievePartyMembers(userTemp.uid);
+        });
       } else {
         console.log('not logged in');
+        this.setState({
+          homebrewMonsters: [],
+          partyMembers: []
+        });
       }
     });
+  }
+
+  retrievePartyMembers(uid) {
+    db.collection('party_members')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned party members in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ partyMembers: resultsArr }));
+  }
+
+  retrieveHomebrewMonsters(uid) {
+    db.collection('homebrew_monsters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned monsters in homebrew database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }));
   }
 
   retrieveSRDMonsters() {
@@ -119,7 +166,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.user);
+    console.log(this.state);
     return (
       <div>
         {!this.state.user && (
@@ -146,7 +193,7 @@ class App extends React.Component {
           <button onClick={this.handleLogOut}>Log Out</button>
         )}
         <h1>Item List</h1>
-        <List items={this.state.items} />
+        <List items={this.state.srdMonsters} />
       </div>
     );
   }
