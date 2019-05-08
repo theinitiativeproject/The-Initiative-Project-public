@@ -77,7 +77,8 @@ class App extends React.Component {
         console.log('not logged in');
         this.setState({
           homebrewMonsters: [],
-          partyMembers: []
+          partyMembers: [],
+          encounters: []
         });
       }
     });
