@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import List from './components/List.jsx';
+import Library from './components/Library.jsx';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from 'firebase/app';
@@ -34,6 +35,25 @@ class App extends React.Component {
       homebrewMonsters: [],
       partyMembers: [],
       encounters: []
+      currentTab: 'base',
+      baseList: [
+        { name: 'goblin' },
+        { name: 'wolf' },
+        { name: 'dragon' },
+        { name: 'troll' },
+        { name: 'skeleton' },
+        { name: 'witch' },
+        { name: 'harpy' }
+      ],
+      customList: [
+        { name: 'custom goblin' },
+        { name: 'custom wolf' },
+        { name: 'custom dragon' },
+        { name: 'custom troll' },
+        { name: 'custom skeleton' },
+        { name: 'custom witch' },
+        { name: 'custom harpy' }
+      ]
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
@@ -42,6 +62,7 @@ class App extends React.Component {
     this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
+    this.switchTab = this.switchTab.bind(this);
   }
 
   componentDidMount() {
@@ -189,6 +210,12 @@ class App extends React.Component {
         alert(err.message);
       });
   }
+        
+  switchTab(newTab) {
+    this.setState({
+      currentTab: newTab
+    });
+  }
 
   render() {
     console.log(this.state);
@@ -217,8 +244,13 @@ class App extends React.Component {
         {this.state.user && (
           <button onClick={this.handleLogOut}>Log Out</button>
         )}
-        <h1>Item List</h1>
-        <List items={this.state.srdMonsters} />
+        <h1>Library</h1>
+        <Library
+          currentTab={this.state.currentTab}
+          baseList={this.state.baseList}
+          customList={this.state.customList}
+          switchTab={this.switchTab}
+        />
       </div>
     );
   }
