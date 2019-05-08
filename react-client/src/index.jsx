@@ -21,6 +21,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,10 @@ class App extends React.Component {
       email: '',
       password: '',
       user: undefined,
+      srdMonsters: [],
+      homebrewMonsters: [],
+      partyMembers: [],
+      encounters: []
       currentTab: 'base',
       baseList: [
         { name: 'goblin' },
@@ -53,17 +58,112 @@ class App extends React.Component {
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
+    this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
+    this.retrieveEncounters = this.retrieveEncounters.bind(this);
     this.switchTab = this.switchTab.bind(this);
   }
 
   componentDidMount() {
+    this.retrieveSRDMonsters();
     auth.onAuthStateChanged(userTemp => {
       if (userTemp) {
-        this.setState({ user: userTemp });
+        this.setState({ user: userTemp }, () => {
+          this.retrieveHomebrewMonsters(userTemp.uid);
+          this.retrievePartyMembers(userTemp.uid);
+          this.retrieveEncounters(userTemp.uid);
+        });
       } else {
         console.log('not logged in');
+        this.setState({
+          homebrewMonsters: [],
+          partyMembers: []
+        });
       }
     });
+  }
+
+  retrieveEncounters(uid) {
+    db.collection('encounters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned encounters in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ encounters: resultsArr }))
+      .catch(err => console.log('error retrieving encounters', err));
+  }
+
+  retrievePartyMembers(uid) {
+    db.collection('party_members')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned party members in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ partyMembers: resultsArr }))
+      .catch(err => console.log('error retrieving party members', err));
+  }
+
+  retrieveHomebrewMonsters(uid) {
+    db.collection('homebrew_monsters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned monsters in homebrew database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }))
+      .catch(err => console.log('error retrieving homebrew monsters', err));
+  }
+
+  retrieveSRDMonsters() {
+    db.collection('srd_monsters')
+      .where('name', '>=', '')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no monsters in SRD database');
+          return;
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          console.log(doc.id, '=>', data);
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => {
+        this.setState({ srdMonsters: resultsArr });
+      })
+      .catch(err => console.log('error retrieving SRD monsters', err));
   }
 
   handleInputChange(e) {
@@ -117,7 +217,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.user);
+    console.log(this.state);
     return (
       <div>
         {!this.state.user && (
