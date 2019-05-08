@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Axios from 'axios';
-import List from './components/List.jsx';
 import Library from './components/Library.jsx';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -20,6 +18,7 @@ const firebaseConfig = {
   messagingSenderId: '292781873005',
   appId: '1:292781873005:web:7d50d488cb69e930'
 };
+
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
@@ -110,7 +109,7 @@ class App extends React.Component {
         alert(err.message);
       });
   }
-        
+
   switchTab(newTab) {
     this.setState({
       currentTab: newTab
