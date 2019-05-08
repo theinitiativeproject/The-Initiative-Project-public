@@ -32,7 +32,8 @@ class App extends React.Component {
       user: undefined,
       srdMonsters: [],
       homebrewMonsters: [],
-      partyMembers: []
+      partyMembers: [],
+      encounters: []
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
@@ -40,6 +41,7 @@ class App extends React.Component {
     this.handleLogOut = this.handleLogOut.bind(this);
     this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
+    this.retrieveEncounters = this.retrieveEncounters.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +51,7 @@ class App extends React.Component {
         this.setState({ user: userTemp }, () => {
           this.retrieveHomebrewMonsters(userTemp.uid);
           this.retrievePartyMembers(userTemp.uid);
+          this.retrieveEncounters(userTemp.uid);
         });
       } else {
         console.log('not logged in');
@@ -58,6 +61,26 @@ class App extends React.Component {
         });
       }
     });
+  }
+
+  retrieveEncounters(uid) {
+    db.collection('encounters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned encounters in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ encounters: resultsArr }))
+      .catch(err => console.log('error retrieving encounters', err));
   }
 
   retrievePartyMembers(uid) {
@@ -76,7 +99,8 @@ class App extends React.Component {
         });
         return resultsArr;
       })
-      .then(resultsArr => this.setState({ partyMembers: resultsArr }));
+      .then(resultsArr => this.setState({ partyMembers: resultsArr }))
+      .catch(err => console.log('error retrieving party members', err));
   }
 
   retrieveHomebrewMonsters(uid) {
@@ -95,7 +119,8 @@ class App extends React.Component {
         });
         return resultsArr;
       })
-      .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }));
+      .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }))
+      .catch(err => console.log('error retrieving homebrew monsters', err));
   }
 
   retrieveSRDMonsters() {
@@ -118,7 +143,7 @@ class App extends React.Component {
       .then(resultsArr => {
         this.setState({ srdMonsters: resultsArr });
       })
-      .catch(err => console.log('error retrieving SRD monsters'));
+      .catch(err => console.log('error retrieving SRD monsters', err));
   }
 
   handleInputChange(e) {
