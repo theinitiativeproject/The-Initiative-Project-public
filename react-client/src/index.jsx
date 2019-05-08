@@ -30,15 +30,18 @@ class App extends React.Component {
       email: '',
       password: '',
       user: undefined,
+      srdMonsters: [],
       items: []
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
   }
 
   componentDidMount() {
+    this.retrieveSRDMonsters();
     auth.onAuthStateChanged(userTemp => {
       if (userTemp) {
         this.setState({ user: userTemp });
@@ -46,6 +49,29 @@ class App extends React.Component {
         console.log('not logged in');
       }
     });
+  }
+
+  retrieveSRDMonsters() {
+    db.collection('srd_monsters')
+      .where('name', '>=', '')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no monsters in SRD database');
+          return;
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          console.log(doc.id, '=>', data);
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => {
+        this.setState({ srdMonsters: resultsArr });
+      })
+      .catch(err => console.log('error retrieving SRD monsters'));
   }
 
   handleInputChange(e) {
