@@ -33,7 +33,7 @@ class App extends React.Component {
       srdMonsters: [],
       homebrewMonsters: [],
       partyMembers: [],
-      encounters: []
+      encounters: [],
       currentTab: 'base',
       baseList: [
         { name: 'goblin' },
