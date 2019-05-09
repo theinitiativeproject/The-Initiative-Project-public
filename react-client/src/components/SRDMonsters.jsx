@@ -1,15 +1,15 @@
 import React from 'react';
 import MonsterEntry from './MonsterEntry.jsx';
 
-const CustomMonsters = props => {
-  let { customList } = props;
+const SRDMonsters = props => {
+  let { srdList } = props;
   return (
     <ul>
-      {customList.map(entry => (
+      {srdList.map(entry => (
         <MonsterEntry entry={entry} />
       ))}
     </ul>
   );
 };
 
-export default CustomMonsters;
+export default SRDMonsters;
