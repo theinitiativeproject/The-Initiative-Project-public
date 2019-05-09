@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
-import Library from './components/Library.jsx';
+import Library from './components/Library/Library.jsx';
 import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -26,7 +25,15 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
+var images = [
+  'background1.jpg',
+  'background2.jpg',
+  'background3.jpg',
+  'background4.jpg',
+  'background5.jpg',
+  'background6.jpg',
+  'background7.jpg'
+];
 
 // a little function to help us with reordering the result
 const reorder = (actors, startIndex, endIndex) => {
@@ -71,7 +78,9 @@ class App extends React.Component {
     this.addToEncounters = this.addToEncounters.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
+      this
+    );
     this.switchTab = this.switchTab.bind(this);
   }
 
@@ -258,7 +267,7 @@ class App extends React.Component {
       .doc(this.state.user)
       .set(obj)
       .then(() => {
-        console.log('Added to encounters')
+        console.log('Added to encounters');
       })
       .catch(err => console.log('error adding character to encounters', err));
   }
@@ -268,11 +277,11 @@ class App extends React.Component {
       .doc(this.state.user)
       .set(obj)
       .then(() => {
-        console.log('Added to encounters')
+        console.log('Added to encounters');
       })
       .catch(err => console.log('error adding character to encounters', err));
   }
-  
+
   onDragEnd(result) {
     // dropped outside the list
     if (!result.destination) {
@@ -288,9 +297,9 @@ class App extends React.Component {
     let temp = this.state.encounters.slice();
     temp[this.state.activeEncounter].actors = characters;
     this.setState({
-      encounters : temp
+      encounters: temp
     });
-	}
+  }
 
   switchTab(newTab) {
     this.setState({
@@ -322,14 +331,34 @@ class App extends React.Component {
                 onChange={this.handleInputChange}
                 className="emailPassword"
               />
-              <button className="loginPanelButton customButton" onClick={this.handleLogIn}><img width="14" height="14" src="https://s3.amazonaws.com/the-initiative-project/login.svg"/>Log In</button>
-              <button className="signupPanelButton customButton" onClick={this.handleSignUp}>Sign Up</button>
+              <button
+                className="loginPanelButton customButton"
+                onClick={this.handleLogIn}
+              >
+                <img
+                  width="14"
+                  height="14"
+                  src="https://s3.amazonaws.com/the-initiative-project/login.svg"
+                />
+                Log In
+              </button>
+              <button
+                className="signupPanelButton customButton"
+                onClick={this.handleSignUp}
+              >
+                Sign Up
+              </button>
             </div>
           )}
           {this.state.user && (
             <div className="logoutWrapper">
               <span className="welcome-description">Welcome back!</span>
-              <button className="logout customButton" onClick={this.handleLogOut}>Log Out</button>
+              <button
+                className="logout customButton"
+                onClick={this.handleLogOut}
+              >
+                Log Out
+              </button>
             </div>
           )}
           <Library
@@ -338,114 +367,123 @@ class App extends React.Component {
             homebrewList={this.state.homebrewMonsters}
             switchTab={this.switchTab}
           />
-          <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + images[Math.floor(Math.random() * images.length)] + ')', 'backgroundSize' : 'cover' }}>
-            <div className="darkWrapper"></div>
+          <div
+            className="appWrapper"
+            style={{
+              backgroundImage:
+                'url(https://s3.amazonaws.com/the-initiative-project/' +
+                images[Math.floor(Math.random() * images.length)] +
+                ')',
+              backgroundSize: 'cover'
+            }}
+          >
+            <div className="darkWrapper" />
             <div className="mainWrapper">
-              <Encounter 
-                encounters={this.state.encounters} 
-                partyMembers={this.state.partyMembers} 
-                addToEncounters={this.addToEncounters} 
+              <Encounter
+                encounters={this.state.encounters}
+                partyMembers={this.state.partyMembers}
+                addToEncounters={this.addToEncounters}
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
               />
             </div>
           </div>
-        {this.state.user && (
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              this.firestoreAddHomebrewMonster(
-                {
-                  armorClass: parseInt(this.state.hbAC),
-                  chaSave: parseInt(this.state.hbChaSave),
-                  conSave: parseInt(this.state.hbConSave),
-                  dexSave: parseInt(this.state.hbDexSave),
-                  maxHP: parseInt(this.state.hbMaxHP),
-                  initMod: parseInt(this.state.hbInitMod),
-                  intSave: parseInt(this.state.hbIntSave),
-                  name: this.state.hbName,
-                  strSave: parseInt(this.state.hbStrSave),
-                  wisSave: parseInt(this.state.hbWisSave)
-                },
-                this.state.user.uid
-              );
-            }}
-          >
-            <h3>Add homebrew monster</h3>
-            <input
-              type="text"
-              name="hbName"
-              value={this.state.hbName}
-              onChange={this.handleInputChange}
-              placeholder="name"
-            />
-            <input
-              type="number"
-              name="hbAC"
-              value={this.state.hbAC}
-              onChange={this.handleInputChange}
-              placeholder="armor class"
-            />
-            <input
-              type="number"
-              name="hbChaSave"
-              value={this.state.hbChaSave}
-              onChange={this.handleInputChange}
-              placeholder="charisma save"
-            />
-            <input
-              type="number"
-              name="hbConSave"
-              value={this.state.hbConSave}
-              onChange={this.handleInputChange}
-              placeholder="constitution save"
-            />
-            <input
-              type="number"
-              name="hbDexSave"
-              value={this.state.hbDexSave}
-              onChange={this.handleInputChange}
-              placeholder="dexterity save"
-            />
-            <input
-              type="number"
-              name="hbMaxHP"
-              value={this.state.hbMaxHP}
-              onChange={this.handleInputChange}
-              placeholder="maximum HP"
-            />
-            <input
-              type="number"
-              name="hbInitMod"
-              value={this.state.hbInitMod}
-              onChange={this.handleInputChange}
-              placeholder="initiative modifier"
-            />
-            <input
-              type="number"
-              name="hbIntSave"
-              value={this.state.hbIntSave}
-              onChange={this.handleInputChange}
-              placeholder="intelligence save"
-            />
-            <input
-              type="number"
-              name="hbStrSave"
-              value={this.state.hbStrSave}
-              onChange={this.handleInputChange}
-              placeholder="strength save"
-            />
-            <input
-              type="number"
-              name="hbWisSave"
-              value={this.state.hbWisSave}
-              onChange={this.handleInputChange}
-              placeholder="wisdom save"
-            />
-            <button type="submit">Submit Homebrew Monster</button>
-          </form>
-        )}
-      </div>
+          {this.state.user && (
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                this.firestoreAddHomebrewMonster(
+                  {
+                    armorClass: parseInt(this.state.hbAC),
+                    chaSave: parseInt(this.state.hbChaSave),
+                    conSave: parseInt(this.state.hbConSave),
+                    dexSave: parseInt(this.state.hbDexSave),
+                    maxHP: parseInt(this.state.hbMaxHP),
+                    initMod: parseInt(this.state.hbInitMod),
+                    intSave: parseInt(this.state.hbIntSave),
+                    name: this.state.hbName,
+                    strSave: parseInt(this.state.hbStrSave),
+                    wisSave: parseInt(this.state.hbWisSave)
+                  },
+                  this.state.user.uid
+                );
+              }}
+            >
+              <h3>Add homebrew monster</h3>
+              <input
+                type="text"
+                name="hbName"
+                value={this.state.hbName}
+                onChange={this.handleInputChange}
+                placeholder="name"
+              />
+              <input
+                type="number"
+                name="hbAC"
+                value={this.state.hbAC}
+                onChange={this.handleInputChange}
+                placeholder="armor class"
+              />
+              <input
+                type="number"
+                name="hbChaSave"
+                value={this.state.hbChaSave}
+                onChange={this.handleInputChange}
+                placeholder="charisma save"
+              />
+              <input
+                type="number"
+                name="hbConSave"
+                value={this.state.hbConSave}
+                onChange={this.handleInputChange}
+                placeholder="constitution save"
+              />
+              <input
+                type="number"
+                name="hbDexSave"
+                value={this.state.hbDexSave}
+                onChange={this.handleInputChange}
+                placeholder="dexterity save"
+              />
+              <input
+                type="number"
+                name="hbMaxHP"
+                value={this.state.hbMaxHP}
+                onChange={this.handleInputChange}
+                placeholder="maximum HP"
+              />
+              <input
+                type="number"
+                name="hbInitMod"
+                value={this.state.hbInitMod}
+                onChange={this.handleInputChange}
+                placeholder="initiative modifier"
+              />
+              <input
+                type="number"
+                name="hbIntSave"
+                value={this.state.hbIntSave}
+                onChange={this.handleInputChange}
+                placeholder="intelligence save"
+              />
+              <input
+                type="number"
+                name="hbStrSave"
+                value={this.state.hbStrSave}
+                onChange={this.handleInputChange}
+                placeholder="strength save"
+              />
+              <input
+                type="number"
+                name="hbWisSave"
+                value={this.state.hbWisSave}
+                onChange={this.handleInputChange}
+                placeholder="wisdom save"
+              />
+              <button type="submit">Submit Homebrew Monster</button>
+            </form>
+          )}
+        </div>
       </div>
     );
   }
