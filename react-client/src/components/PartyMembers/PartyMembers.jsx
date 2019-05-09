@@ -9,8 +9,8 @@ class PartyMembers extends React.Component {
 
 	render() {
 		return(
-				<div className='encounterWrapper'>
-					<div className='encounterWrapperHeader'>
+				<div className='partyMemberWrapper'>
+					<div className='partyMemberWrapperHeader'>
 						<h1>Party Members</h1>
 					</div>
 					<List partyMembers={this.props.partyMembers} />

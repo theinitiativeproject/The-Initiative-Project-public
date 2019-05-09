@@ -333,15 +333,15 @@ class App extends React.Component {
               <button className="logout customButton" onClick={this.handleLogOut}>Log Out</button>
             </div>
           )}
-          <Library
-            currentTab={this.state.currentTab}
-            srdList={this.state.srdMonsters}
-            homebrewList={this.state.homebrewMonsters}
-            switchTab={this.switchTab}
-          />
           <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + currImg + ')', 'backgroundSize' : 'cover' }}>
             <div className="darkWrapper"></div>
             <div className="mainWrapper">
+              <Library
+                currentTab={this.state.currentTab}
+                srdList={this.state.srdMonsters}
+                homebrewList={this.state.homebrewMonsters}
+                switchTab={this.switchTab}
+              />
               <Encounter 
                 encounters={this.state.encounters} 
                 partyMembers={this.state.partyMembers} 
