@@ -77,6 +77,7 @@ class App extends React.Component {
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
     this.addToEncounters = this.addToEncounters.bind(this);
+    this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
     this.switchTab = this.switchTab.bind(this);
@@ -267,7 +268,17 @@ class App extends React.Component {
       .then(() => {
         console.log('Added to encounters')
       })
-      .catch(err => console.log('error adding character to encounters', err));;
+      .catch(err => console.log('error adding character to encounters', err));
+  }
+
+  addToPartyMembers(obj) {
+    db.collection('party_members')
+      .doc(this.state.user)
+      .set(obj)
+      .then(() => {
+        console.log('Added to encounters')
+      })
+      .catch(err => console.log('error adding character to encounters', err));
   }
   
   onDragEnd(result) {
