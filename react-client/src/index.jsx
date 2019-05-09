@@ -40,7 +40,6 @@ class App extends React.Component {
       homebrewMonsters: [],
       partyMembers: [],
       encounters: [],
-      currentTab: 'srd',
       hbAC: '',
       hbChaSave: '',
       hbConSave: '',
@@ -440,7 +439,11 @@ class App extends React.Component {
           switchTab={this.switchTab}
         />
         <div className="appWrapper">
+<<<<<<< HEAD
 		      <Encounter encounters={this.state.encounters}/>
+=======
+          <Encounter />
+>>>>>>> 8a6c8dc70745f47962183278742c061d7740c2fa
         </div>
       </div>
       </div>
