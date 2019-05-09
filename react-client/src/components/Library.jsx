@@ -1,6 +1,7 @@
 import React from 'react';
 import BaseMonsters from './BaseMonsters.jsx';
 import CustomMonsters from './CustomMonsters.jsx';
+import './Library.css';
 
 const Library = props => {
   let { currentTab, baseList, customList, switchTab } = props;
@@ -11,7 +12,7 @@ const Library = props => {
     CurrentList = <CustomMonsters customList={customList} />;
 
   return (
-    <div>
+    <div className="creatureList">
       <button onClick={() => switchTab('base')}>Base</button>
       <button onClick={() => switchTab('custom')}>Custom</button>
       {CurrentList}

@@ -4,6 +4,10 @@
     line-height: 40px;
     padding: 10px;
     margin: 20px 0px;
+    -webkit-transition: top 1s;
+    -moz-transition: top 1s;
+    -o-transition: top 1s;
+    transition: top 1s;
 }
 
 .character-npc {
