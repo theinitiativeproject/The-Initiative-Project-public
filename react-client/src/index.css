@@ -60,6 +60,7 @@ body, html {
     border-bottom: 1px solid #ffffff;
     margin: 0 5px;
     padding: 5px;
+    color: white;
 }
 
 .appWrapper {

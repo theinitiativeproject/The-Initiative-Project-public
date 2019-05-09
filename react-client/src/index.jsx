@@ -27,20 +27,8 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-<<<<<<< HEAD
 var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
 var currImg = images[Math.floor(Math.random() * images.length)];
-=======
-var images = [
-  'background1.jpg',
-  'background2.jpg',
-  'background3.jpg',
-  'background4.jpg',
-  'background5.jpg',
-  'background6.jpg',
-  'background7.jpg'
-];
->>>>>>> de9b90bc817e28d220c8075fbb851008a53f80de
 
 // a little function to help us with reordering the result
 const reorder = (actors, startIndex, endIndex) => {
@@ -283,17 +271,11 @@ class App extends React.Component {
     db.collection('party_members')
       .add(obj)
       .then(() => {
-<<<<<<< HEAD
-        console.log('Added to party members')
-      })
-      .catch(err => console.log('error adding character to party members', err));
-=======
         console.log('Added to Party Members');
       })
       .catch(err =>
         console.log('error adding character to Party Members', err)
       );
->>>>>>> de9b90bc817e28d220c8075fbb851008a53f80de
   }
 
   onDragEnd(result) {
@@ -375,7 +357,6 @@ class App extends React.Component {
               </button>
             </div>
           )}
-<<<<<<< HEAD
           <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + currImg + ')', 'backgroundSize' : 'cover' }}>
             <div className="darkWrapper"></div>
             <div className="mainWrapper">
@@ -388,31 +369,7 @@ class App extends React.Component {
               <Encounter 
                 encounters={this.state.encounters} 
                 partyMembers={this.state.partyMembers} 
-                addToEncounters={this.addToEncounters} 
-=======
-          <Library
-            currentTab={this.state.currentTab}
-            srdList={this.state.srdMonsters}
-            homebrewList={this.state.homebrewMonsters}
-            switchTab={this.switchTab}
-          />
-          <div
-            className="appWrapper"
-            style={{
-              backgroundImage:
-                'url(https://s3.amazonaws.com/the-initiative-project/' +
-                images[Math.floor(Math.random() * images.length)] +
-                ')',
-              backgroundSize: 'cover'
-            }}
-          >
-            <div className="darkWrapper" />
-            <div className="mainWrapper">
-              <Encounter
-                encounters={this.state.encounters}
-                partyMembers={this.state.partyMembers}
-                addActorToEncounter={this.addActorToEncounter}
->>>>>>> de9b90bc817e28d220c8075fbb851008a53f80de
+                addActorToEncounter={this.addActorToEncounter} 
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
               />
