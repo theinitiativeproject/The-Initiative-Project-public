@@ -4,6 +4,7 @@ import HomebrewMonsters from './HomebrewMonsters.jsx';
 
 const Library = props => {
   let { currentTab, srdList, homebrewList, switchTab } = props;
+  console.log(props);
   return (
     <div>
       <button onClick={() => switchTab('srd')}>SRD</button>
