@@ -1,15 +1,15 @@
 import React from 'react';
 import MonsterEntry from './MonsterEntry.jsx';
 
-const BaseMonsters = props => {
-  let { baseList } = props;
+const HomebrewMonsters = props => {
+  let { homebrewList } = props;
   return (
     <ul>
-      {baseList.map(entry => (
+      {homebrewList.map(entry => (
         <MonsterEntry entry={entry} />
       ))}
     </ul>
   );
 };
 
-export default BaseMonsters;
+export default HomebrewMonsters;
