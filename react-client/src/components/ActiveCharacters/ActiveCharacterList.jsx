@@ -60,7 +60,7 @@ class ActiveCharacterList extends React.Component {
 								ref={provided.innerRef} 	
 								style={getListStyle(snapshot.isDraggingOver)}
 							>
-								{ this.props.encounters.map( (character, index) => <CharacterItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
+								{ this.props.encounters.length !== 0 && this.props.encounters[0].actors.map( (character, index) => <CharacterItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
 								{provided.placeholder}
 							</div>
 						)}

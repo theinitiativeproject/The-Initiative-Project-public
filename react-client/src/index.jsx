@@ -59,6 +59,7 @@ class App extends React.Component {
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
     this.addToEncounters = this.addToEncounters.bind(this);
+    this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
     this.switchTab = this.switchTab.bind(this);
@@ -249,7 +250,17 @@ class App extends React.Component {
       .then(() => {
         console.log('Added to encounters')
       })
-      .catch(err => console.log('error adding character to encounters', err));;
+      .catch(err => console.log('error adding character to encounters', err));
+  }
+
+  addToPartyMembers(obj) {
+    db.collection('party_members')
+      .doc(this.state.user)
+      .set(obj)
+      .then(() => {
+        console.log('Added to encounters')
+      })
+      .catch(err => console.log('error adding character to encounters', err));
   }
   
   onDragEnd(result) {
@@ -311,8 +322,8 @@ class App extends React.Component {
           )}
           <Library
             currentTab={this.state.currentTab}
-            baseList={this.state.baseList}
-            customList={this.state.customList}
+            srdList={this.state.srdMonsters}
+            homebrewList={this.state.homebrewMonsters}
             switchTab={this.switchTab}
           />
           <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + images[Math.floor(Math.random() * images.length)] + ')', 'backgroundSize' : 'cover' }}>
@@ -321,10 +332,6 @@ class App extends React.Component {
               <Encounter encounters={this.state.encounters} partyMembers={this.state.partyMembers} addToEncounters={this.addToEncounters}/>
             </div>
           </div>
-        )}
-        {this.state.user && (
-          <button onClick={this.handleLogOut}>Log Out</button>
-        )}
         {this.state.user && (
           <form
             onSubmit={e => {
@@ -420,16 +427,6 @@ class App extends React.Component {
             <button type="submit">Submit Homebrew Monster</button>
           </form>
         )}
-        <h1>Library</h1>
-        <Library
-          currentTab={this.state.currentTab}
-          srdList={this.state.srdMonsters}
-          homebrewList={this.state.homebrewMonsters}
-          switchTab={this.switchTab}
-        />
-        <div className="appWrapper">
-		      <Encounter encounters={this.state.encounters}/>
-        </div>
       </div>
       </div>
     );
