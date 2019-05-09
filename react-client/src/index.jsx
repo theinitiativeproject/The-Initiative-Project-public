@@ -57,7 +57,17 @@ class App extends React.Component {
         { name: 'custom skeleton' },
         { name: 'custom witch' },
         { name: 'custom harpy' }
-      ]
+      ],
+      hbAC: '',
+      hbChaSave: '',
+      hbConSave: '',
+      hbDexSave: '',
+      hbMaxHP: '',
+      hbInitMod: '',
+      hbIntSave: '',
+      hbName: '',
+      hbStrSave: '',
+      hbWisSave: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
@@ -68,6 +78,7 @@ class App extends React.Component {
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
     this.addToEncounters = this.addToEncounters.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
     this.switchTab = this.switchTab.bind(this);
   }
 
@@ -89,6 +100,37 @@ class App extends React.Component {
         });
       }
     });
+  }
+
+  firestoreAddHomebrewMonster(monster, uid = null) {
+    if (!uid) {
+      alert('can not save monster while not logged in');
+    } else {
+      monster.owner = uid;
+      db.collection('homebrew_monsters')
+        .add(monster)
+        .then(() => console.log('monster added successfully'))
+        .then(() => {
+          this.setState({
+            hbAC: '',
+            hbChaSave: '',
+            hbConSave: '',
+            hbDexSave: '',
+            hbMaxHP: '',
+            hbInitMod: '',
+            hbIntSave: '',
+            hbName: '',
+            hbStrSave: '',
+            hbWisSave: ''
+          });
+        })
+        .then(() => {
+          let hbMonsters = this.state.homebrewMonsters.slice();
+          hbMonsters.push(monster);
+          this.setState({ homebrewMonsters: hbMonsters });
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   retrieveEncounters(uid) {
@@ -297,7 +339,116 @@ class App extends React.Component {
               <Encounter encounters={this.state.encounters} partyMembers={this.state.partyMembers} addToEncounters={this.addToEncounters}/>
             </div>
           </div>
+        )}
+        {this.state.user && (
+          <button onClick={this.handleLogOut}>Log Out</button>
+        )}
+        {this.state.user && (
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              this.firestoreAddHomebrewMonster(
+                {
+                  armorClass: parseInt(this.state.hbAC),
+                  chaSave: parseInt(this.state.hbChaSave),
+                  conSave: parseInt(this.state.hbConSave),
+                  dexSave: parseInt(this.state.hbDexSave),
+                  maxHP: parseInt(this.state.hbMaxHP),
+                  initMod: parseInt(this.state.hbInitMod),
+                  intSave: parseInt(this.state.hbIntSave),
+                  name: this.state.hbName,
+                  strSave: parseInt(this.state.hbStrSave),
+                  wisSave: parseInt(this.state.hbWisSave)
+                },
+                this.state.user.uid
+              );
+            }}
+          >
+            <h3>Add homebrew monster</h3>
+            <input
+              type="text"
+              name="hbName"
+              value={this.state.hbName}
+              onChange={this.handleInputChange}
+              placeholder="name"
+            />
+            <input
+              type="number"
+              name="hbAC"
+              value={this.state.hbAC}
+              onChange={this.handleInputChange}
+              placeholder="armor class"
+            />
+            <input
+              type="number"
+              name="hbChaSave"
+              value={this.state.hbChaSave}
+              onChange={this.handleInputChange}
+              placeholder="charisma save"
+            />
+            <input
+              type="number"
+              name="hbConSave"
+              value={this.state.hbConSave}
+              onChange={this.handleInputChange}
+              placeholder="constitution save"
+            />
+            <input
+              type="number"
+              name="hbDexSave"
+              value={this.state.hbDexSave}
+              onChange={this.handleInputChange}
+              placeholder="dexterity save"
+            />
+            <input
+              type="number"
+              name="hbMaxHP"
+              value={this.state.hbMaxHP}
+              onChange={this.handleInputChange}
+              placeholder="maximum HP"
+            />
+            <input
+              type="number"
+              name="hbInitMod"
+              value={this.state.hbInitMod}
+              onChange={this.handleInputChange}
+              placeholder="initiative modifier"
+            />
+            <input
+              type="number"
+              name="hbIntSave"
+              value={this.state.hbIntSave}
+              onChange={this.handleInputChange}
+              placeholder="intelligence save"
+            />
+            <input
+              type="number"
+              name="hbStrSave"
+              value={this.state.hbStrSave}
+              onChange={this.handleInputChange}
+              placeholder="strength save"
+            />
+            <input
+              type="number"
+              name="hbWisSave"
+              value={this.state.hbWisSave}
+              onChange={this.handleInputChange}
+              placeholder="wisdom save"
+            />
+            <button type="submit">Submit Homebrew Monster</button>
+          </form>
+        )}
+        <h1>Library</h1>
+        <Library
+          currentTab={this.state.currentTab}
+          baseList={this.state.baseList}
+          customList={this.state.customList}
+          switchTab={this.switchTab}
+        />
+        <div className="appWrapper">
+		      <Encounter encounters={this.state.encounters}/>
         </div>
+      </div>
       </div>
     );
   }
