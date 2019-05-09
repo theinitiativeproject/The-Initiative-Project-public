@@ -2,6 +2,7 @@ import React from 'react';
 import './List.css';
 import PartyMemberItem from '../PartyMembers/PartyMemberItem/PartyMemberItem.jsx';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
+import CreatePartyMember from '../PartyMembers/CreatePartyMember/CreatePartyMember.jsx';
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
@@ -33,7 +34,8 @@ class List extends React.Component {
 								{provided.placeholder}
 							</div>
 						)}
-					</Droppable>
+                    </Droppable>
+                    <CreatePartyMember />
 				</div>
 			</DragDropContext>
 		);

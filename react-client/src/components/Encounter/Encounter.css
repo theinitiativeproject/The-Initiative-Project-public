@@ -17,4 +17,21 @@
     font-family: 'Libre Baskerville', serif;
     font-size: 24px;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.save-button > button {
+    background-color: #0B0B0B;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+}
+
+.next-button > button {
+    background-color: #0B0B0B;
+    border: none;
+    outline: 0;
+    cursor: pointer;
 }

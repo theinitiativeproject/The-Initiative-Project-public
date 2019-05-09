@@ -11,7 +11,9 @@ class Encounter extends React.Component {
 		return(
 				<div className='encounterWrapper'>
 					<div className='encounterWrapperHeader'>
+						<span className='save-button'><button><img width="20" height="20" src="https://s3.amazonaws.com/the-initiative-project/save.svg" /></button></span>
 						<h1>Main Encounter</h1>
+						<span className='next-button'><button><img width="20" height="20" src="https://s3.amazonaws.com/the-initiative-project/play.svg" /></button></span>
 					</div>
 					<ActiveCharacterList
 						onDragEnd={this.props.onDragEnd} 
