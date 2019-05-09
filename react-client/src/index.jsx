@@ -36,6 +36,15 @@ var images = [
   'background7.jpg'
 ];
 
+// a little function to help us with reordering the result
+const reorder = (actors, startIndex, endIndex) => {
+  const result = Array.from(actors);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -48,6 +57,7 @@ class App extends React.Component {
       homebrewMonsters: [],
       partyMembers: [],
       encounters: [],
+      activeEncounter: 0,
       hbAC: '',
       hbChaSave: '',
       hbConSave: '',
@@ -66,7 +76,7 @@ class App extends React.Component {
     this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
-    this.addToEncounters = this.addToEncounters.bind(this);
+    this.addActorToEncounter = this.addActorToEncounter.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
@@ -198,7 +208,6 @@ class App extends React.Component {
         let resultsArr = [];
         snapshot.forEach(doc => {
           let data = doc.data();
-          console.log(doc.id, '=>', data);
           resultsArr.push(data);
         });
         return resultsArr;
@@ -253,24 +262,26 @@ class App extends React.Component {
       });
   }
 
-  addToEncounters(obj) {
-    db.collection('encounters')
-      .doc(this.state.user)
-      .set(obj)
-      .then(() => {
-        console.log('Added to encounters');
-      })
-      .catch(err => console.log('error adding character to encounters', err));
+  addActorToEncounter(actor) {
+    console.log(actor);
+    actor.currentHP = actor.maxHP;
+    console.log('in add actor to encounter');
+    let tempEncounters = this.state.encounters.slice();
+    tempEncounters[this.state.activeEncounter].actors.push(actor);
+    this.setState({
+      encounters: tempEncounters
+    });
   }
 
   addToPartyMembers(obj) {
     db.collection('party_members')
-      .doc(this.state.user)
-      .set(obj)
+      .add(obj)
       .then(() => {
-        console.log('Added to encounters');
+        console.log('Added to Party Members');
       })
-      .catch(err => console.log('error adding character to encounters', err));
+      .catch(err =>
+        console.log('error adding character to Party Members', err)
+      );
   }
 
   onDragEnd(result) {
@@ -280,13 +291,15 @@ class App extends React.Component {
     }
 
     const characters = reorder(
-      this.props.characters,
+      this.state.encounters[this.state.activeEncounter].actors,
       result.source.index,
       result.destination.index
     );
 
+    let temp = this.state.encounters.slice();
+    temp[this.state.activeEncounter].actors = characters;
     this.setState({
-      characters
+      encounters: temp
     });
   }
 
@@ -301,7 +314,7 @@ class App extends React.Component {
     return (
       <div className="appContainer">
         <div className="signInPanelWrapper">
-          <h1 className="signInPanelHeader">THE INITIATIVE</h1>
+          <h1 className="signInPanelHeader">THE INITIATIVE PROJECT</h1>
           {!this.state.user && (
             <div id="signInPanel">
               <input
@@ -371,7 +384,9 @@ class App extends React.Component {
               <Encounter
                 encounters={this.state.encounters}
                 partyMembers={this.state.partyMembers}
-                addToEncounters={this.addToEncounters}
+                addActorToEncounter={this.addActorToEncounter}
+                onDragEnd={this.onDragEnd}
+                activeEncounter={this.state.activeEncounter}
               />
             </div>
           </div>
