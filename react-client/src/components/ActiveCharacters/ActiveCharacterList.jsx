@@ -4,15 +4,6 @@ import './ActiveCharacterList.css';
 import CreateCharacter from './CreateCharacter.jsx';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
 	userSelect: "none",
@@ -26,6 +17,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getListStyle = isDraggingOver => ({
   backgroundColor: isDraggingOver ? "#292929" : "#292929",
 });
+
 
 class ActiveCharacterList extends React.Component {
 	constructor(props) {
@@ -50,7 +42,7 @@ class ActiveCharacterList extends React.Component {
 
 	render() {
 		return(
-			<DragDropContext onDragEnd={this.onDragEnd}>	
+			<DragDropContext onDragEnd={this.props.onDragEnd}>	
 				<div className="active-character-list-wrapper">
 					<Droppable droppableId="droppable">
 						{(provided, snapshot) => (
@@ -60,7 +52,7 @@ class ActiveCharacterList extends React.Component {
 								ref={provided.innerRef} 	
 								style={getListStyle(snapshot.isDraggingOver)}
 							>
-								{ this.props.encounters.length !== 0 && this.props.encounters[0].actors.map( (character, index) => <CharacterItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
+								{ this.props.encounter && this.props.encounter.actors.map( (character, index) => <CharacterItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
 								{provided.placeholder}
 							</div>
 						)}
