@@ -1,0 +1,17 @@
+.encounterWrapper {
+    background-color: #292929;
+    color: #ffffff;
+    width: 40%;
+    height: 100%;
+    margin: auto;
+    border: 2px solid #c53030;
+}
+
+.encounterWrapperHeader {
+    background-color: #0B0B0B;
+    border-bottom: 2px solid #c53030;
+    padding: 15px;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 24px;
+    text-align: center;
+}
