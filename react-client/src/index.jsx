@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
+import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
 import Library from './components/Library.jsx';
 import './index.css';
 
@@ -27,6 +28,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
+var currImg = images[Math.floor(Math.random() * images.length)];
 
 // a little function to help us with reordering the result
 const reorder = (actors, startIndex, endIndex) => {
@@ -265,12 +267,11 @@ class App extends React.Component {
 
   addToPartyMembers(obj) {
     db.collection('party_members')
-      .doc(this.state.user)
-      .set(obj)
+      .add(obj)
       .then(() => {
-        console.log('Added to encounters')
+        console.log('Added to party members')
       })
-      .catch(err => console.log('error adding character to encounters', err));
+      .catch(err => console.log('error adding character to party members', err));
   }
   
   onDragEnd(result) {
@@ -338,7 +339,7 @@ class App extends React.Component {
             homebrewList={this.state.homebrewMonsters}
             switchTab={this.switchTab}
           />
-          <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + images[Math.floor(Math.random() * images.length)] + ')', 'backgroundSize' : 'cover' }}>
+          <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + currImg + ')', 'backgroundSize' : 'cover' }}>
             <div className="darkWrapper"></div>
             <div className="mainWrapper">
               <Encounter 
@@ -348,6 +349,9 @@ class App extends React.Component {
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
               />
+              <PartyMembers 
+                partyMembers={this.state.partyMembers}  
+                onDragEnd={this.onDragEnd}/>
             </div>
           </div>
         {this.state.user && (
