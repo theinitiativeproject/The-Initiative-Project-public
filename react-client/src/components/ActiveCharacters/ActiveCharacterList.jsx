@@ -35,13 +35,14 @@ class ActiveCharacterList extends React.Component {
 
 		this.state = {
 			characters : [
-				{ name : 'dasflakfd', 'hit_point' : 20, 'perception' : 10, 'armour' : 20 },
-				{ name : 'jlkjjkl', 'hit_point' : 10, 'perception' : 14, 'armour' : 13 },
-				{ name : 'nbsudfgh', 'hit_point' : 18, 'perception' : 17, 'armour' : 18 }
+				{ level: 14, name : 'dasflakfd', 'hit_point' : 20, 'perception' : 10, 'armour' : 20, npc : true },
+				{ level: 9, name : 'jlkjjkl', 'hit_point' : 10, 'perception' : 14, 'armour' : 13, npc : false },
+				{ level: 22, name : 'nbsudfgh', 'hit_point' : 18, 'perception' : 17, 'armour' : 18, npc : true }
 			]
 		}
 
 		this.onDragEnd = this.onDragEnd.bind(this);
+		this.addCharacter = this.addCharacter.bind(this);
 	}
 
 	onDragEnd(result) {
@@ -59,7 +60,14 @@ class ActiveCharacterList extends React.Component {
     this.setState({
       characters
     });
-  }
+	}
+	
+	addCharacter(obj) {
+		console.log(obj);
+		var characters = this.state.characters.concat(obj);
+		console.log(characters);
+		this.setState({ characters });
+	}
 
 	render() {
 		return(
@@ -78,7 +86,7 @@ class ActiveCharacterList extends React.Component {
 							</div>
 						)}
 					</Droppable>
-					<CreateCharacter />
+					<CreateCharacter addCharacter={this.addCharacter}/>
 				</div>
 			</DragDropContext>
 		);

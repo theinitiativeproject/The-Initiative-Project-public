@@ -14,7 +14,7 @@ class CharacterItem extends React.Component {
 			index={this.props.index}
 			>
 				{ (provided, snapshot) => (
-					<div className="character-item-wrapper"
+					<div className={ "character-item-wrapper " + (this.props.character.npc ? "character-npc" : "")}
 					ref={provided.innerRef}
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}
@@ -23,7 +23,7 @@ class CharacterItem extends React.Component {
 						provided.draggableProps.style
 					)}
 					>
-						<span className="character-level">Lvl: 14</span>
+						<span className="character-level">Lvl: {this.props.character.level}</span>
 						<span className="character-name">{this.props.character.name}</span>
 						<span className="character-description-wrapper">
 							<span className="character-description-hit-point"><img width="25" height="25" src="https://s3.amazonaws.com/the-initiative-project/favorite.svg"/>: {this.props.character.hit_point}</span>

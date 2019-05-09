@@ -6,6 +6,10 @@
     margin: 20px 0px;
 }
 
+.character-npc {
+    border: 1px solid #E01014;
+}
+
 .character-level {
     float: left;
     margin-right: 10px;
