@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
 import Library from './components/Library.jsx';
+import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from 'firebase/app';
@@ -24,6 +25,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
 
 class App extends React.Component {
   constructor(props) {
@@ -55,9 +58,9 @@ class App extends React.Component {
     this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
-    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
-      this
-    );
+    this.addToEncounters = this.addToEncounters.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
     this.switchTab = this.switchTab.bind(this);
   }
 
@@ -239,6 +242,33 @@ class App extends React.Component {
       });
   }
 
+  addToEncounters(obj) {
+    db.collection('encounters')
+      .doc(this.state.user)
+      .set(obj)
+      .then(() => {
+        console.log('Added to encounters')
+      })
+      .catch(err => console.log('error adding character to encounters', err));;
+  }
+  
+  onDragEnd(result) {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const characters = reorder(
+      this.props.characters,
+      result.source.index,
+      result.destination.index
+    );
+
+    this.setState({
+      characters
+    });
+	}
+
   switchTab(newTab) {
     this.setState({
       currentTab: newTab
@@ -248,25 +278,48 @@ class App extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <div>
-        {!this.state.user && (
-          <div id="signInPanel">
-            <input
-              name="email"
-              type="email"
-              placeholder="email"
-              value={this.state.email}
-              onChange={this.handleInputChange}
-            />
-            <input
-              name="password"
-              type="password"
-              placeholder="password"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-            />
-            <button onClick={this.handleLogIn}>Log In</button>
-            <button onClick={this.handleSignUp}>Sign Up</button>
+      <div className="appContainer">
+        <div className="signInPanelWrapper">
+          <h1 className="signInPanelHeader">THE INITIATIVE</h1>
+          {!this.state.user && (
+            <div id="signInPanel">
+              <input
+                name="email"
+                type="email"
+                placeholder="email"
+                value={this.state.email}
+                onChange={this.handleInputChange}
+                className="email"
+              />
+              <input
+                name="password"
+                type="password"
+                placeholder="password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                className="emailPassword"
+              />
+              <button className="loginPanelButton customButton" onClick={this.handleLogIn}><img width="14" height="14" src="https://s3.amazonaws.com/the-initiative-project/login.svg"/>Log In</button>
+              <button className="signupPanelButton customButton" onClick={this.handleSignUp}>Sign Up</button>
+            </div>
+          )}
+          {this.state.user && (
+            <div className="logoutWrapper">
+              <span className="welcome-description">Welcome back!</span>
+              <button className="logout customButton" onClick={this.handleLogOut}>Log Out</button>
+            </div>
+          )}
+          <Library
+            currentTab={this.state.currentTab}
+            baseList={this.state.baseList}
+            customList={this.state.customList}
+            switchTab={this.switchTab}
+          />
+          <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + images[Math.floor(Math.random() * images.length)] + ')', 'backgroundSize' : 'cover' }}>
+            <div className="darkWrapper"></div>
+            <div className="mainWrapper">
+              <Encounter encounters={this.state.encounters} partyMembers={this.state.partyMembers} addToEncounters={this.addToEncounters}/>
+            </div>
           </div>
         )}
         {this.state.user && (
@@ -375,8 +428,9 @@ class App extends React.Component {
           switchTab={this.switchTab}
         />
         <div className="appWrapper">
-          <Encounter />
+		      <Encounter encounters={this.state.encounters}/>
         </div>
+      </div>
       </div>
     );
   }

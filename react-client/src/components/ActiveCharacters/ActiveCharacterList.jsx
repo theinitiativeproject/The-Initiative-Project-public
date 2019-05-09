@@ -13,8 +13,6 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const grid = 8;
-
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
 	userSelect: "none",
@@ -40,28 +38,9 @@ class ActiveCharacterList extends React.Component {
 				{ level: 22, name : 'nbsudfgh', 'hit_point' : 18, 'perception' : 17, 'armour' : 18, npc : true }
 			]
 		}
-
-		this.onDragEnd = this.onDragEnd.bind(this);
 		this.addCharacter = this.addCharacter.bind(this);
 	}
 
-	onDragEnd(result) {
-    // dropped outside the list
-    if (!result.destination) {
-      return;
-    }
-
-    const characters = reorder(
-      this.state.characters,
-      result.source.index,
-      result.destination.index
-    );
-
-    this.setState({
-      characters
-    });
-	}
-	
 	addCharacter(obj) {
 		console.log(obj);
 		var characters = this.state.characters.concat(obj);
@@ -81,12 +60,12 @@ class ActiveCharacterList extends React.Component {
 								ref={provided.innerRef} 	
 								style={getListStyle(snapshot.isDraggingOver)}
 							>
-								{ this.state.characters.map( (character, index) => <CharacterItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
+								{ this.props.encounters.map( (character, index) => <CharacterItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
 								{provided.placeholder}
 							</div>
 						)}
 					</Droppable>
-					<CreateCharacter addCharacter={this.addCharacter}/>
+					<CreateCharacter addCharacter={this.addCharacter} addToEncounters={this.props.addToEncounters}/>
 				</div>
 			</DragDropContext>
 		);

@@ -2,9 +2,9 @@
     background-color: #292929;
     color: #ffffff;
     width: 40%;
-    height: 100%;
     margin: auto;
     border: 2px solid #c53030;
+    z-index: 99;
 }
 
 .encounterWrapperHeader {

@@ -8,8 +8,8 @@ class CreateCharacter extends React.Component {
 		this.state = {
 			level : 0,
 			name : '',
-			hit_point : 0,
-			armour : 0
+			maxHP : 0,
+			armorClass : 0
 		}
 		this.onInputChange = this.onInputChange.bind(this);
 		this.onSubmitCreateCreature = this.onSubmitCreateCreature.bind(this);
@@ -23,7 +23,8 @@ class CreateCharacter extends React.Component {
 
 	onSubmitCreateCreature(e) {
 		e.preventDefault();
-		this.props.addCharacter(this.state);
+		this.props.addToEncounters(this.state);
+		//this.props.addCharacter(this.state);
 	}
 
     render() {
@@ -33,9 +34,9 @@ class CreateCharacter extends React.Component {
 						<input className="character-level-input" name="level" type="number" min="0" size="4" placeholder="Level" onChange={this.onInputChange} />
 						<input className="character-name-input" name="name" type="text" size="20" placeholder="Name" onChange={this.onInputChange} />
 						<span className="character-description-form-wrapper">
-							<input className="character-description-hit-point-input" name="hit_point" type="number" min="0" size="4" placeholder="HP" onChange={this.onInputChange} />
+							<input className="character-description-hit-point-input" name="maxHP" type="number" min="0" size="4" placeholder="HP" onChange={this.onInputChange} />
 							<input className="character-description-perception-input" name="perception" type="number" min="0" size="4" placeholder="Perception" onChange={this.onInputChange} />
-							<input className="character-description-armour-input" name="armour" type="number" min="0" size="4" placeholder="Armour" onChange={this.onInputChange} />
+							<input className="character-description-armour-input" name="armorClass" type="number" min="0" size="4" placeholder="Armour" onChange={this.onInputChange} />
 						</span>
 						<button className="create-character-button"><img width="25" height="25" src="https://s3.amazonaws.com/the-initiative-project/iconfinder-icon.svg" /></button>
 					</form>

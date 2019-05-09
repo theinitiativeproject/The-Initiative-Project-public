@@ -13,7 +13,11 @@ class Encounter extends React.Component {
 					<div className='encounterWrapperHeader'>
 						<h1>Main Encounter</h1>
 					</div>
-					<ActiveCharacterList />
+					<ActiveCharacterList 
+						encounters={this.props.encounters} 
+						partyMembers={this.props.partyMembers} 
+						addToEncounters={this.props.addToEncounters} 
+					/>
 				</div>
 		);
 	}
