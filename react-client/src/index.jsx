@@ -37,7 +37,6 @@ class App extends React.Component {
       homebrewMonsters: [],
       partyMembers: [],
       encounters: [],
-      currentTab: 'srd',
       hbAC: '',
       hbChaSave: '',
       hbConSave: '',
@@ -376,7 +375,7 @@ class App extends React.Component {
           switchTab={this.switchTab}
         />
         <div className="appWrapper">
-		      <Encounter />
+          <Encounter />
         </div>
       </div>
     );
