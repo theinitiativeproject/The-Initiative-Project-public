@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
+import Library from './components/Library/Library.jsx';
 import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
-import Library from './components/Library.jsx';
 import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
