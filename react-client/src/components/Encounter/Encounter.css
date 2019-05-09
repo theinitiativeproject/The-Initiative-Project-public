@@ -5,6 +5,9 @@
     margin: auto;
     border: 2px solid #c53030;
     z-index: 99;
+    -webkit-box-shadow: 0px 2px 46px 33px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 46px 33px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 46px 33px rgba(0,0,0,0.75);     
 }
 
 .encounterWrapperHeader {
@@ -14,4 +17,21 @@
     font-family: 'Libre Baskerville', serif;
     font-size: 24px;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.save-button > button {
+    background-color: #0B0B0B;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+}
+
+.next-button > button {
+    background-color: #0B0B0B;
+    border: none;
+    outline: 0;
+    cursor: pointer;
 }

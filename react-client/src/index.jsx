@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
 import Library from './components/Library/Library.jsx';
+import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
 import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -26,15 +27,8 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-var images = [
-  'background1.jpg',
-  'background2.jpg',
-  'background3.jpg',
-  'background4.jpg',
-  'background5.jpg',
-  'background6.jpg',
-  'background7.jpg'
-];
+var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
+var currImg = images[Math.floor(Math.random() * images.length)];
 
 // a little function to help us with reordering the result
 const reorder = (actors, startIndex, endIndex) => {
@@ -363,31 +357,25 @@ class App extends React.Component {
               </button>
             </div>
           )}
-          <Library
-            currentTab={this.state.currentTab}
-            srdList={this.state.srdMonsters}
-            homebrewList={this.state.homebrewMonsters}
-            switchTab={this.switchTab}
-          />
-          <div
-            className="appWrapper"
-            style={{
-              backgroundImage:
-                'url(https://s3.amazonaws.com/the-initiative-project/' +
-                images[Math.floor(Math.random() * images.length)] +
-                ')',
-              backgroundSize: 'cover'
-            }}
-          >
-            <div className="darkWrapper" />
+          <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + currImg + ')', 'backgroundSize' : 'cover' }}>
+            <div className="darkWrapper"></div>
             <div className="mainWrapper">
-              <Encounter
-                encounters={this.state.encounters}
-                partyMembers={this.state.partyMembers}
-                addActorToEncounter={this.addActorToEncounter}
+              <Library
+                currentTab={this.state.currentTab}
+                srdList={this.state.srdMonsters}
+                homebrewList={this.state.homebrewMonsters}
+                switchTab={this.switchTab}
+              />
+              <Encounter 
+                encounters={this.state.encounters} 
+                partyMembers={this.state.partyMembers} 
+                addActorToEncounter={this.addActorToEncounter} 
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
               />
+              <PartyMembers 
+                partyMembers={this.state.partyMembers}  
+                onDragEnd={this.onDragEnd}/>
             </div>
           </div>
           {this.state.user && (
