@@ -439,15 +439,7 @@ class App extends React.Component {
           switchTab={this.switchTab}
         />
         <div className="appWrapper">
-<<<<<<< HEAD
-<<<<<<< HEAD
 		      <Encounter encounters={this.state.encounters}/>
-=======
-          <Encounter />
->>>>>>> 8a6c8dc70745f47962183278742c061d7740c2fa
-=======
-		      <Encounter encounters={this.state.encounters}/>
->>>>>>> 95de97735e3316a67dbbbd4971305492c86550d9
         </div>
       </div>
       </div>
