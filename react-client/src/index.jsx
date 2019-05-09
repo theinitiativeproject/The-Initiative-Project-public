@@ -35,29 +35,11 @@ class App extends React.Component {
       email: '',
       password: '',
       user: undefined,
+      currentTab: 'srd',
       srdMonsters: [],
       homebrewMonsters: [],
       partyMembers: [],
       encounters: [],
-      currentTab: 'base',
-      baseList: [
-        { name: 'goblin' },
-        { name: 'wolf' },
-        { name: 'dragon' },
-        { name: 'troll' },
-        { name: 'skeleton' },
-        { name: 'witch' },
-        { name: 'harpy' }
-      ],
-      customList: [
-        { name: 'custom goblin' },
-        { name: 'custom wolf' },
-        { name: 'custom dragon' },
-        { name: 'custom troll' },
-        { name: 'custom skeleton' },
-        { name: 'custom witch' },
-        { name: 'custom harpy' }
-      ],
       hbAC: '',
       hbChaSave: '',
       hbConSave: '',
@@ -441,8 +423,8 @@ class App extends React.Component {
         <h1>Library</h1>
         <Library
           currentTab={this.state.currentTab}
-          baseList={this.state.baseList}
-          customList={this.state.customList}
+          srdList={this.state.srdMonsters}
+          homebrewList={this.state.homebrewMonsters}
           switchTab={this.switchTab}
         />
         <div className="appWrapper">

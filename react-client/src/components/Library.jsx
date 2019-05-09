@@ -1,21 +1,18 @@
 import React from 'react';
-import BaseMonsters from './BaseMonsters.jsx';
-import CustomMonsters from './CustomMonsters.jsx';
+import SRDMonsters from './SRDMonsters.jsx';
+import HomebrewMonsters from './HomebrewMonsters.jsx';
 import './Library.css';
 
 const Library = props => {
-  let { currentTab, baseList, customList, switchTab } = props;
-  let CurrentList;
-
-  if (currentTab === 'base') CurrentList = <BaseMonsters baseList={baseList} />;
-  else if (currentTab === 'custom')
-    CurrentList = <CustomMonsters customList={customList} />;
-
+  let { currentTab, srdList, homebrewList, switchTab } = props;
   return (
-    <div className="creatureList">
-      <button onClick={() => switchTab('base')}>Base</button>
-      <button onClick={() => switchTab('custom')}>Custom</button>
-      {CurrentList}
+    <div>
+      <button onClick={() => switchTab('srd')}>SRD</button>
+      <button onClick={() => switchTab('homebrew')}>Homebrew</button>
+      {currentTab === 'srd' && <SRDMonsters srdList={srdList} />}
+      {currentTab === 'homebrew' && (
+        <HomebrewMonsters homebrewList={homebrewList} />
+      )}
     </div>
   );
 };
