@@ -47,6 +47,12 @@ body, html {
     line-height: 40px;
 }
 
+.welcome-description {
+    color: white;
+    margin-right: 10px;
+    letter-spacing: 1.5px;
+}
+
 .email, .emailPassword {
     border: 0;
     outline: 0;

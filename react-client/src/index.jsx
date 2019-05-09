@@ -66,6 +66,8 @@ class App extends React.Component {
     this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
+    this.addToEncounters = this.addToEncounters.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
     this.switchTab = this.switchTab.bind(this);
   }
 
@@ -216,6 +218,33 @@ class App extends React.Component {
       });
   }
 
+  addToEncounters(obj) {
+    db.collection('encounters')
+      .doc(this.state.user)
+      .set(obj)
+      .then(() => {
+        console.log('Added to encounters')
+      })
+      .catch(err => console.log('error adding character to encounters', err));;
+  }
+  
+  onDragEnd(result) {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const characters = reorder(
+      this.props.characters,
+      result.source.index,
+      result.destination.index
+    );
+
+    this.setState({
+      characters
+    });
+	}
+
   switchTab(newTab) {
     this.setState({
       currentTab: newTab
@@ -252,6 +281,7 @@ class App extends React.Component {
           )}
           {this.state.user && (
             <div className="logoutWrapper">
+              <span className="welcome-description">Welcome back!</span>
               <button className="logout customButton" onClick={this.handleLogOut}>Log Out</button>
             </div>
           )}
@@ -264,7 +294,7 @@ class App extends React.Component {
           <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + images[Math.floor(Math.random() * images.length)] + ')', 'backgroundSize' : 'cover' }}>
             <div className="darkWrapper"></div>
             <div className="mainWrapper">
-              <Encounter />
+              <Encounter encounters={this.state.encounters} partyMembers={this.state.partyMembers} addToEncounters={this.addToEncounters}/>
             </div>
           </div>
         </div>
