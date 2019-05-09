@@ -1,12 +1,12 @@
 import React from 'react';
 import SRDMonsters from './SRDMonsters.jsx';
 import HomebrewMonsters from './HomebrewMonsters.jsx';
+import './Library.css';
 
 const Library = props => {
   let { currentTab, srdList, homebrewList, switchTab } = props;
-  console.log(props);
   return (
-    <div>
+    <div className="creatureList">
       <button onClick={() => switchTab('srd')}>SRD</button>
       <button onClick={() => switchTab('homebrew')}>Homebrew</button>
       {currentTab === 'srd' && <SRDMonsters srdList={srdList} />}
