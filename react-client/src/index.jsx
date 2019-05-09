@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
 import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
+=======
+import Library from './components/Library.jsx';
+>>>>>>> 2884a970a2c59955ea1607926dcf766e3b6cff44
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from 'firebase/app';
@@ -19,8 +23,10 @@ const firebaseConfig = {
   messagingSenderId: '292781873005',
   appId: '1:292781873005:web:7d50d488cb69e930'
 };
+
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 class App extends React.Component {
   constructor(props) {
@@ -29,22 +35,141 @@ class App extends React.Component {
       email: '',
       password: '',
       user: undefined,
-      items: []
+      srdMonsters: [],
+      homebrewMonsters: [],
+      partyMembers: [],
+      encounters: [],
+      currentTab: 'base',
+      baseList: [
+        { name: 'goblin' },
+        { name: 'wolf' },
+        { name: 'dragon' },
+        { name: 'troll' },
+        { name: 'skeleton' },
+        { name: 'witch' },
+        { name: 'harpy' }
+      ],
+      customList: [
+        { name: 'custom goblin' },
+        { name: 'custom wolf' },
+        { name: 'custom dragon' },
+        { name: 'custom troll' },
+        { name: 'custom skeleton' },
+        { name: 'custom witch' },
+        { name: 'custom harpy' }
+      ]
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
+    this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
+    this.retrieveEncounters = this.retrieveEncounters.bind(this);
+    this.switchTab = this.switchTab.bind(this);
   }
 
   componentDidMount() {
+    this.retrieveSRDMonsters();
     auth.onAuthStateChanged(userTemp => {
       if (userTemp) {
-        this.setState({ user: userTemp });
+        this.setState({ user: userTemp }, () => {
+          this.retrieveHomebrewMonsters(userTemp.uid);
+          this.retrievePartyMembers(userTemp.uid);
+          this.retrieveEncounters(userTemp.uid);
+        });
       } else {
         console.log('not logged in');
+        this.setState({
+          homebrewMonsters: [],
+          partyMembers: [],
+          encounters: []
+        });
       }
     });
+  }
+
+  retrieveEncounters(uid) {
+    db.collection('encounters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned encounters in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ encounters: resultsArr }))
+      .catch(err => console.log('error retrieving encounters', err));
+  }
+
+  retrievePartyMembers(uid) {
+    db.collection('party_members')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned party members in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ partyMembers: resultsArr }))
+      .catch(err => console.log('error retrieving party members', err));
+  }
+
+  retrieveHomebrewMonsters(uid) {
+    db.collection('homebrew_monsters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned monsters in homebrew database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }))
+      .catch(err => console.log('error retrieving homebrew monsters', err));
+  }
+
+  retrieveSRDMonsters() {
+    db.collection('srd_monsters')
+      .where('name', '>=', '')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no monsters in SRD database');
+          return;
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          console.log(doc.id, '=>', data);
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => {
+        this.setState({ srdMonsters: resultsArr });
+      })
+      .catch(err => console.log('error retrieving SRD monsters', err));
   }
 
   handleInputChange(e) {
@@ -91,8 +216,14 @@ class App extends React.Component {
       });
   }
 
+  switchTab(newTab) {
+    this.setState({
+      currentTab: newTab
+    });
+  }
+
   render() {
-    console.log(this.state.user);
+    console.log(this.state);
     return (
       <div>
         {!this.state.user && (
@@ -118,9 +249,19 @@ class App extends React.Component {
         {this.state.user && (
           <button onClick={this.handleLogOut}>Log Out</button>
         )}
+<<<<<<< HEAD
         <div className="appWrapper">
 		  <Encounter />
         </div>
+=======
+        <h1>Library</h1>
+        <Library
+          currentTab={this.state.currentTab}
+          baseList={this.state.baseList}
+          customList={this.state.customList}
+          switchTab={this.switchTab}
+        />
+>>>>>>> 2884a970a2c59955ea1607926dcf766e3b6cff44
       </div>
     );
   }
