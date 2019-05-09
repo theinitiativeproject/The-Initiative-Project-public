@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-<<<<<<< HEAD
 import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
-=======
 import Library from './components/Library.jsx';
->>>>>>> 2884a970a2c59955ea1607926dcf766e3b6cff44
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import * as firebase from 'firebase/app';
@@ -249,11 +246,6 @@ class App extends React.Component {
         {this.state.user && (
           <button onClick={this.handleLogOut}>Log Out</button>
         )}
-<<<<<<< HEAD
-        <div className="appWrapper">
-		  <Encounter />
-        </div>
-=======
         <h1>Library</h1>
         <Library
           currentTab={this.state.currentTab}
@@ -261,7 +253,9 @@ class App extends React.Component {
           customList={this.state.customList}
           switchTab={this.switchTab}
         />
->>>>>>> 2884a970a2c59955ea1607926dcf766e3b6cff44
+        <div className="appWrapper">
+		      <Encounter />
+        </div>
       </div>
     );
   }
