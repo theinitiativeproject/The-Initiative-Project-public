@@ -5,7 +5,6 @@ import './Library.css';
 
 const Library = props => {
   let { currentTab, srdList, homebrewList, switchTab } = props;
-  console.log(props);
   return (
     <div className="creatureList">
       <button onClick={() => switchTab('srd')}>SRD</button>

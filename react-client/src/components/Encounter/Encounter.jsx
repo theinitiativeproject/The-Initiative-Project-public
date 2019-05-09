@@ -24,7 +24,6 @@ class Encounter extends React.Component {
 				</div>
 		);
 	}
-
 }
 
 export default Encounter;
