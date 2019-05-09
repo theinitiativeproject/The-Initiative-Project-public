@@ -13,8 +13,9 @@ class Encounter extends React.Component {
 					<div className='encounterWrapperHeader'>
 						<h1>Main Encounter</h1>
 					</div>
-					<ActiveCharacterList 
-						encounters={this.props.encounters} 
+					<ActiveCharacterList
+						onDragEnd={this.props.onDragEnd} 
+						encounter={this.props.encounters[this.props.activeEncounter]} 
 						partyMembers={this.props.partyMembers} 
 						addToEncounters={this.props.addToEncounters} 
 					/>

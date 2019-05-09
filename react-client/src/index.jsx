@@ -28,6 +28,15 @@ const db = firebase.firestore();
 
 var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
 
+// a little function to help us with reordering the result
+const reorder = (actors, startIndex, endIndex) => {
+  const result = Array.from(actors);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -40,6 +49,7 @@ class App extends React.Component {
       homebrewMonsters: [],
       partyMembers: [],
       encounters: [],
+      activeEncounter: 0,
       hbAC: '',
       hbChaSave: '',
       hbConSave: '',
@@ -270,13 +280,15 @@ class App extends React.Component {
     }
 
     const characters = reorder(
-      this.props.characters,
+      this.state.encounters[this.state.activeEncounter].actors,
       result.source.index,
       result.destination.index
     );
 
+    let temp = this.state.encounters.slice();
+    temp[this.state.activeEncounter].actors = characters;
     this.setState({
-      characters
+      encounters : temp
     });
 	}
 
@@ -329,7 +341,13 @@ class App extends React.Component {
           <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + images[Math.floor(Math.random() * images.length)] + ')', 'backgroundSize' : 'cover' }}>
             <div className="darkWrapper"></div>
             <div className="mainWrapper">
-              <Encounter encounters={this.state.encounters} partyMembers={this.state.partyMembers} addToEncounters={this.addToEncounters}/>
+              <Encounter 
+                encounters={this.state.encounters} 
+                partyMembers={this.state.partyMembers} 
+                addToEncounters={this.addToEncounters} 
+                onDragEnd={this.onDragEnd}
+                activeEncounter={this.state.activeEncounter}
+              />
             </div>
           </div>
         {this.state.user && (
