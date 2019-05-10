@@ -5,9 +5,14 @@ import { Draggable } from 'react-beautiful-dnd';
 class CharacterItem extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      showDetails : false
+    };
   }
 
   render() {
+    console.log(this.props.currentTurn);
     return (
       <Draggable
         draggableId={this.props.character.name}
@@ -55,7 +60,20 @@ class CharacterItem extends React.Component {
                 )}
               </span>
             </div>
-            
+            <div className="character-item-summary-wrapper" style={{ display : (this.state.showDetails ? 'none': 'block') }}>
+                <div className="character-item-summary-info">
+                  <div className="character-item-summary-col">
+                    <span>Strength Save: {}</span>
+                    <span>Dexterity Save: {}</span>
+                    <span>Constitution Save: {}</span>
+                  </div>
+                  <div className="character-item-summary-col">
+                    <span>Intelligence Save: {}</span>
+                    <span>Wisdom Save: {}</span>
+                    <span>Charisma Save: {}</span>
+                  </div>
+                </div>
+            </div>
           </div>
         )}
       </Draggable>
