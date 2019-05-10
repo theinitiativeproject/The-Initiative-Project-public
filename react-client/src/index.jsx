@@ -65,7 +65,7 @@ class App extends React.Component {
       encounters: [{ 
         activePosition : 0, 
         actors : [{
-          armorclass: 16,
+          armorClass: 16,
           currentHP: 20, 
           initiative : 20, 
           maxHP : 24, 

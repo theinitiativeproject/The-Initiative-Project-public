@@ -36,20 +36,10 @@ class CharacterItem extends React.Component {
                   <img
                     width="25"
                     height="25"
-                    src="https://s3.amazonaws.com/the-initiative-project/favorite.svg"
+                    src="https://s3.amazonaws.com/the-initiative-project/little-health.svg"
                   />
                   : {this.props.character.currentHP} /{' '}
                   {this.props.character.maxHP}
-                </span>
-              )}
-              {this.props.character.perception && (
-                <span className="character-description-perception">
-                  <img
-                    width="25"
-                    height="25"
-                    src="https://s3.amazonaws.com/the-initiative-project/view.svg"
-                  />
-                  : {this.props.character.perception}
                 </span>
               )}
               {this.props.character.armorClass && (
@@ -57,7 +47,7 @@ class CharacterItem extends React.Component {
                   <img
                     width="25"
                     height="25"
-                    src="https://s3.amazonaws.com/the-initiative-project/shield.svg"
+                    src="https://s3.amazonaws.com/the-initiative-project/dark-shield.svg"
                   />
                   : {this.props.character.armorClass}
                 </span>
