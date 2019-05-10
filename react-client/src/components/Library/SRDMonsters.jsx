@@ -6,8 +6,12 @@ const SRDMonsters = props => {
   let { srdList, addActorToEncounter } = props;
   return (
     <ul className="SRDCreatures">
-      {srdList.map(entry => (
-        <MonsterEntry entry={entry} addActorToEncounter={addActorToEncounter} />
+      {srdList.map((entry, idx) => (
+        <MonsterEntry
+          entry={entry}
+          addActorToEncounter={addActorToEncounter}
+          key={idx}
+        />
       ))}
     </ul>
   );

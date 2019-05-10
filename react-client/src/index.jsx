@@ -96,6 +96,7 @@ class App extends React.Component {
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
     this.saveEncounter = this.saveEncounter.bind(this);
+    this.changeActiveEncounter = this.changeActiveEncounter.bind(this);
   }
 
   componentDidMount() {
@@ -385,6 +386,12 @@ class App extends React.Component {
     }
   }
 
+  changeActiveEncounter(idx) {
+    this.setState({
+      activeEncounter: idx
+    });
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -490,7 +497,11 @@ class App extends React.Component {
                 addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
               />
-              <SavedEncounters />
+              <SavedEncounters
+                encounters={this.state.encounters}
+                activeEncounter={this.state.activeEncounter}
+                changeActiveEncounter={this.changeActiveEncounter}
+              />
             </div>
           </div>
         </div>
