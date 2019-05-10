@@ -335,19 +335,15 @@ class App extends React.Component {
   }
 
   retrieveSRDMonsters() {
-    db.collection('srd_monsters')
-      .where('name', '>=', '')
+    db.collection('srd_monsters_bulk')
+      .doc('ef0QmjoiFkM9qdwdiiL5')
       .get()
       .then(snapshot => {
         if (snapshot.empty) {
           console.log('no monsters in SRD database');
           return;
         }
-        let resultsArr = [];
-        snapshot.forEach(doc => {
-          let data = doc.data();
-          resultsArr.push(data);
-        });
+        let resultsArr = snapshot.data().monsters;
         return resultsArr;
       })
       .then(resultsArr => {
