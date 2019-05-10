@@ -1,0 +1,32 @@
+.homebrew-monster-form-wrapper {
+    position: absolute;
+    background-color: #F9F7EC;
+    width: 380px;
+    height: 100px;
+}
+
+
+.homebrew-monster-form {
+    position: absolute;
+    width: 100%;
+    padding: 10px 0px;
+    margin: 0px 20px 20px 0px;
+    background-color: none;
+    line-height: 20px;
+    background: linear-gradient(to right, #ffffff 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(#ffffff 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(to right, #ffffff 50%, rgba(255, 255, 255, 0) 0%), linear-gradient(#ffffff 50%, rgba(255, 255, 255, 0) 0%);
+    background-position: top, right, bottom, left;
+    background-repeat: repeat-x, repeat-y;
+    background-size: 10px 1px, 1px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.homebrew-monster-input {
+    font-size: 14px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid #000000;
+}

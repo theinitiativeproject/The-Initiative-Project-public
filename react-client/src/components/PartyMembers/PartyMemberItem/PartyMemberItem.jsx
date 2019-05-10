@@ -10,7 +10,7 @@ class PartyMemberItem extends React.Component {
   render() {
 		return(
 			<div className={ "party-member-item-wrapper " + (this.props.character.npc ? "character-npc" : "")}>
-				<span className="party-member-level">Lvl: {this.props.character.level}</span>
+				<span className="party-member-add"><img width="25" height="25" src="https://s3.amazonaws.com/the-initiative-project/left-arrow.svg"/></span>
 				<span className="party-member-name">{this.props.character.name}</span>
 				<span className="party-member-description-wrapper">
 					{ this.props.character.currentHP && <span className="party-member-description-hit-point"><img width="25" height="25" src="https://s3.amazonaws.com/the-initiative-project/favorite.svg"/>: {this.props.character.currentHP} / {this.props.character.maxHP}</span>}

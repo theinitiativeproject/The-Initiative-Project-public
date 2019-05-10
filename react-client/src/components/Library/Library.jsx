@@ -1,6 +1,7 @@
 import React from 'react';
 import SRDMonsters from './SRDMonsters.jsx';
 import HomebrewMonsters from './HomebrewMonsters.jsx';
+import HomeBrewMonsterForm from '../HomeBrewMonsterForm/HomeBrewMonsterForm.jsx';
 import './Library.css';
 
 const Library = props => {
@@ -19,6 +20,22 @@ const Library = props => {
           <HomebrewMonsters homebrewList={homebrewList} />
         )}
       </div>
+      {props.user && (
+        <HomeBrewMonsterForm 
+          handleInputChange={props.handleInputChange} 
+          firestoreAddHomebrewMonster={props.firestoreAddHomebrewMonster}
+          hbAC={props.hbAC}
+          hbChaSave={props.hbChaSave}
+          hbConSave={props.hbConSave}
+          hbDexSave={props.hbDexSave}
+          hbMaxHP={props.hbMaxHP}
+          hbInitMod={props.hbInitMod}
+          hbIntSave={props.hbIntSave}
+          hbName={props.hbName}
+          hbStrSave={props.hbStrSave}
+          hbWisSave={props.hbWisSave}
+          user={props.user}
+        />)}
     </div>
   );
 };

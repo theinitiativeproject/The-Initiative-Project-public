@@ -2,17 +2,18 @@
     height: 20px;
     line-height: 20px;
     padding: 10px;
-    margin: 20px 0px;
-    display: flex;
-    justify-content: flex-start;
+    margin: 10px 0px;
+    cursor: pointer;
 }
 
 .party-member-item-wrapper {
     background-color: #cccccc; 
 }
 
-.party-member-level {
+.party-member-add {
+    float: left;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .party-member-name {
@@ -20,6 +21,7 @@
 }
 
 .party-member-description-wrapper {
+    float: right;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,7 +32,7 @@
 }
 
 .party-member-description-hit-point, .party-member-description-perception, .party-member-description-armour {
-    line-height: 40px;
+    line-height: 20px;
     margin: auto;
     display: flex;
     align-items:center;
