@@ -15,7 +15,7 @@ class Encounter extends React.Component {
 						<h1>Main Encounter</h1>
 						<span className='next-button'>
 							<button><img width="20" height="20" src="https://s3.amazonaws.com/the-initiative-project/sort.svg" /></button>
-							<button><img width="20" height="20" src="https://s3.amazonaws.com/the-initiative-project/play.svg" /></button>
+							<button><img width="20" height="20" src="https://s3.amazonaws.com/the-initiative-project/play.svg" onClick={this.props.switchTurn}/></button>
 							</span>
 					</div>
 					<ActiveCharacterList

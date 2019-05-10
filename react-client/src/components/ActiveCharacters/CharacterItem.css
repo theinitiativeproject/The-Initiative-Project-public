@@ -4,10 +4,17 @@
     line-height: 40px;
     padding: 10px;
     margin: 20px 0px;
-    -webkit-transition: top 1s;
-    -moz-transition: top 1s;
-    -o-transition: top 1s;
-    transition: top 1s;
+    opacity: 1;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.currentTurn {
+    background-color: #F9F7EC;
+    color: #000000;
+    border: 1px solid #000000;
 }
 
 .character-npc {
