@@ -1,19 +1,36 @@
 import React from 'react';
+import './MonsterEntry.css';
 
 const MonsterEntry = props => {
   let { entry } = props;
   return (
-    <li>
-      <div>
-        <div>{entry.name}</div>
-        <div>HP: {entry.maxHP}</div>
-      </div>
-      <div>
+    <li className="monsterBox">
+      <div className="monsterRow">
         <div>
-          Cha: {entry.chaSave} Con: {entry.conSave} Dex: {entry.dexSave} Int:{' '}
-          {entry.intSave} Str: {entry.strSave} Wis: {entry.wisSave}
+          <span className="monsterName">{entry.name}</span>
+          <br />
+          <span className="saves">
+            <div className="saveBlock">
+              Str: {entry.strSave}
+              <br />
+              Int: {entry.intSave}
+            </div>
+            <div className="saveBlock">
+              Dex: {entry.dexSave}
+              <br />
+              Wis: {entry.wisSave}
+            </div>
+            <div className="saveBlock">
+              Con: {entry.conSave}
+              <br />
+              Cha: {entry.chaSave}
+            </div>
+          </span>
         </div>
-        <div>AC: {entry.armorClass}</div>
+        <div className="HPArmor">
+          <span>HP: {entry.maxHP}</span>
+          <span>AC: {entry.armorClass}</span>
+        </div>
       </div>
     </li>
   );

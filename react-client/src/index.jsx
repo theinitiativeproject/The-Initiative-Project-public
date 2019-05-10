@@ -26,7 +26,15 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
+var images = [
+  'background1.jpg',
+  'background2.jpg',
+  'background3.jpg',
+  'background4.jpg',
+  'background5.jpg',
+  'background6.jpg',
+  'background7.jpg'
+];
 var currImg = images[Math.floor(Math.random() * images.length)];
 
 // a little function to help us with reordering the result
@@ -46,8 +54,562 @@ class App extends React.Component {
       password: '',
       user: undefined,
       currentTab: 'srd',
-      srdMonsters: [],
-      homebrewMonsters: [],
+      srdMonsters: [
+        {
+          name: 'goblin',
+          maxHP: 50,
+          chaSave: 1,
+          conSave: 2,
+          dexSave: 3,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 7,
+          initMod: 0
+        },
+        {
+          name: 'wolf',
+          maxHP: 25,
+          chaSave: 2,
+          conSave: 2,
+          dexSave: 2,
+          intSave: 2,
+          strSave: 2,
+          wisSave: 2,
+          armorClass: 0,
+          initMod: 5
+        },
+        {
+          name: 'ghost',
+          maxHP: 60,
+          chaSave: 0,
+          conSave: 0,
+          dexSave: 0,
+          intSave: 0,
+          strSave: 0,
+          wisSave: 8,
+          armorClass: 9,
+          initMod: 10
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        }
+      ],
+      homebrewMonsters: [
+        {
+          name: 'custom goblin',
+          maxHP: 50,
+          chaSave: 1,
+          conSave: 2,
+          dexSave: 3,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 7,
+          initMod: 0
+        },
+        {
+          name: 'custom wolf',
+          maxHP: 25,
+          chaSave: 2,
+          conSave: 2,
+          dexSave: 2,
+          intSave: 2,
+          strSave: 2,
+          wisSave: 2,
+          armorClass: 0,
+          initMod: 5
+        },
+        {
+          name: 'custom ghost',
+          maxHP: 60,
+          chaSave: 0,
+          conSave: 0,
+          dexSave: 0,
+          intSave: 0,
+          strSave: 0,
+          wisSave: 8,
+          armorClass: 9,
+          initMod: 10
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        }
+      ],
       partyMembers: [],
       encounters: [],
       activeEncounter: 0,
@@ -356,8 +918,17 @@ class App extends React.Component {
               </button>
             </div>
           )}
-          <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + currImg + ')', 'backgroundSize' : 'cover' }}>
-            <div className="darkWrapper"></div>
+          <div
+            className="appWrapper"
+            style={{
+              backgroundImage:
+                'url(https://s3.amazonaws.com/the-initiative-project/' +
+                currImg +
+                ')',
+              backgroundSize: 'cover'
+            }}
+          >
+            <div className="darkWrapper" />
             <div className="mainWrapper">
               <Library
                 currentTab={this.state.currentTab}
@@ -365,16 +936,17 @@ class App extends React.Component {
                 homebrewList={this.state.homebrewMonsters}
                 switchTab={this.switchTab}
               />
-              <Encounter 
-                encounters={this.state.encounters} 
-                partyMembers={this.state.partyMembers} 
-                addActorToEncounter={this.addActorToEncounter} 
+              <Encounter
+                encounters={this.state.encounters}
+                partyMembers={this.state.partyMembers}
+                addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
               />
-              <PartyMembers 
-                partyMembers={this.state.partyMembers}  
-                onDragEnd={this.onDragEnd}/>
+              <PartyMembers
+                partyMembers={this.state.partyMembers}
+                onDragEnd={this.onDragEnd}
+              />
             </div>
           </div>
           {this.state.user && (
