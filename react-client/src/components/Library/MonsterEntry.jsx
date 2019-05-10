@@ -2,9 +2,9 @@ import React from 'react';
 import './MonsterEntry.css';
 
 const MonsterEntry = props => {
-  let { entry } = props;
+  let { entry, addActorToEncounter } = props;
   return (
-    <li className="monsterBox">
+    <li className="monsterBox" onClick={() => addActorToEncounter(entry)}>
       <div className="monsterRow">
         <div>
           <span className="monsterName">{entry.name}</span>
@@ -28,8 +28,24 @@ const MonsterEntry = props => {
           </span>
         </div>
         <div className="HPArmor">
-          <span>HP: {entry.maxHP}</span>
-          <span>AC: {entry.armorClass}</span>
+          <span className="HPAflex">
+            <img
+              className="HPAicon"
+              width="20"
+              height="20"
+              src="https://s3.amazonaws.com/the-initiative-project/little-health.svg"
+            />{' '}
+            : {entry.maxHP}
+          </span>
+          <span className="HPAflex">
+            <img
+              className="HPAicon"
+              width="20"
+              height="20"
+              src="https://s3.amazonaws.com/the-initiative-project/dark-shield.svg"
+            />{' '}
+            : {entry.armorClass}
+          </span>
         </div>
       </div>
     </li>
