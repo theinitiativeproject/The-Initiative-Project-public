@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Encounter from './components/Encounter/Encounter.jsx';
 import Library from './components/Library/Library.jsx';
 import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
-import HomeBrewMonsterForm from './components/HomeBrewMonsterForm/HomeBrewMonsterForm.jsx';
+import SavedEncounters from './components/Encounter/SavedEncounters/SavedEncounters.jsx';
 import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -582,6 +582,7 @@ class App extends React.Component {
                 partyMembers={this.state.partyMembers}
                 onDragEnd={this.onDragEnd}
               />
+              <SavedEncounters />
             </div>
           </div>
         </div>
