@@ -1,23 +1,23 @@
 .partyMemberWrapper {
-    position: absolute;
-    top: 60px;
-    right: 9px;
-    background-color: #cbb596;
-    color: #ffffff;
-    max-width: 380px;
-    margin: auto;
-    border: 2px solid #000000;
-    z-index: 99;
-    -webkit-box-shadow: 0px 2px 46px 33px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 46px 33px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 46px 33px rgba(0,0,0,0.75);
+  position: absolute;
+  top: 60px;
+  right: 9px;
+  background-color: #cbb596;
+  color: #ffffff;
+  max-width: 380px;
+  margin: auto;
+  border: 2px solid #000000;
+  z-index: 99;
+  -webkit-box-shadow: 0px 2px 46px 33px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 46px 33px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 46px 33px rgba(0, 0, 0, 0.75);
 }
 
 .partyMemberWrapperHeader {
-    background: linear-gradient(#000000, rgb(157, 10, 14));
-    border-bottom: 2px solid #000000;
-    padding: 15px;
-    font-family: 'Libre Baskerville', serif;
-    font-size: 20px;
-    text-align: center;
+  background: linear-gradient(#000000, rgb(157, 10, 14));
+  border-bottom: 2px solid #000000;
+  padding: 15px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 20px;
+  text-align: center;
 }

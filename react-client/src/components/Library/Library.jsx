@@ -6,13 +6,19 @@ import './Library.css';
 const Library = props => {
   let { currentTab, srdList, homebrewList, switchTab } = props;
   return (
-    <div className="creatureList">
-      <button onClick={() => switchTab('srd')}>SRD</button>
-      <button onClick={() => switchTab('homebrew')}>Homebrew</button>
-      {currentTab === 'srd' && <SRDMonsters srdList={srdList} />}
-      {currentTab === 'homebrew' && (
-        <HomebrewMonsters homebrewList={homebrewList} />
-      )}
+    <div className="superLibrary">
+      <button className="SRDButton" onClick={() => switchTab('srd')}>
+        SRD
+      </button>
+      <button className="homebrewButton" onClick={() => switchTab('homebrew')}>
+        Homebrew
+      </button>
+      <div className="creatureList">
+        {currentTab === 'srd' && <SRDMonsters srdList={srdList} />}
+        {currentTab === 'homebrew' && (
+          <HomebrewMonsters homebrewList={homebrewList} />
+        )}
+      </div>
     </div>
   );
 };
