@@ -555,6 +555,7 @@ class App extends React.Component {
                 currentTab={this.state.currentTab}
                 srdList={this.state.srdMonsters}
                 homebrewList={this.state.homebrewMonsters}
+                addActorToEncounter={this.addActorToEncounter}
                 switchTab={this.switchTab}
                 handleInputChange={this.handleInputChange} 
                 firestoreAddHomebrewMonster={this.firestoreAddHomebrewMonster}

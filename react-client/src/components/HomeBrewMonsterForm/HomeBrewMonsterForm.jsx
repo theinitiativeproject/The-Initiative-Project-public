@@ -36,7 +36,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbName"
                     value={this.props.hbName}
                     onChange={this.props.handleInputChange}
-                    placeholder="name"
+                    placeholder="Name"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -44,7 +44,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbAC"
                     value={this.props.hbAC}
                     onChange={this.props.handleInputChange}
-                    placeholder="armor class"
+                    placeholder="Armor Class"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -52,7 +52,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbChaSave"
                     value={this.props.hbChaSave}
                     onChange={this.props.handleInputChange}
-                    placeholder="charisma save"
+                    placeholder="Charisma Save"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -60,7 +60,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbConSave"
                     value={this.props.hbConSave}
                     onChange={this.props.handleInputChange}
-                    placeholder="constitution save"
+                    placeholder="Constitution Save"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -68,7 +68,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbDexSave"
                     value={this.props.hbDexSave}
                     onChange={this.props.handleInputChange}
-                    placeholder="dexterity save"
+                    placeholder="Dexterity Save"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -76,7 +76,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbMaxHP"
                     value={this.props.hbMaxHP}
                     onChange={this.props.handleInputChange}
-                    placeholder="maximum HP"
+                    placeholder="Maximum HP"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -84,7 +84,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbInitMod"
                     value={this.props.hbInitMod}
                     onChange={this.props.handleInputChange}
-                    placeholder="initiative modifier"
+                    placeholder="Initiative Modifier"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -92,7 +92,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbIntSave"
                     value={this.props.hbIntSave}
                     onChange={this.props.handleInputChange}
-                    placeholder="intelligence save"
+                    placeholder="Intelligence Save"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -100,7 +100,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbStrSave"
                     value={this.props.hbStrSave}
                     onChange={this.props.handleInputChange}
-                    placeholder="strength save"
+                    placeholder="Strength Save"
                 />
                 <input
                     className="homebrew-monster-input number"
@@ -108,7 +108,7 @@ class HomeBrewMonsterForm extends React.Component {
                     name="hbWisSave"
                     value={this.props.hbWisSave}
                     onChange={this.props.handleInputChange}
-                    placeholder="wisdom save"
+                    placeholder="Wisdom Save"
                 />
                 <button className="homebrew-monster-button" type="submit">Submit Homebrew Monster</button>
                 </form>

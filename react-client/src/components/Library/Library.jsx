@@ -5,7 +5,13 @@ import HomeBrewMonsterForm from '../HomeBrewMonsterForm/HomeBrewMonsterForm.jsx'
 import './Library.css';
 
 const Library = props => {
-  let { currentTab, srdList, homebrewList, switchTab } = props;
+  let {
+    currentTab,
+    srdList,
+    homebrewList,
+    addActorToEncounter,
+    switchTab
+  } = props;
   return (
     <div className="superLibrary">
       <button className="SRDButton" onClick={() => switchTab('srd')}>
@@ -15,9 +21,17 @@ const Library = props => {
         Homebrew
       </button>
       <div className="creatureList">
-        {currentTab === 'srd' && <SRDMonsters srdList={srdList} />}
+        {currentTab === 'srd' && (
+          <SRDMonsters
+            srdList={srdList}
+            addActorToEncounter={addActorToEncounter}
+          />
+        )}
         {currentTab === 'homebrew' && (
-          <HomebrewMonsters homebrewList={homebrewList} />
+          <HomebrewMonsters
+            homebrewList={homebrewList}
+            addActorToEncounter={addActorToEncounter}
+          />
         )}
       </div>
       {props.user && (

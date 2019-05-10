@@ -2,8 +2,18 @@
   padding: 3px 2px 3px 2px;
 }
 
+.monsterBox:hover {
+  cursor: pointer;
+  background: #292929;
+  color: white;
+}
+
 .monsterBox:nth-child(even) {
   background: rgb(0, 0, 0, 0.25);
+}
+
+.monsterBox:nth-child(even):hover {
+  background: #292929;
 }
 
 .monsterRow {
