@@ -55,145 +55,10 @@ class App extends React.Component {
       password: '',
       user: undefined,
       currentTab: 'srd',
-      srdMonsters: [
-        {
-          name: 'goblin',
-          maxHP: 50,
-          chaSave: 1,
-          conSave: 2,
-          dexSave: 3,
-          intSave: 4,
-          strSave: 5,
-          wisSave: 6,
-          armorClass: 7,
-          initMod: 0
-        },
-        {
-          name: 'wolf',
-          maxHP: 25,
-          chaSave: 2,
-          conSave: 2,
-          dexSave: 2,
-          intSave: 2,
-          strSave: 2,
-          wisSave: 2,
-          armorClass: 0,
-          initMod: 5
-        },
-        {
-          name: 'ghost',
-          maxHP: 60,
-          chaSave: 0,
-          conSave: 0,
-          dexSave: 0,
-          intSave: 0,
-          strSave: 0,
-          wisSave: 8,
-          armorClass: 9,
-          initMod: 10
-        },
-        {
-          name: 'dragon',
-          maxHP: 250,
-          chaSave: 1,
-          conSave: 10,
-          dexSave: 4,
-          intSave: 4,
-          strSave: 5,
-          wisSave: 6,
-          armorClass: 20,
-          initMod: 0
-        }
-      ],
-      homebrewMonsters: [
-        {
-          name: 'custom goblin',
-          maxHP: 50,
-          chaSave: 1,
-          conSave: 2,
-          dexSave: 3,
-          intSave: 4,
-          strSave: 5,
-          wisSave: 6,
-          armorClass: 7,
-          initMod: 0
-        },
-        {
-          name: 'custom wolf',
-          maxHP: 25,
-          chaSave: 2,
-          conSave: 2,
-          dexSave: 2,
-          intSave: 2,
-          strSave: 2,
-          wisSave: 2,
-          armorClass: 0,
-          initMod: 5
-        },
-        {
-          name: 'custom ghost',
-          maxHP: 60,
-          chaSave: 0,
-          conSave: 0,
-          dexSave: 0,
-          intSave: 0,
-          strSave: 0,
-          wisSave: 8,
-          armorClass: 9,
-          initMod: 10
-        },
-        {
-          name: 'custom dragon',
-          maxHP: 250,
-          chaSave: 1,
-          conSave: 10,
-          dexSave: 4,
-          intSave: 4,
-          strSave: 5,
-          wisSave: 6,
-          armorClass: 20,
-          initMod: 0
-        }
-      ],
-      partyMembers: [
-        {
-          armorClass: 18,
-          chaSave: 2,
-          conSave: 2,
-          dexSave: 2,
-          initMod: 2,
-          initSave: -1,
-          maxHP: 24,
-          name: 'Brandon',
-          owner: 'Xk8vbEOI46Ydd8B0VzWaQ6qzkx42',
-          strSave: 1,
-          wisSave: 5
-        }
-      ],
-      encounters: [
-        {
-          activePosition: 0,
-          actors: [
-            {
-              armorClass: 16,
-              currentHP: 20,
-              initiative: 20,
-              maxHP: 24,
-              name: 'Brandon',
-              position: 0
-            },
-            {
-              currentHP: 13,
-              initiative: 18,
-              maxHP: 24,
-              name: 'Tracer',
-              position: 1
-            }
-          ],
-          numTurns: 0,
-          owner: 'Xk8vbEOI46Ydd8B0VzWaQ6qzkx42'
-        }
-      ],
+      srdMonsters: [],
+      homebrewMonsters: [],
+      partyMembers: [],
+      encounters: [],
       activeEncounter: 0,
       hbAC: '',
       hbChaSave: '',
@@ -222,6 +87,7 @@ class App extends React.Component {
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
+    this.saveEncounter = this.saveEncounter.bind(this);
   }
 
   componentDidMount() {
@@ -238,7 +104,14 @@ class App extends React.Component {
         this.setState({
           homebrewMonsters: [],
           partyMembers: [],
-          encounters: []
+          encounters: [
+            {
+              actors: [],
+              activePosition: 0,
+              numTurns: 0,
+              owner: ''
+            }
+          ]
         });
       }
     });
@@ -282,11 +155,19 @@ class App extends React.Component {
       .then(snapshot => {
         if (snapshot.empty) {
           console.log('no user owned encounters in database');
-          return [];
+          return [
+            {
+              actors: [],
+              activePosition: 0,
+              numTurns: 0,
+              owner: this.state.user.uid
+            }
+          ];
         }
         let resultsArr = [];
         snapshot.forEach(doc => {
           let data = doc.data();
+          data.id = doc.id;
           resultsArr.push(data);
         });
         return resultsArr;
@@ -361,46 +242,44 @@ class App extends React.Component {
   }
 
   handleLogIn() {
-    // auth
-    //   .signInWithEmailAndPassword(this.state.email, this.state.password)
-    //   .then(() =>
-    //     this.setState({
-    //       email: '',
-    //       password: ''
-    //     })
-    //   )
-    //   .catch(err => console.log(err));
+    auth
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() =>
+        this.setState({
+          email: '',
+          password: ''
+        })
+      )
+      .catch(err => console.log(err));
   }
 
   handleLogOut() {
-    // auth.signOut().then(() => {
-    //   this.setState({
-    //     email: '',
-    //     password: '',
-    //     user: undefined
-    //   });
-    // });
+    auth.signOut().then(() => {
+      this.setState({
+        email: '',
+        password: '',
+        user: undefined
+      });
+    });
   }
 
   handleSignUp() {
-    //TODO: validate real email
-    // auth
-    //   .createUserWithEmailAndPassword(this.state.email, this.state.password)
-    //   .then(() => {
-    //     this.setState({
-    //       email: '',
-    //       password: ''
-    //     });
-    //   })
-    //   .catch(err => {
-    //     alert(err.message);
-    //   });
+    // TODO: validate real email
+    auth
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => {
+        this.setState({
+          email: '',
+          password: ''
+        });
+      })
+      .catch(err => {
+        alert(err.message);
+      });
   }
 
   addActorToEncounter(actor) {
-    console.log(actor);
     actor.currentHP = actor.maxHP;
-    console.log('in add actor to encounter');
     let tempEncounters = this.state.encounters.slice();
     tempEncounters[this.state.activeEncounter].actors.push(actor);
     this.setState({
@@ -409,14 +288,14 @@ class App extends React.Component {
   }
 
   addToPartyMembers(obj) {
-    // db.collection('party_members')
-    //   .add(obj)
-    //   .then(() => {
-    //     console.log('Added to Party Members');
-    //   })
-    //   .catch(err =>
-    //     console.log('error adding character to Party Members', err)
-    //   );
+    db.collection('party_members')
+      .add(obj)
+      .then(() => {
+        console.log('Added to Party Members');
+      })
+      .catch(err =>
+        console.log('error adding character to Party Members', err)
+      );
   }
 
   onDragEnd(result) {
@@ -481,6 +360,21 @@ class App extends React.Component {
     this.setState({
       encounters: tempEncounters
     });
+  }
+
+  saveEncounter() {
+    let temp = this.state.encounters[this.state.activeEncounter];
+    console.log(temp);
+    if (temp.id) {
+      let docID = temp.id;
+      delete temp.id;
+      db.collection('encounters')
+        .doc(docID)
+        .set(temp)
+        .catch(err => console.log('error saving encounter', err));
+    } else {
+      db.collection('encounters').add(temp);
+    }
   }
 
   render() {
@@ -577,9 +471,11 @@ class App extends React.Component {
                 activeEncounter={this.state.activeEncounter}
                 switchTurn={this.switchTurn}
                 sort={this.sort}
+                saveEncounter={this.saveEncounter}
               />
               <PartyMembers
                 partyMembers={this.state.partyMembers}
+                addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
               />
               <SavedEncounters />

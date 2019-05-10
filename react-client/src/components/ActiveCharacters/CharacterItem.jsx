@@ -8,7 +8,6 @@ class CharacterItem extends React.Component {
   }
 
   render() {
-    console.log(this.props.currentTurn);
     return (
       <Draggable
         draggableId={this.props.character.name}

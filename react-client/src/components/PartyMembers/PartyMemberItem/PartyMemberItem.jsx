@@ -1,11 +1,11 @@
 import React from 'react';
 import './PartyMemberItem.css';
-import {Draggable} from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 
 class PartyMemberItem extends React.Component {
-	constructor(props) {
-			super(props);
-	}
+  constructor(props) {
+    super(props);
+  }
 
   render() {
 		return(
@@ -19,7 +19,6 @@ class PartyMemberItem extends React.Component {
 			</div>
 		);
   }
-
 }
 
 export default PartyMemberItem;
