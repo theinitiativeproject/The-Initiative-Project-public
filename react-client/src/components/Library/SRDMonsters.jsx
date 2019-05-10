@@ -3,11 +3,11 @@ import MonsterEntry from './MonsterEntry.jsx';
 import './SRDMonsters.css';
 
 const SRDMonsters = props => {
-  let { srdList } = props;
+  let { srdList, addActorToEncounter } = props;
   return (
     <ul className="SRDCreatures">
       {srdList.map(entry => (
-        <MonsterEntry entry={entry} />
+        <MonsterEntry entry={entry} addActorToEncounter={addActorToEncounter} />
       ))}
     </ul>
   );
