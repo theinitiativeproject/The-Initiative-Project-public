@@ -87,6 +87,7 @@ class App extends React.Component {
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
+    this.saveEncounter = this.saveEncounter.bind(this);
   }
 
   componentDidMount() {
@@ -166,6 +167,7 @@ class App extends React.Component {
         let resultsArr = [];
         snapshot.forEach(doc => {
           let data = doc.data();
+          data.id = doc.id;
           resultsArr.push(data);
         });
         return resultsArr;
@@ -277,9 +279,7 @@ class App extends React.Component {
   }
 
   addActorToEncounter(actor) {
-    console.log(actor);
     actor.currentHP = actor.maxHP;
-    console.log('in add actor to encounter');
     let tempEncounters = this.state.encounters.slice();
     tempEncounters[this.state.activeEncounter].actors.push(actor);
     this.setState({
@@ -288,14 +288,14 @@ class App extends React.Component {
   }
 
   addToPartyMembers(obj) {
-    // db.collection('party_members')
-    //   .add(obj)
-    //   .then(() => {
-    //     console.log('Added to Party Members');
-    //   })
-    //   .catch(err =>
-    //     console.log('error adding character to Party Members', err)
-    //   );
+    db.collection('party_members')
+      .add(obj)
+      .then(() => {
+        console.log('Added to Party Members');
+      })
+      .catch(err =>
+        console.log('error adding character to Party Members', err)
+      );
   }
 
   onDragEnd(result) {
@@ -360,6 +360,17 @@ class App extends React.Component {
     this.setState({
       encounters: tempEncounters
     });
+  }
+
+  saveEncounter() {
+    let temp = this.state.encounters[this.state.activeEncounter];
+    console.log(temp);
+    let docID = temp.id;
+    delete temp.id;
+    db.collection('encounters')
+      .doc(docID)
+      .set(temp)
+      .catch(err => console.log('error saving encounter', err));
   }
 
   render() {
@@ -456,6 +467,7 @@ class App extends React.Component {
                 activeEncounter={this.state.activeEncounter}
                 switchTurn={this.switchTurn}
                 sort={this.sort}
+                saveEncounter={this.saveEncounter}
               />
               <PartyMembers
                 partyMembers={this.state.partyMembers}
