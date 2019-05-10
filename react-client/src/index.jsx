@@ -103,7 +103,14 @@ class App extends React.Component {
         this.setState({
           homebrewMonsters: [],
           partyMembers: [],
-          encounters: []
+          encounters: [
+            {
+              actors: [],
+              activePosition: 0,
+              numTurns: 0,
+              owner: ''
+            }
+          ]
         });
       }
     });
@@ -147,7 +154,14 @@ class App extends React.Component {
       .then(snapshot => {
         if (snapshot.empty) {
           console.log('no user owned encounters in database');
-          return [];
+          return [
+            {
+              actors: [],
+              activePosition: 0,
+              numTurns: 0,
+              owner: this.state.user.uid
+            }
+          ];
         }
         let resultsArr = [];
         snapshot.forEach(doc => {
