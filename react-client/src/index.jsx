@@ -216,7 +216,9 @@ class App extends React.Component {
     this.addActorToEncounter = this.addActorToEncounter.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
+      this
+    );
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
@@ -557,7 +559,7 @@ class App extends React.Component {
                 homebrewList={this.state.homebrewMonsters}
                 addActorToEncounter={this.addActorToEncounter}
                 switchTab={this.switchTab}
-                handleInputChange={this.handleInputChange} 
+                handleInputChange={this.handleInputChange}
                 firestoreAddHomebrewMonster={this.firestoreAddHomebrewMonster}
                 hbAC={this.state.hbAC}
                 hbChaSave={this.state.hbChaSave}
@@ -582,6 +584,7 @@ class App extends React.Component {
               />
               <PartyMembers
                 partyMembers={this.state.partyMembers}
+                addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
               />
             </div>
