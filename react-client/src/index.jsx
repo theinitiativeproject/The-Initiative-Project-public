@@ -58,7 +58,14 @@ class App extends React.Component {
       srdMonsters: [],
       homebrewMonsters: [],
       partyMembers: [],
-      encounters: [],
+      encounters: [
+        {
+          actors: [],
+          activePosition: 0,
+          numTurns: 0,
+          owner: ''
+        }
+      ],
       activeEncounter: 0,
       hbAC: '',
       hbChaSave: '',
@@ -474,6 +481,9 @@ class App extends React.Component {
                 saveEncounter={this.saveEncounter}
               />
               <PartyMembers
+                currentEncounter={
+                  this.state.encounters[this.state.activeEncounter].actors
+                }
                 partyMembers={this.state.partyMembers}
                 addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
