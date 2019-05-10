@@ -8,6 +8,7 @@ class Encounter extends React.Component {
   }
 
   render() {
+    console.log(this.props.encounters[this.props.activeEncounter]);
     return (
       <div className="encounterWrapper">
         <div className="encounterWrapperHeader">
@@ -20,7 +21,11 @@ class Encounter extends React.Component {
               />
             </button>
           </span>
-          <h1>Main Encounter</h1>
+          <h1>
+            {this.props.encounters[this.props.activeEncounter]
+              ? this.props.encounters[this.props.activeEncounter].encounterName
+              : 'Main encounter'}
+          </h1>
           <span className="next-button">
             <button onClick={this.props.sort}>
               <img
