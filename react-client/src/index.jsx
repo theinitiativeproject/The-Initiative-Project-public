@@ -4,6 +4,7 @@ import Encounter from './components/Encounter/Encounter.jsx';
 import Library from './components/Library/Library.jsx';
 import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
 import SavedEncounters from './components/Encounter/SavedEncounters/SavedEncounters.jsx';
+import RollInitiative from './components/Utilities/RollInitiative/RollInitiative.jsx';
 import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -443,6 +444,7 @@ class App extends React.Component {
           >
             <div className="darkWrapper" />
             <div className="mainWrapper">
+              <RollInitiative />
               <Library
                 currentTab={this.state.currentTab}
                 srdList={this.state.srdMonsters}

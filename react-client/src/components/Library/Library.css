@@ -44,7 +44,9 @@
 
 .creatureList {
   position: relative;
-  width: 380px;
+  width: auto;
+  min-width: 300px;
+  max-width: 380px;
   max-height: 50vh;
   overflow-y: auto;
 }
