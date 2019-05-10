@@ -49,8 +49,39 @@ class App extends React.Component {
       currentTab: 'srd',
       srdMonsters: [],
       homebrewMonsters: [],
-      partyMembers: [],
-      encounters: [],
+      partyMembers: [{
+        armorClass : 18,
+        chaSave : 2,
+        conSave : 2,
+        dexSave : 2,
+        initMod : 2, 
+        initSave : -1,
+        maxHP : 24,
+        name : "Brandon",
+        owner : "Xk8vbEOI46Ydd8B0VzWaQ6qzkx42",
+        strSave : 1,
+        wisSave : 5
+      }],
+      encounters: [{ 
+        activePosition : 0, 
+        actors : [{
+          armorclass: 16,
+          currentHP: 20, 
+          initiative : 20, 
+          maxHP : 24, 
+          name : "Brandon",
+          position : 0
+        },
+        {
+          currentHP: 13, 
+          initiative : 18, 
+          maxHP : 24, 
+          name : "Tracer",
+          position : 1
+        }],
+        numTurns : 0,
+        owner : "Xk8vbEOI46Ydd8B0VzWaQ6qzkx42"
+      }],
       activeEncounter: 0,
       hbAC: '',
       hbChaSave: '',
@@ -76,6 +107,7 @@ class App extends React.Component {
     this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
       this
     );
+    this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
   }
 
@@ -297,6 +329,18 @@ class App extends React.Component {
     });
   }
 
+  switchTurn() {
+    let temp = this.state.encounters.slice();
+    temp[this.state.activeEncounter].activePosition++;
+    if(temp[this.state.activeEncounter].activePosition === temp[this.state.activeEncounter].actors.length){
+      temp[this.state.activeEncounter].activePosition = 0;
+    }
+    
+    this.setState({
+      encounters : temp
+    })
+  }
+
   switchTab(newTab) {
     this.setState({
       currentTab: newTab
@@ -372,6 +416,7 @@ class App extends React.Component {
                 addActorToEncounter={this.addActorToEncounter} 
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
+                switchTurn={this.switchTurn}
               />
               <PartyMembers 
                 partyMembers={this.state.partyMembers}  

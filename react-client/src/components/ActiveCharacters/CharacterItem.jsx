@@ -8,6 +8,7 @@ class CharacterItem extends React.Component {
   }
 
   render() {
+    console.log(this.props.currentTurn);
     return (
       <Draggable
         draggableId={this.props.character.name}
@@ -17,15 +18,13 @@ class CharacterItem extends React.Component {
           <div
             className={
               'character-item-wrapper ' +
-              (this.props.character.npc ? 'character-npc' : '')
+              (this.props.character.npc ? 'character-npc ' : '') + 
+              (this.props.currentTurn === this.props.index ? 'currentTurn' : '')
             }
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            style={this.props.getItemStyle(
-              snapshot.isDragging,
-              provided.draggableProps.style
-            )}
+            
           >
             <span className="character-level">
               {this.props.character.initiative || '?'}
