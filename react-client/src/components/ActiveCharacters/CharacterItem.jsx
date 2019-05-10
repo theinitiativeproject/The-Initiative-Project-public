@@ -18,16 +18,17 @@ class CharacterItem extends React.Component {
           <div
             className={
               'character-item-wrapper ' +
-              (this.props.character.npc ? 'character-npc ' : '') + 
+              (this.props.character.npc ? 'character-npc ' : '') +
               (this.props.currentTurn === this.props.index ? 'currentTurn' : '')
             }
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            
           >
             <span className="character-level">
-              {this.props.character.initiative || '?'}
+              {typeof this.props.character.initiative === 'number'
+                ? this.props.character.initiative
+                : '?'}
             </span>
             <span className="character-name">{this.props.character.name}</span>
             <span className="character-description-wrapper">

@@ -27,7 +27,15 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-var images = ['background1.jpg', 'background2.jpg', 'background3.jpg', 'background4.jpg', 'background5.jpg', 'background6.jpg', 'background7.jpg'];
+var images = [
+  'background1.jpg',
+  'background2.jpg',
+  'background3.jpg',
+  'background4.jpg',
+  'background5.jpg',
+  'background6.jpg',
+  'background7.jpg'
+];
 var currImg = images[Math.floor(Math.random() * images.length)];
 
 // a little function to help us with reordering the result
@@ -49,39 +57,45 @@ class App extends React.Component {
       currentTab: 'srd',
       srdMonsters: [],
       homebrewMonsters: [],
-      partyMembers: [{
-        armorClass : 18,
-        chaSave : 2,
-        conSave : 2,
-        dexSave : 2,
-        initMod : 2, 
-        initSave : -1,
-        maxHP : 24,
-        name : "Brandon",
-        owner : "Xk8vbEOI46Ydd8B0VzWaQ6qzkx42",
-        strSave : 1,
-        wisSave : 5
-      }],
-      encounters: [{ 
-        activePosition : 0, 
-        actors : [{
-          armorClass: 16,
-          currentHP: 20, 
-          initiative : 20, 
-          maxHP : 24, 
-          name : "Brandon",
-          position : 0
-        },
+      partyMembers: [
         {
-          currentHP: 13, 
-          initiative : 18, 
-          maxHP : 24, 
-          name : "Tracer",
-          position : 1
-        }],
-        numTurns : 0,
-        owner : "Xk8vbEOI46Ydd8B0VzWaQ6qzkx42"
-      }],
+          armorClass: 18,
+          chaSave: 2,
+          conSave: 2,
+          dexSave: 2,
+          initMod: 2,
+          initSave: -1,
+          maxHP: 24,
+          name: 'Brandon',
+          owner: 'Xk8vbEOI46Ydd8B0VzWaQ6qzkx42',
+          strSave: 1,
+          wisSave: 5
+        }
+      ],
+      encounters: [
+        {
+          activePosition: 0,
+          actors: [
+            {
+              armorClass: 16,
+              currentHP: 20,
+              initiative: 20,
+              maxHP: 24,
+              name: 'Brandon',
+              position: 0
+            },
+            {
+              currentHP: 13,
+              initiative: 18,
+              maxHP: 24,
+              name: 'Tracer',
+              position: 1
+            }
+          ],
+          numTurns: 0,
+          owner: 'Xk8vbEOI46Ydd8B0VzWaQ6qzkx42'
+        }
+      ],
       activeEncounter: 0,
       hbAC: '',
       hbChaSave: '',
@@ -109,6 +123,7 @@ class App extends React.Component {
     );
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
+    this.sort = this.sort.bind(this);
   }
 
   componentDidMount() {
@@ -332,18 +347,45 @@ class App extends React.Component {
   switchTurn() {
     let temp = this.state.encounters.slice();
     temp[this.state.activeEncounter].activePosition++;
-    if(temp[this.state.activeEncounter].activePosition === temp[this.state.activeEncounter].actors.length){
+    if (
+      temp[this.state.activeEncounter].activePosition ===
+      temp[this.state.activeEncounter].actors.length
+    ) {
       temp[this.state.activeEncounter].activePosition = 0;
     }
-    
+
     this.setState({
-      encounters : temp
-    })
+      encounters: temp
+    });
   }
 
   switchTab(newTab) {
     this.setState({
       currentTab: newTab
+    });
+  }
+
+  sort() {
+    let temp = this.state.encounters[this.state.activeEncounter].actors.slice();
+    temp.sort((a, b) => {
+      if (
+        typeof a.initiative === 'number' &&
+        typeof b.initiative === 'number'
+      ) {
+        return b.initiative - a.initiative;
+      } else if (typeof a.initiative === 'number') {
+        return -1;
+      } else if (typeof b.initiative === 'number') {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    let tempEncounters = this.state.encounters.slice();
+    tempEncounters[this.state.activeEncounter].actors = temp;
+    this.setState({
+      encounters: tempEncounters
     });
   }
 
@@ -401,8 +443,17 @@ class App extends React.Component {
               </button>
             </div>
           )}
-          <div className="appWrapper" style={{ 'backgroundImage': 'url(https://s3.amazonaws.com/the-initiative-project/' + currImg + ')', 'backgroundSize' : 'cover' }}>
-            <div className="darkWrapper"></div>
+          <div
+            className="appWrapper"
+            style={{
+              backgroundImage:
+                'url(https://s3.amazonaws.com/the-initiative-project/' +
+                currImg +
+                ')',
+              backgroundSize: 'cover'
+            }}
+          >
+            <div className="darkWrapper" />
             <div className="mainWrapper">
               <Library
                 currentTab={this.state.currentTab}
@@ -410,17 +461,19 @@ class App extends React.Component {
                 homebrewList={this.state.homebrewMonsters}
                 switchTab={this.switchTab}
               />
-              <Encounter 
-                encounters={this.state.encounters} 
-                partyMembers={this.state.partyMembers} 
-                addActorToEncounter={this.addActorToEncounter} 
+              <Encounter
+                encounters={this.state.encounters}
+                partyMembers={this.state.partyMembers}
+                addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
                 switchTurn={this.switchTurn}
+                sort={this.sort}
               />
-              <PartyMembers 
-                partyMembers={this.state.partyMembers}  
-                onDragEnd={this.onDragEnd}/>
+              <PartyMembers
+                partyMembers={this.state.partyMembers}
+                onDragEnd={this.onDragEnd}
+              />
             </div>
           </div>
           {this.state.user && (
