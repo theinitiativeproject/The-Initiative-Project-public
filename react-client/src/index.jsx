@@ -245,116 +245,112 @@ class App extends React.Component {
   }
 
   firestoreAddHomebrewMonster(monster, uid = null) {
-    // if (!uid) {
-    //   alert('can not save monster while not logged in');
-    // } else {
-    //   monster.owner = uid;
-    //   db.collection('homebrew_monsters')
-    //     .add(monster)
-    //     .then(() => console.log('monster added successfully'))
-    //     .then(() => {
-    //       this.setState({
-    //         hbAC: '',
-    //         hbChaSave: '',
-    //         hbConSave: '',
-    //         hbDexSave: '',
-    //         hbMaxHP: '',
-    //         hbInitMod: '',
-    //         hbIntSave: '',
-    //         hbName: '',
-    //         hbStrSave: '',
-    //         hbWisSave: ''
-    //       });
-    //     })
-    //     .then(() => {
-    //       let hbMonsters = this.state.homebrewMonsters.slice();
-    //       hbMonsters.push(monster);
-    //       this.setState({ homebrewMonsters: hbMonsters });
-    //     })
-    //     .catch(err => console.log(err));
-    // }
+    if (!uid) {
+      alert('can not save monster while not logged in');
+    } else {
+      monster.owner = uid;
+      db.collection('homebrew_monsters')
+        .add(monster)
+        .then(() => console.log('monster added successfully'))
+        .then(() => {
+          this.setState({
+            hbAC: '',
+            hbChaSave: '',
+            hbConSave: '',
+            hbDexSave: '',
+            hbMaxHP: '',
+            hbInitMod: '',
+            hbIntSave: '',
+            hbName: '',
+            hbStrSave: '',
+            hbWisSave: ''
+          });
+        })
+        .then(() => {
+          let hbMonsters = this.state.homebrewMonsters.slice();
+          hbMonsters.push(monster);
+          this.setState({ homebrewMonsters: hbMonsters });
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   retrieveEncounters(uid) {
-    // db.collection('encounters')
-    //   .where('owner', '==', uid)
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('no user owned encounters in database');
-    //       return [];
-    //     }
-    //     let resultsArr = [];
-    //     snapshot.forEach(doc => {
-    //       let data = doc.data();
-    //       resultsArr.push(data);
-    //     });
-    //     return resultsArr;
-    //   })
-    //   .then(resultsArr => this.setState({ encounters: resultsArr }))
-    //   .catch(err => console.log('error retrieving encounters', err));
+    db.collection('encounters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned encounters in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ encounters: resultsArr }))
+      .catch(err => console.log('error retrieving encounters', err));
   }
 
   retrievePartyMembers(uid) {
-    // db.collection('party_members')
-    //   .where('owner', '==', uid)
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('no user owned party members in database');
-    //       return [];
-    //     }
-    //     let resultsArr = [];
-    //     snapshot.forEach(doc => {
-    //       let data = doc.data();
-    //       resultsArr.push(data);
-    //     });
-    //     return resultsArr;
-    //   })
-    //   .then(resultsArr => this.setState({ partyMembers: resultsArr }))
-    //   .catch(err => console.log('error retrieving party members', err));
+    db.collection('party_members')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned party members in database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ partyMembers: resultsArr }))
+      .catch(err => console.log('error retrieving party members', err));
   }
 
   retrieveHomebrewMonsters(uid) {
-    // db.collection('homebrew_monsters')
-    //   .where('owner', '==', uid)
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('no user owned monsters in homebrew database');
-    //       return [];
-    //     }
-    //     let resultsArr = [];
-    //     snapshot.forEach(doc => {
-    //       let data = doc.data();
-    //       resultsArr.push(data);
-    //     });
-    //     return resultsArr;
-    //   })
-    //   .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }))
-    //   .catch(err => console.log('error retrieving homebrew monsters', err));
+    db.collection('homebrew_monsters')
+      .where('owner', '==', uid)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no user owned monsters in homebrew database');
+          return [];
+        }
+        let resultsArr = [];
+        snapshot.forEach(doc => {
+          let data = doc.data();
+          resultsArr.push(data);
+        });
+        return resultsArr;
+      })
+      .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }))
+      .catch(err => console.log('error retrieving homebrew monsters', err));
   }
 
   retrieveSRDMonsters() {
-    // db.collection('srd_monsters')
-    //   .where('name', '>=', '')
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('no monsters in SRD database');
-    //       return;
-    //     }
-    //     let resultsArr = [];
-    //     snapshot.forEach(doc => {
-    //       let data = doc.data();
-    //       resultsArr.push(data);
-    //     });
-    //     return resultsArr;
-    //   })
-    //   .then(resultsArr => {
-    //     this.setState({ srdMonsters: resultsArr });
-    //   })
-    //   .catch(err => console.log('error retrieving SRD monsters', err));
+    db.collection('srd_monsters_bulk')
+      .doc('ef0QmjoiFkM9qdwdiiL5')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no monsters in SRD database');
+          return;
+        }
+        let resultsArr = snapshot.data().monsters;
+        return resultsArr;
+      })
+      .then(resultsArr => {
+        this.setState({ srdMonsters: resultsArr });
+      })
+      .catch(err => console.log('error retrieving SRD monsters', err));
   }
 
   handleInputChange(e) {

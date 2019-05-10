@@ -22,20 +22,18 @@ class Encounter extends React.Component {
           </span>
           <h1>Main Encounter</h1>
           <span className="next-button">
-            <button>
+            <button onClick={this.props.sort}>
               <img
                 width="20"
                 height="20"
                 src="https://s3.amazonaws.com/the-initiative-project/sort.svg"
-                onClick={this.props.sort}
               />
             </button>
-            <button>
+            <button onClick={this.props.switchTurn}>
               <img
                 width="20"
                 height="20"
                 src="https://s3.amazonaws.com/the-initiative-project/play.svg"
-                onClick={this.props.switchTurn}
               />
             </button>
           </span>
