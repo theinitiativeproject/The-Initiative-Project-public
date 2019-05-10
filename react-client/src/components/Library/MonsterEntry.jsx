@@ -33,8 +33,8 @@ const MonsterEntry = props => {
               className="HPAicon"
               width="20"
               height="20"
-              src="https://s3.amazonaws.com/the-initiative-project/little-health.svg"
-            />{' '}
+              src="https://s3.amazonaws.com/the-initiative-project/favorite.svg"
+            />
             : {entry.maxHP}
           </span>
           <span className="HPAflex">
@@ -43,7 +43,7 @@ const MonsterEntry = props => {
               width="20"
               height="20"
               src="https://s3.amazonaws.com/the-initiative-project/dark-shield.svg"
-            />{' '}
+            />
             : {entry.armorClass}
           </span>
         </div>
