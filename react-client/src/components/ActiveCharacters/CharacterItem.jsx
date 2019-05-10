@@ -9,6 +9,12 @@ class CharacterItem extends React.Component {
     this.state = {
       showDetails : false
     };
+
+    this.toggleDetails = this.toggleDetails.bind(this);
+  }
+
+  toggleDetails() {
+    this.setState({ showDetails: !this.state.showDetails });
   }
 
   render() {
@@ -25,6 +31,8 @@ class CharacterItem extends React.Component {
               (this.props.character.npc ? 'character-npc ' : '') +
               (this.props.currentTurn === this.props.index ? 'currentTurn' : '')
             }
+
+            onClick={this.toggleDetails}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -60,17 +68,17 @@ class CharacterItem extends React.Component {
                 )}
               </span>
             </div>
-            <div className="character-item-summary-wrapper" style={{ display : (this.state.showDetails ? 'none': 'block') }}>
+            <div className="character-item-summary-wrapper" style={{ display : (this.state.showDetails ? 'block': 'none') }}>
                 <div className="character-item-summary-info">
                   <div className="character-item-summary-col">
-                    <span>Strength Save: {}</span>
-                    <span>Dexterity Save: {}</span>
-                    <span>Constitution Save: {}</span>
+                    <span>Strength Save: {this.props.character.strSave || 0}</span>
+                    <span>Dexterity Save: {this.props.character.dexSave || 0}</span>
+                    <span>Constitution Save: {this.props.character.conSave || 0}</span>
                   </div>
                   <div className="character-item-summary-col">
-                    <span>Intelligence Save: {}</span>
-                    <span>Wisdom Save: {}</span>
-                    <span>Charisma Save: {}</span>
+                    <span>Intelligence Save: {this.props.character.intSave || 0}</span>
+                    <span>Wisdom Save: {this.props.character.wisSave || 0}</span>
+                    <span>Charisma Save: {this.props.character.chaSave || 0}</span>
                   </div>
                 </div>
             </div>
