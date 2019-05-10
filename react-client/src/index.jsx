@@ -4,6 +4,7 @@ import Encounter from './components/Encounter/Encounter.jsx';
 import Library from './components/Library/Library.jsx';
 import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
 import SavedEncounters from './components/Encounter/SavedEncounters/SavedEncounters.jsx';
+import RollInitiative from './components/Utilities/RollInitiative/RollInitiative.jsx';
 import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -58,7 +59,14 @@ class App extends React.Component {
       srdMonsters: [],
       homebrewMonsters: [],
       partyMembers: [],
-      encounters: [],
+      encounters: [
+        {
+          actors: [],
+          activePosition: 0,
+          numTurns: 0,
+          owner: ''
+        }
+      ],
       activeEncounter: 0,
       hbAC: '',
       hbChaSave: '',
@@ -450,6 +458,7 @@ class App extends React.Component {
           >
             <div className="darkWrapper" />
             <div className="mainWrapper">
+              <RollInitiative />
               <Library
                 currentTab={this.state.currentTab}
                 srdList={this.state.srdMonsters}
@@ -481,6 +490,9 @@ class App extends React.Component {
                 saveEncounter={this.saveEncounter}
               />
               <PartyMembers
+                currentEncounter={
+                  this.state.encounters[this.state.activeEncounter].actors
+                }
                 partyMembers={this.state.partyMembers}
                 addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
