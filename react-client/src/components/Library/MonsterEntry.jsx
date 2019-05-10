@@ -2,9 +2,9 @@ import React from 'react';
 import './MonsterEntry.css';
 
 const MonsterEntry = props => {
-  let { entry } = props;
+  let { entry, addActorToEncounter } = props;
   return (
-    <li className="monsterBox">
+    <li className="monsterBox" onClick={() => addActorToEncounter(entry)}>
       <div className="monsterRow">
         <div>
           <span className="monsterName">{entry.name}</span>
