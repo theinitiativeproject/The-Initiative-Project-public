@@ -1,6 +1,14 @@
 body, html {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+}
+
+#app {
+    height: 100vh;
+    width: 100vh;
     margin: 0;
     padding: 0;
 }
@@ -8,7 +16,6 @@ body, html {
 .signInPanelWrapper {
     font-family: 'Roboto Condensed', sans-serif;
     position: absolute;
-    padding: 5px;
     margin: 0;
     width: 100%;
     height: 55px;
@@ -65,16 +72,16 @@ body, html {
 
 .appWrapper {
     width: 100%;
-    min-height: 100vh;
+    height: 94.35vh;
     z-index: 0;
 }
 
 .darkWrapper {
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 94.35vh;
     background-color: rgba(0, 0, 0, 0.6);
-    top: 60px; 
+    top: 55px; 
     left: 0;
     right: 0;
     bottom: 0;
