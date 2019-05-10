@@ -35,16 +35,14 @@ class ActiveCharacterList extends React.Component {
                 className="encounter-character-list"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-               
               >
                 {this.props.encounter &&
                   this.props.encounter.actors.map((character, index) => (
-					<CharacterItem
-					  currentTurn={this.props.encounter.activePosition}
+                    <CharacterItem
+                      currentTurn={this.props.encounter.activePosition}
                       key={index}
                       character={character}
                       index={index}
-                      
                     />
                   ))}
                 {provided.placeholder}
