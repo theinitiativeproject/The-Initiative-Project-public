@@ -334,25 +334,22 @@ class App extends React.Component {
   }
 
   retrieveSRDMonsters() {
-    // db.collection('srd_monsters')
-    //   .where('name', '>=', '')
-    //   .get()
-    //   .then(snapshot => {
-    //     if (snapshot.empty) {
-    //       console.log('no monsters in SRD database');
-    //       return;
-    //     }
-    //     let resultsArr = [];
-    //     snapshot.forEach(doc => {
-    //       let data = doc.data();
-    //       resultsArr.push(data);
-    //     });
-    //     return resultsArr;
-    //   })
-    //   .then(resultsArr => {
-    //     this.setState({ srdMonsters: resultsArr });
-    //   })
-    //   .catch(err => console.log('error retrieving SRD monsters', err));
+    db.collection('srd_monsters_bulk')
+      .doc('ef0QmjoiFkM9qdwdiiL5')
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          console.log('no monsters in SRD database');
+          return;
+        }
+        let resultsArr = snapshot.data().monsters;
+        return resultsArr;
+      })
+      .then(resultsArr => {
+        this.setState({ srdMonsters: resultsArr });
+      })
+      .catch(err => console.log('error retrieving SRD monsters', err));
+
   }
 
   handleInputChange(e) {
