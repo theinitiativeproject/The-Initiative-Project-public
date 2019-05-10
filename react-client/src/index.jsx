@@ -365,12 +365,16 @@ class App extends React.Component {
   saveEncounter() {
     let temp = this.state.encounters[this.state.activeEncounter];
     console.log(temp);
-    let docID = temp.id;
-    delete temp.id;
-    db.collection('encounters')
-      .doc(docID)
-      .set(temp)
-      .catch(err => console.log('error saving encounter', err));
+    if (temp.id) {
+      let docID = temp.id;
+      delete temp.id;
+      db.collection('encounters')
+        .doc(docID)
+        .set(temp)
+        .catch(err => console.log('error saving encounter', err));
+    } else {
+      db.collection('encounters').add(temp);
+    }
   }
 
   render() {
