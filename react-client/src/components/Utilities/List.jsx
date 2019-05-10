@@ -21,23 +21,12 @@ class List extends React.Component {
     
 	render() {
 		return(	
-            <DragDropContext onDragEnd={this.props.onDragEnd}>	
-				<div className="party-member-list-wrapper">
-					<Droppable droppableId="droppable">
-						{(provided, snapshot) => (
-							<div 
-								className="party-member-list" 
-								{...provided.droppableProps}
-								ref={provided.innerRef} 	
-							>
-								{ this.props.partyMembers && this.props.partyMembers.map( (character, index) => <PartyMemberItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
-								{provided.placeholder}
-							</div>
-						)}
-                    </Droppable>
-                    <CreatePartyMember />
+			<div className="party-member-list-wrapper">
+				<div className="party-member-list">
+					{ this.props.partyMembers && this.props.partyMembers.map( (character, index) => <PartyMemberItem key={index} character={character} index={index} getItemStyle={getItemStyle} /> )}
 				</div>
-			</DragDropContext>
+				<CreatePartyMember />
+			</div>
 		);
 	}
 }
