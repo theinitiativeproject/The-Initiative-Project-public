@@ -12,7 +12,7 @@ class Encounter extends React.Component {
       <div className="encounterWrapper">
         <div className="encounterWrapperHeader">
           <span className="save-button">
-            <button>
+            <button onClick={this.props.saveEncounter}>
               <img
                 width="20"
                 height="20"
