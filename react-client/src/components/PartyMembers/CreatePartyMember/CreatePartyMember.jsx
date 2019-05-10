@@ -6,7 +6,6 @@ class CreatePartyMember extends React.Component {
 		super(props);
 		
 		this.state = {
-			level : 0,
 			name : '',
 			maxHP : 0,
 			armorClass : 0
@@ -31,7 +30,6 @@ class CreatePartyMember extends React.Component {
 			return(
 				<div className="create-party-member-form-wrapper">
 					<form className="create-party-member-form" onSubmit={this.onSubmitCreateCreature}>
-						<input className="party-member-level-input" name="level" type="number" min="0" size="4" placeholder="Lvl" onChange={this.onInputChange} />
 						<input className="party-member-name-input" name="name" type="text" size="20" placeholder="Name" onChange={this.onInputChange} />
 						<span className="party-member-description-form-wrapper">
 							<input className="party-member-description-hit-point-input" name="maxHP" type="number" min="0" size="4" placeholder="HP" onChange={this.onInputChange} />

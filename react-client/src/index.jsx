@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Encounter from './components/Encounter/Encounter.jsx';
 import Library from './components/Library/Library.jsx';
 import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
+import HomeBrewMonsterForm from './components/HomeBrewMonsterForm/HomeBrewMonsterForm.jsx';
 import './index.css';
 
 // Firebase App (the core Firebase SDK) is always required and must be listed first
@@ -215,9 +216,7 @@ class App extends React.Component {
     this.addActorToEncounter = this.addActorToEncounter.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
-      this
-    );
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
@@ -288,50 +287,50 @@ class App extends React.Component {
     //       let data = doc.data();
     //       resultsArr.push(data);
     //     });
-    //   return resultsArr;
-    // })
-    // .then(resultsArr => this.setState({ encounters: resultsArr }))
-    // .catch(err => console.log('error retrieving encounters', err));
+    //     return resultsArr;
+    //   })
+    //   .then(resultsArr => this.setState({ encounters: resultsArr }))
+    //   .catch(err => console.log('error retrieving encounters', err));
   }
 
   retrievePartyMembers(uid) {
     // db.collection('party_members')
-    // .where('owner', '==', uid)
-    // .get()
-    // .then(snapshot => {
-    //   if (snapshot.empty) {
-    //     console.log('no user owned party members in database');
-    //     return [];
-    //   }
-    //   let resultsArr = [];
-    //   snapshot.forEach(doc => {
-    //     let data = doc.data();
-    //     resultsArr.push(data);
-    //   });
-    //   return resultsArr;
-    // })
-    // .then(resultsArr => this.setState({ partyMembers: resultsArr }))
-    // .catch(err => console.log('error retrieving party members', err));
+    //   .where('owner', '==', uid)
+    //   .get()
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('no user owned party members in database');
+    //       return [];
+    //     }
+    //     let resultsArr = [];
+    //     snapshot.forEach(doc => {
+    //       let data = doc.data();
+    //       resultsArr.push(data);
+    //     });
+    //     return resultsArr;
+    //   })
+    //   .then(resultsArr => this.setState({ partyMembers: resultsArr }))
+    //   .catch(err => console.log('error retrieving party members', err));
   }
 
   retrieveHomebrewMonsters(uid) {
     // db.collection('homebrew_monsters')
     //   .where('owner', '==', uid)
     //   .get()
-    // .then(snapshot => {
-    //   if (snapshot.empty) {
-    //     console.log('no user owned monsters in homebrew database');
-    //     return [];
-    //   }
-    //   let resultsArr = [];
-    //   snapshot.forEach(doc => {
-    //     let data = doc.data();
-    //     resultsArr.push(data);
-    //   });
-    //   return resultsArr;
-    // })
-    // .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }))
-    // .catch(err => console.log('error retrieving homebrew monsters', err));
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('no user owned monsters in homebrew database');
+    //       return [];
+    //     }
+    //     let resultsArr = [];
+    //     snapshot.forEach(doc => {
+    //       let data = doc.data();
+    //       resultsArr.push(data);
+    //     });
+    //     return resultsArr;
+    //   })
+    //   .then(resultsArr => this.setState({ homebrewMonsters: resultsArr }))
+    //   .catch(err => console.log('error retrieving homebrew monsters', err));
   }
 
   retrieveSRDMonsters() {
@@ -339,21 +338,21 @@ class App extends React.Component {
     //   .where('name', '>=', '')
     //   .get()
     //   .then(snapshot => {
-    //   if (snapshot.empty) {
-    //     console.log('no monsters in SRD database');
-    //     return;
-    //   }
-    //   let resultsArr = [];
-    //   snapshot.forEach(doc => {
-    //     let data = doc.data();
-    //     resultsArr.push(data);
-    //   });
-    //   return resultsArr;
-    // })
-    // .then(resultsArr => {
-    //   this.setState({ srdMonsters: resultsArr });
-    // })
-    // .catch(err => console.log('error retrieving SRD monsters', err));
+    //     if (snapshot.empty) {
+    //       console.log('no monsters in SRD database');
+    //       return;
+    //     }
+    //     let resultsArr = [];
+    //     snapshot.forEach(doc => {
+    //       let data = doc.data();
+    //       resultsArr.push(data);
+    //     });
+    //     return resultsArr;
+    //   })
+    //   .then(resultsArr => {
+    //     this.setState({ srdMonsters: resultsArr });
+    //   })
+    //   .catch(err => console.log('error retrieving SRD monsters', err));
   }
 
   handleInputChange(e) {
@@ -365,23 +364,23 @@ class App extends React.Component {
 
   handleLogIn() {
     // auth
-    // .signInWithEmailAndPassword(this.state.email, this.state.password)
-    // .then(() =>
-    //   this.setState({
-    //     email: '',
-    //     password: ''
-    //   })
-    // )
-    // .catch(err => console.log(err));
+    //   .signInWithEmailAndPassword(this.state.email, this.state.password)
+    //   .then(() =>
+    //     this.setState({
+    //       email: '',
+    //       password: ''
+    //     })
+    //   )
+    //   .catch(err => console.log(err));
   }
 
   handleLogOut() {
     // auth.signOut().then(() => {
-    // this.setState({
-    //   email: '',
-    //   password: '',
-    //   user: undefined
-    // });
+    //   this.setState({
+    //     email: '',
+    //     password: '',
+    //     user: undefined
+    //   });
     // });
   }
 
@@ -389,15 +388,15 @@ class App extends React.Component {
     //TODO: validate real email
     // auth
     //   .createUserWithEmailAndPassword(this.state.email, this.state.password)
-    // .then(() => {
-    //   this.setState({
-    //     email: '',
-    //     password: ''
+    //   .then(() => {
+    //     this.setState({
+    //       email: '',
+    //       password: ''
+    //     });
+    //   })
+    //   .catch(err => {
+    //     alert(err.message);
     //   });
-    // })
-    // .catch(err => {
-    //   alert(err.message);
-    // });
   }
 
   addActorToEncounter(actor) {
@@ -418,8 +417,8 @@ class App extends React.Component {
     //     console.log('Added to Party Members');
     //   })
     //   .catch(err =>
-    //   console.log('error adding character to Party Members', err)
-    // );
+    //     console.log('error adding character to Party Members', err)
+    //   );
   }
 
   onDragEnd(result) {
@@ -558,6 +557,19 @@ class App extends React.Component {
                 homebrewList={this.state.homebrewMonsters}
                 addActorToEncounter={this.addActorToEncounter}
                 switchTab={this.switchTab}
+                handleInputChange={this.handleInputChange} 
+                firestoreAddHomebrewMonster={this.firestoreAddHomebrewMonster}
+                hbAC={this.state.hbAC}
+                hbChaSave={this.state.hbChaSave}
+                hbConSave={this.state.hbConSave}
+                hbDexSave={this.state.hbDexSave}
+                hbMaxHP={this.state.hbMaxHP}
+                hbInitMod={this.state.hbInitMod}
+                hbIntSave={this.state.hbIntSave}
+                hbName={this.state.hbName}
+                hbStrSave={this.state.hbStrSave}
+                hbWisSave={this.state.hbWisSave}
+                user={this.state.user}
               />
               <Encounter
                 encounters={this.state.encounters}
@@ -574,101 +586,6 @@ class App extends React.Component {
               />
             </div>
           </div>
-          {this.state.user && (
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                this.firestoreAddHomebrewMonster(
-                  {
-                    armorClass: parseInt(this.state.hbAC),
-                    chaSave: parseInt(this.state.hbChaSave),
-                    conSave: parseInt(this.state.hbConSave),
-                    dexSave: parseInt(this.state.hbDexSave),
-                    maxHP: parseInt(this.state.hbMaxHP),
-                    initMod: parseInt(this.state.hbInitMod),
-                    intSave: parseInt(this.state.hbIntSave),
-                    name: this.state.hbName,
-                    strSave: parseInt(this.state.hbStrSave),
-                    wisSave: parseInt(this.state.hbWisSave)
-                  },
-                  this.state.user.uid
-                );
-              }}
-            >
-              <h3>Add homebrew monster</h3>
-              <input
-                type="text"
-                name="hbName"
-                value={this.state.hbName}
-                onChange={this.handleInputChange}
-                placeholder="name"
-              />
-              <input
-                type="number"
-                name="hbAC"
-                value={this.state.hbAC}
-                onChange={this.handleInputChange}
-                placeholder="armor class"
-              />
-              <input
-                type="number"
-                name="hbChaSave"
-                value={this.state.hbChaSave}
-                onChange={this.handleInputChange}
-                placeholder="charisma save"
-              />
-              <input
-                type="number"
-                name="hbConSave"
-                value={this.state.hbConSave}
-                onChange={this.handleInputChange}
-                placeholder="constitution save"
-              />
-              <input
-                type="number"
-                name="hbDexSave"
-                value={this.state.hbDexSave}
-                onChange={this.handleInputChange}
-                placeholder="dexterity save"
-              />
-              <input
-                type="number"
-                name="hbMaxHP"
-                value={this.state.hbMaxHP}
-                onChange={this.handleInputChange}
-                placeholder="maximum HP"
-              />
-              <input
-                type="number"
-                name="hbInitMod"
-                value={this.state.hbInitMod}
-                onChange={this.handleInputChange}
-                placeholder="initiative modifier"
-              />
-              <input
-                type="number"
-                name="hbIntSave"
-                value={this.state.hbIntSave}
-                onChange={this.handleInputChange}
-                placeholder="intelligence save"
-              />
-              <input
-                type="number"
-                name="hbStrSave"
-                value={this.state.hbStrSave}
-                onChange={this.handleInputChange}
-                placeholder="strength save"
-              />
-              <input
-                type="number"
-                name="hbWisSave"
-                value={this.state.hbWisSave}
-                onChange={this.handleInputChange}
-                placeholder="wisdom save"
-              />
-              <button type="submit">Submit Homebrew Monster</button>
-            </form>
-          )}
         </div>
       </div>
     );
