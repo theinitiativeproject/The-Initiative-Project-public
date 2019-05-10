@@ -14,7 +14,7 @@
 }
 
 .partyMemberWrapperHeader {
-  background: linear-gradient(#000000, rgb(157, 10, 14));
+  background: linear-gradient(#0B0B0B, 20%, rgb(157, 10, 14));
   border-bottom: 2px solid #000000;
   padding: 15px;
   font-family: 'Libre Baskerville', serif;
