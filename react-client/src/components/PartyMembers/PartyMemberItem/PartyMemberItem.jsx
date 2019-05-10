@@ -19,24 +19,23 @@ class PartyMemberItem extends React.Component {
         }
       >
         <span className="party-member-add">
-          {!this.state.inEncounter && (
-            <img
-              width="25"
-              height="25"
-              src="https://s3.amazonaws.com/the-initiative-project/left-arrow.svg"
-              onClick={() => {
+          <img
+            width="25"
+            height="25"
+            src="https://s3.amazonaws.com/the-initiative-project/left-arrow.svg"
+            onClick={() => {
+              let inEncounter = false;
+              for (let i = 0; i < this.props.currentEncounter.length; i++) {
+                if (
+                  this.props.currentEncounter[i].name ===
+                  this.props.character.name
+                )
+                  inEncounter = true;
+              }
+              if (!inEncounter)
                 this.props.addActorToEncounter(this.props.character);
-                this.setState({ inEncounter: true });
-              }}
-            />
-          )}
-          {this.state.inEncounter && (
-            <img
-              width="25"
-              height="25"
-              src="https://s3.amazonaws.com/the-initiative-project/left-arrow.svg"
-            />
-          )}
+            }}
+          />
         </span>
         <span className="party-member-name">{this.props.character.name}</span>
         <span className="party-member-description-wrapper">
