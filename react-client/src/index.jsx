@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Axios from 'axios';
 import Encounter from './components/Encounter/Encounter.jsx';
 import Library from './components/Library/Library.jsx';
 import PartyMembers from './components/PartyMembers/PartyMembers.jsx';
@@ -55,8 +54,106 @@ class App extends React.Component {
       password: '',
       user: undefined,
       currentTab: 'srd',
-      srdMonsters: [],
-      homebrewMonsters: [],
+      srdMonsters: [
+        {
+          name: 'goblin',
+          maxHP: 50,
+          chaSave: 1,
+          conSave: 2,
+          dexSave: 3,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 7,
+          initMod: 0
+        },
+        {
+          name: 'wolf',
+          maxHP: 25,
+          chaSave: 2,
+          conSave: 2,
+          dexSave: 2,
+          intSave: 2,
+          strSave: 2,
+          wisSave: 2,
+          armorClass: 0,
+          initMod: 5
+        },
+        {
+          name: 'ghost',
+          maxHP: 60,
+          chaSave: 0,
+          conSave: 0,
+          dexSave: 0,
+          intSave: 0,
+          strSave: 0,
+          wisSave: 8,
+          armorClass: 9,
+          initMod: 10
+        },
+        {
+          name: 'dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        }
+      ],
+      homebrewMonsters: [
+        {
+          name: 'custom goblin',
+          maxHP: 50,
+          chaSave: 1,
+          conSave: 2,
+          dexSave: 3,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 7,
+          initMod: 0
+        },
+        {
+          name: 'custom wolf',
+          maxHP: 25,
+          chaSave: 2,
+          conSave: 2,
+          dexSave: 2,
+          intSave: 2,
+          strSave: 2,
+          wisSave: 2,
+          armorClass: 0,
+          initMod: 5
+        },
+        {
+          name: 'custom ghost',
+          maxHP: 60,
+          chaSave: 0,
+          conSave: 0,
+          dexSave: 0,
+          intSave: 0,
+          strSave: 0,
+          wisSave: 8,
+          armorClass: 9,
+          initMod: 10
+        },
+        {
+          name: 'custom dragon',
+          maxHP: 250,
+          chaSave: 1,
+          conSave: 10,
+          dexSave: 4,
+          intSave: 4,
+          strSave: 5,
+          wisSave: 6,
+          armorClass: 20,
+          initMod: 0
+        }
+      ],
       partyMembers: [
         {
           armorClass: 18,
