@@ -30,6 +30,7 @@ class List extends React.Component {
                 character={character}
                 index={index}
                 getItemStyle={getItemStyle}
+                currentEncounter={this.props.currentEncounter}
                 addActorToEncounter={this.props.addActorToEncounter}
               />
             ))}
