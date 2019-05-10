@@ -28,8 +28,24 @@ const MonsterEntry = props => {
           </span>
         </div>
         <div className="HPArmor">
-          <span>HP: {entry.maxHP}</span>
-          <span>AC: {entry.armorClass}</span>
+          <span className="HPAflex">
+            <img
+              className="HPAicon"
+              width="20"
+              height="20"
+              src="https://s3.amazonaws.com/the-initiative-project/little-health.svg"
+            />{' '}
+            : {entry.maxHP}
+          </span>
+          <span className="HPAflex">
+            <img
+              className="HPAicon"
+              width="20"
+              height="20"
+              src="https://s3.amazonaws.com/the-initiative-project/dark-shield.svg"
+            />{' '}
+            : {entry.armorClass}
+          </span>
         </div>
       </div>
     </li>
