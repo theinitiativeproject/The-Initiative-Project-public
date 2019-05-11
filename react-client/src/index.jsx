@@ -120,7 +120,8 @@ class App extends React.Component {
               actors: [],
               activePosition: 0,
               numTurns: 0,
-              owner: ''
+              owner: '',
+              encounterName: 'Main Encounter'
             }
           ]
         });
@@ -171,7 +172,8 @@ class App extends React.Component {
               actors: [],
               activePosition: 0,
               numTurns: 0,
-              owner: this.state.user.uid
+              owner: this.state.user.uid,
+              encounterName: 'Main Encounter'
             }
           ];
         }
