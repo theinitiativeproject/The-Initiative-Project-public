@@ -3,12 +3,15 @@
     line-height: 20px;
     padding: 10px;
     margin: 10px 0px;
+    background-color: #cccccc; 
     cursor: pointer;
 }
 
-.party-member-item-wrapper {
-    background-color: #cccccc; 
-}
+.party-member-item-wrapper:hover {
+    background: #292929;
+    color: white;
+  }
+  
 
 .party-member-add {
     float: left;
