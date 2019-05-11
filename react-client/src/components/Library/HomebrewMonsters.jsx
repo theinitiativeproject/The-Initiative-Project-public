@@ -14,6 +14,7 @@ const HomebrewMonsters = props => {
           heartIcon={heartIcon}
           addActorToEncounter={addActorToEncounter}
           key={index}
+          type="homebrew"
         />
       ))}
     </ul>
