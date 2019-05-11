@@ -12,17 +12,26 @@ class SavedEncounters extends React.Component {
         <div className="savedEncountersWrapperHeader">
           <h1>Saved Encounters</h1>
         </div>
-        <div>
+        <div className="savedEncounter-list-wrapper">
           {this.props.encounters.map((elem, idx) => {
             return (
               <div
                 onClick={() => this.props.changeActiveEncounter(idx)}
                 key={idx}
-                className={
-                  idx === this.props.activeEncounter ? 'selected-encounter' : ''
+                className={'saved-ecounter-item-wrapper ' +
+                  (idx === this.props.activeEncounter ? 'selected-encounter' : '')
                 }
               >
-                {elem.encounterName}
+                <span className="party-member-add">
+                  <img
+                    width="25"
+                    height="25"
+                    src="https://s3.amazonaws.com/the-initiative-project/left-arrow.svg"
+                  />
+                </span>
+                <p>
+                  {elem.encounterName}
+                </p>
               </div>
             );
           })}
