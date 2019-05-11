@@ -6,17 +6,17 @@ import HPChanger from './HPChanger/HPChanger.jsx';
 class CharacterItem extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       showDetails: false
     };
-
     this.toggleDetails = this.toggleDetails.bind(this);
   }
 
   toggleDetails() {
     this.setState({ showDetails: !this.state.showDetails });
   }
+
+  editHealth() {}
 
   render() {
     return (
@@ -90,7 +90,13 @@ class CharacterItem extends React.Component {
 
             <div
               className="character-item-summary-wrapper"
-              style={{ display: ( this.state.showDetails || this.props.currentTurn === this.props.index ) ? 'block' : 'none' }}
+              style={{
+                display:
+                  this.state.showDetails ||
+                  this.props.currentTurn === this.props.index
+                    ? 'block'
+                    : 'none'
+              }}
             >
               <div className="character-item-summary-info">
                 <div className="character-item-summary-col">
