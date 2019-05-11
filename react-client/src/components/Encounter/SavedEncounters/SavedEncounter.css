@@ -5,6 +5,7 @@
     background-color: #cbb596;
     color: #ffffff;
     max-width: 380px;
+    min-width: 333px;
     margin: auto;
     border: 2px solid #000000;
     z-index: 99;
@@ -21,6 +22,29 @@
   font-size: 20px;
   text-align: center;
 }
+
+.savedEncounter-list-wrapper {
+  background-color: #F9F7EC;
+  padding: 10px;
+}
+
+.saved-ecounter-item-wrapper {
+  color: #000000;
+  background-color: #cccccc; 
+  height: 25px;
+  padding: 10px;
+  margin: 10px 0px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.saved-ecounter-item-wrapper:hover {
+  background: #292929;
+  color: white;
+}
+
 
 .selected-encounter {
   color: black;
