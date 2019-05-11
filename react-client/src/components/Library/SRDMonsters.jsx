@@ -4,13 +4,16 @@ import './SRDMonsters.css';
 
 const SRDMonsters = props => {
   let { srdList, addActorToEncounter } = props;
+  let heartIcon =
+    'https://s3.amazonaws.com/the-initiative-project/heart-black.svg';
   return (
     <ul className="SRDCreatures">
-      {srdList.map((entry, idx) => (
+      {srdList.map((entry, index) => (
         <MonsterEntry
           entry={entry}
+          heartIcon={heartIcon}
           addActorToEncounter={addActorToEncounter}
-          key={idx}
+          key={index}
         />
       ))}
     </ul>

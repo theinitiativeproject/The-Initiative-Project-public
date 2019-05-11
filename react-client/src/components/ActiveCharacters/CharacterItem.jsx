@@ -5,17 +5,17 @@ import { Draggable } from 'react-beautiful-dnd';
 class CharacterItem extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       showDetails: false
     };
-
     this.toggleDetails = this.toggleDetails.bind(this);
   }
 
   toggleDetails() {
     this.setState({ showDetails: !this.state.showDetails });
   }
+
+  editHealth() {}
 
   render() {
     return (
@@ -43,11 +43,19 @@ class CharacterItem extends React.Component {
               <span className="character-name">
                 {this.props.character.name}
               </span>
-              <span className="character-show-details" onClick={this.toggleDetails}>
+              <span
+                className="character-show-details"
+                onClick={this.toggleDetails}
+              >
                 <img
                   width="20"
                   height="20"
-                  src={ ((this.state.showDetails || this.props.currentTurn) === this.props.index ? "https://s3.amazonaws.com/the-initiative-project/up-arrow.svg" : "https://s3.amazonaws.com/the-initiative-project/down-arrow.svg")}
+                  src={
+                    (this.state.showDetails || this.props.currentTurn) ===
+                    this.props.index
+                      ? 'https://s3.amazonaws.com/the-initiative-project/up-arrow.svg'
+                      : 'https://s3.amazonaws.com/the-initiative-project/down-arrow.svg'
+                  }
                 />
               </span>
               <span className="character-description-wrapper">
@@ -77,7 +85,13 @@ class CharacterItem extends React.Component {
 
             <div
               className="character-item-summary-wrapper"
-              style={{ display: ( this.state.showDetails || this.props.currentTurn === this.props.index ) ? 'block' : 'none' }}
+              style={{
+                display:
+                  this.state.showDetails ||
+                  this.props.currentTurn === this.props.index
+                    ? 'block'
+                    : 'none'
+              }}
             >
               <div className="character-item-summary-info">
                 <div className="character-item-summary-col">

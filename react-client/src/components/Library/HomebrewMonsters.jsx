@@ -4,10 +4,17 @@ import './HomebrewMonsters.css';
 
 const HomebrewMonsters = props => {
   let { homebrewList, addActorToEncounter } = props;
+  let heartIcon =
+    'https://s3.amazonaws.com/the-initiative-project/heart-white.svg';
   return (
     <ul className="homebrewCreatures">
-      {homebrewList.map(entry => (
-        <MonsterEntry entry={entry} addActorToEncounter={addActorToEncounter} />
+      {homebrewList.map((entry, index) => (
+        <MonsterEntry
+          entry={entry}
+          heartIcon={heartIcon}
+          addActorToEncounter={addActorToEncounter}
+          key={index}
+        />
       ))}
     </ul>
   );
