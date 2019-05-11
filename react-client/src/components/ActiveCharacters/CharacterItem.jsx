@@ -1,6 +1,7 @@
 import React from 'react';
 import './CharacterItem.css';
 import { Draggable } from 'react-beautiful-dnd';
+import HPChanger from './HPChanger/HPChanger.jsx';
 
 class CharacterItem extends React.Component {
   constructor(props) {
@@ -53,6 +54,9 @@ class CharacterItem extends React.Component {
                     /> 
                   </span>)
               }
+              <span className="character-heal-wrapper">
+                <HPChanger />
+              </span>
               <span className="character-description-wrapper">
                 {this.props.character.currentHP && (
                   <span className="character-description-hit-point">
