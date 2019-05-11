@@ -89,11 +89,10 @@ class App extends React.Component {
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
     this.rollInitiativeToggle = this.rollInitiativeToggle.bind(this);
     this.addActorToEncounter = this.addActorToEncounter.bind(this);
+    this.deleteActorFromEncounter = this.deleteActorFromEncounter.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
-      this
-    );
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
@@ -309,6 +308,15 @@ class App extends React.Component {
     });
   }
 
+  deleteActorFromEncounter(index) {
+    let tempEncounters = this.state.encounters;
+    console.log(tempEncounters);
+    tempEncounters[this.state.activeEncounter].actors.splice(index,1);
+    this.setState({
+      encounters: tempEncounters
+    });
+  }
+
   addToPartyMembers(obj) {
     db.collection('party_members')
       .add(obj)
@@ -503,6 +511,7 @@ class App extends React.Component {
                 switchTurn={this.switchTurn}
                 sort={this.sort}
                 saveEncounter={this.saveEncounter}
+                deleteActorFromEncounter={this.deleteActorFromEncounter}
               />
               <PartyMembers
                 currentEncounter={

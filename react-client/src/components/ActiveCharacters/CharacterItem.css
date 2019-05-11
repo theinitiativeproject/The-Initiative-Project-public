@@ -44,14 +44,24 @@
     margin: 0 5px;
 }
 
-.character-description-hit-point, .character-description-perception, .character-description-armour {
+.character-description-hit-point, .character-description-perception, .character-description-armour, .death-wrapper {
     line-height: 40px;
     margin: auto;
     display: flex;
     align-items:center;
 }
 
-.character-description-hit-point > img, .character-description-perception > img, .character-description-armour > img {
+.death-wrapper {
+    display: none;
+}
+
+.character-item-wrapper:hover .death-wrapper{
+    display: inline-block;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.character-description-hit-point > img, .character-description-perception > img, .character-description-armour > img, .death-wrapper > img {
     display: inline-block;
     margin-right: 0.4em;
     vertical-align: middle;
