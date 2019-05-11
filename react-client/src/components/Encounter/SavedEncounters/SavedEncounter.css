@@ -31,11 +31,13 @@
 .saved-ecounter-item-wrapper {
   color: #000000;
   background-color: #cccccc; 
-  height: 20px;
-  line-height: 20px;
+  height: 25px;
   padding: 10px;
   margin: 10px 0px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
 }
 
 .saved-ecounter-item-wrapper:hover {

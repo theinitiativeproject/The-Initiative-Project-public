@@ -30,7 +30,6 @@ class CharacterItem extends React.Component {
               (this.props.character.npc ? 'character-npc ' : '') +
               (this.props.currentTurn === this.props.index ? 'currentTurn' : '')
             }
-            onClick={this.toggleDetails}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -43,6 +42,13 @@ class CharacterItem extends React.Component {
               </span>
               <span className="character-name">
                 {this.props.character.name}
+              </span>
+              <span className="character-show-details" onClick={this.toggleDetails}>
+                <img
+                  width="20"
+                  height="20"
+                  src={ ((this.state.showDetails || this.props.currentTurn) === this.props.index ? "https://s3.amazonaws.com/the-initiative-project/up-arrow.svg" : "https://s3.amazonaws.com/the-initiative-project/down-arrow.svg")}
+                />
               </span>
               <span className="character-description-wrapper">
                 {this.props.character.currentHP && (

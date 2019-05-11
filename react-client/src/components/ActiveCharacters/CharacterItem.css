@@ -29,6 +29,10 @@
     font-size: 20px;
 }
 
+.character-show-details {
+    margin-left: 10px;
+}
+
 .character-description-wrapper {
     float: right;
     display: flex;

@@ -29,7 +29,9 @@ class SavedEncounters extends React.Component {
                     src="https://s3.amazonaws.com/the-initiative-project/left-arrow.svg"
                   />
                 </span>
-                {elem.encounterName}
+                <p>
+                  {elem.encounterName}
+                </p>
               </div>
             );
           })}
