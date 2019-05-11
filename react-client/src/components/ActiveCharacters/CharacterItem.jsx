@@ -68,7 +68,7 @@ class CharacterItem extends React.Component {
                 )}
               </span>
             </div>
-            <div className="character-item-summary-wrapper" style={{ display : (this.state.showDetails ? 'block': 'none') }}>
+            <div className="character-item-summary-wrapper" style={{ display : ((this.state.showDetails || this.props.currentTurn === this.props.index) ? 'block': 'none') }}>
                 <div className="character-item-summary-info">
                   <div className="character-item-summary-col">
                     <span>Strength Save: {this.props.character.strSave || 0}</span>
