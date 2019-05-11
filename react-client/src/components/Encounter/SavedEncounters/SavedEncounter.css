@@ -12,13 +12,16 @@
     -moz-box-shadow: 0px 2px 46px 33px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 2px 46px 33px rgba(0, 0, 0, 0.75);
   }
-  
+
 .savedEncountersWrapperHeader {
-    background: linear-gradient(#0B0B0B, 20%, rgb(157, 10, 14));
-    border-bottom: 2px solid #000000;
-    padding: 15px;
-    font-family: 'Libre Baskerville', serif;
-    font-size: 20px;
-    text-align: center;
-  }
-  
+  background: linear-gradient(#0b0b0b, 20%, rgb(157, 10, 14));
+  border-bottom: 2px solid #000000;
+  padding: 15px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 20px;
+  text-align: center;
+}
+
+.selected-encounter {
+  color: black;
+}

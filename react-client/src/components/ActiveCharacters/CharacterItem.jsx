@@ -7,7 +7,7 @@ class CharacterItem extends React.Component {
     super(props);
 
     this.state = {
-      showDetails : false
+      showDetails: false
     };
 
     this.toggleDetails = this.toggleDetails.bind(this);
@@ -18,7 +18,6 @@ class CharacterItem extends React.Component {
   }
 
   render() {
-    console.log(this.props.currentTurn);
     return (
       <Draggable
         draggableId={this.props.character.name}
@@ -31,7 +30,6 @@ class CharacterItem extends React.Component {
               (this.props.character.npc ? 'character-npc ' : '') +
               (this.props.currentTurn === this.props.index ? 'currentTurn' : '')
             }
-
             onClick={this.toggleDetails}
             ref={provided.innerRef}
             {...provided.draggableProps}
@@ -43,7 +41,9 @@ class CharacterItem extends React.Component {
                   ? this.props.character.initiative
                   : '?'}
               </span>
-              <span className="character-name">{this.props.character.name}</span>
+              <span className="character-name">
+                {this.props.character.name}
+              </span>
               <span className="character-description-wrapper">
                 {this.props.character.currentHP && (
                   <span className="character-description-hit-point">
@@ -68,19 +68,33 @@ class CharacterItem extends React.Component {
                 )}
               </span>
             </div>
-            <div className="character-item-summary-wrapper" style={{ display : ((this.state.showDetails || this.props.currentTurn === this.props.index) ? 'block': 'none') }}>
-                <div className="character-item-summary-info">
-                  <div className="character-item-summary-col">
-                    <span>Strength Save: {this.props.character.strSave || 0}</span>
-                    <span>Dexterity Save: {this.props.character.dexSave || 0}</span>
-                    <span>Constitution Save: {this.props.character.conSave || 0}</span>
-                  </div>
-                  <div className="character-item-summary-col">
-                    <span>Intelligence Save: {this.props.character.intSave || 0}</span>
-                    <span>Wisdom Save: {this.props.character.wisSave || 0}</span>
-                    <span>Charisma Save: {this.props.character.chaSave || 0}</span>
-                  </div>
+
+            <div
+              className="character-item-summary-wrapper"
+              style={{ display: ( this.state.showDetails || this.props.currentTurn === this.props.index ) ? 'block' : 'none' }}
+            >
+              <div className="character-item-summary-info">
+                <div className="character-item-summary-col">
+                  <span>
+                    Strength Save: {this.props.character.strSave || 0}
+                  </span>
+                  <span>
+                    Dexterity Save: {this.props.character.dexSave || 0}
+                  </span>
+                  <span>
+                    Constitution Save: {this.props.character.conSave || 0}
+                  </span>
                 </div>
+                <div className="character-item-summary-col">
+                  <span>
+                    Intelligence Save: {this.props.character.intSave || 0}
+                  </span>
+                  <span>Wisdom Save: {this.props.character.wisSave || 0}</span>
+                  <span>
+                    Charisma Save: {this.props.character.chaSave || 0}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         )}
