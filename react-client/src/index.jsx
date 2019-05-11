@@ -55,6 +55,7 @@ class App extends React.Component {
       email: '',
       password: '',
       user: undefined,
+      rollInitiativeToggle: false,
       currentTab: 'srd',
       srdMonsters: [],
       homebrewMonsters: [],
@@ -86,6 +87,7 @@ class App extends React.Component {
     this.retrieveSRDMonsters = this.retrieveSRDMonsters.bind(this);
     this.retrieveHomebrewMonsters = this.retrieveHomebrewMonsters.bind(this);
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
+    this.rollInitiativeToggle = this.rollInitiativeToggle.bind(this);
     this.addActorToEncounter = this.addActorToEncounter.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -287,8 +289,17 @@ class App extends React.Component {
       });
   }
 
+  rollInitiativeToggle() {
+    this.setState({
+      rollInitiativeToggle: !this.state.rollInitiativeToggle
+    });
+  }
+
   addActorToEncounter(actor) {
     actor.currentHP = actor.maxHP;
+    if (this.state.rollInitiativeToggle)
+      actor.initiative = Math.floor(Math.random() * 20 + 1) + actor.initMod;
+    console.log(actor);
     let tempEncounters = this.state.encounters.slice();
     tempEncounters[this.state.activeEncounter].actors.push(actor);
     this.setState({
@@ -458,7 +469,9 @@ class App extends React.Component {
           >
             <div className="darkWrapper" />
             <div className="mainWrapper">
-              <RollInitiative />
+              <RollInitiative
+                rollInitiativeToggle={this.rollInitiativeToggle}
+              />
               <Library
                 currentTab={this.state.currentTab}
                 srdList={this.state.srdMonsters}
