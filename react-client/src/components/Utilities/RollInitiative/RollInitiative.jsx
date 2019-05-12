@@ -15,6 +15,7 @@ class RollInitiative extends React.Component {
             type="checkbox"
             name="initiative"
             onChange={() => this.props.rollInitiativeToggle()}
+            checked
           />
           <img
             width="30"

@@ -55,7 +55,7 @@ class App extends React.Component {
       email: '',
       password: '',
       user: undefined,
-      rollInitiativeToggle: false,
+      rollInitiativeToggle: true,
       currentTab: 'srd',
       srdMonsters: [],
       homebrewMonsters: [],
@@ -92,7 +92,9 @@ class App extends React.Component {
     this.deleteActorFromEncounter = this.deleteActorFromEncounter.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
+      this
+    );
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
@@ -312,7 +314,7 @@ class App extends React.Component {
   deleteActorFromEncounter(index) {
     let tempEncounters = this.state.encounters;
     console.log(tempEncounters);
-    tempEncounters[this.state.activeEncounter].actors.splice(index,1);
+    tempEncounters[this.state.activeEncounter].actors.splice(index, 1);
     this.setState({
       encounters: tempEncounters
     });
