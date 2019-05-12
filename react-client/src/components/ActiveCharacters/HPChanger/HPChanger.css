@@ -1,7 +1,15 @@
 .HPChanger-wrapper {
-    display: inline;
+  display: inline;
 }
 
-.HPChanger-button {
-    
+.HPChanger-button-heal-button {
+  color: green;
+}
+
+.HPChanger-input {
+  width: 30px;
+}
+
+.HPChanger-button-damage-button {
+  color: red;
 }

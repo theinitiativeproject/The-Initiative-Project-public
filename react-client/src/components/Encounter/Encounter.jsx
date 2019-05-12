@@ -50,6 +50,8 @@ class Encounter extends React.Component {
           partyMembers={this.props.partyMembers}
           addActorToEncounter={this.props.addActorToEncounter}
           deleteActorFromEncounter={this.props.deleteActorFromEncounter}
+          healActor={this.props.healActor}
+          damageActor={this.props.damageActor}
         />
       </div>
     );
