@@ -4,7 +4,7 @@ import './MonsterEntry.css';
 const MonsterEntry = props => {
   let { entry, addActorToEncounter } = props;
   return (
-    <li className="monsterBox" onClick={() => addActorToEncounter(entry)}>
+    <li className="monsterBox" onClick={() => addActorToEncounter(entry, true)}>
       <div className="monsterRow">
         <div>
           <span className="monsterName">{entry.name}</span>

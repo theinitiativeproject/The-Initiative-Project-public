@@ -21,6 +21,7 @@ class Encounter extends React.Component {
               />
             </button>
           </span>
+          <span onClick={this.props.createNewEncounter}>+</span>
           <h1>
             {this.props.encounters[this.props.activeEncounter]
               ? this.props.encounters[this.props.activeEncounter].encounterName
