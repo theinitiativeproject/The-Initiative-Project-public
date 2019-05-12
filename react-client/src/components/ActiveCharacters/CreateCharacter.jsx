@@ -37,6 +37,8 @@ class CreateCharacter extends React.Component {
         maxHP: '',
         armorClass: ''
       });
+    } else {
+      alert('Each combatant must have a name');
     }
   }
 

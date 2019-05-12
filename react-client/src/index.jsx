@@ -55,7 +55,7 @@ class App extends React.Component {
       email: '',
       password: '',
       user: undefined,
-      rollInitiativeToggle: false,
+      rollInitiativeToggle: true,
       currentTab: 'srd',
       srdMonsters: [],
       homebrewMonsters: [],
@@ -102,6 +102,7 @@ class App extends React.Component {
     this.sort = this.sort.bind(this);
     this.saveEncounter = this.saveEncounter.bind(this);
     this.changeActiveEncounter = this.changeActiveEncounter.bind(this);
+    this.createNewEncounter = this.createNewEncounter.bind(this);
   }
 
   componentDidMount() {
@@ -300,11 +301,11 @@ class App extends React.Component {
     });
   }
 
-  addActorToEncounter(actor) {
+  addActorToEncounter(actor, isActorCard = false) {
     actor.currentHP = actor.maxHP;
-    if (this.state.rollInitiativeToggle)
+    if (this.state.rollInitiativeToggle && isActorCard) {
       actor.initiative = Math.floor(Math.random() * 20 + 1) + actor.initMod;
-    console.log(actor);
+    }
     let tempEncounters = this.state.encounters.slice();
     tempEncounters[this.state.activeEncounter].actors.push(actor);
     this.setState({
@@ -430,17 +431,21 @@ class App extends React.Component {
   }
 
   saveEncounter() {
+    if (!this.state.user) {
+      alert('You must be signed in to save an encounter to the server');
+      return;
+    }
     let temp = this.state.encounters[this.state.activeEncounter];
-    console.log(temp);
     if (temp.id) {
       let docID = temp.id;
       delete temp.id;
-      db.collection('encounters')
+      return db
+        .collection('encounters')
         .doc(docID)
         .set(temp)
         .catch(err => console.log('error saving encounter', err));
     } else {
-      db.collection('encounters').add(temp);
+      return db.collection('encounters').add(temp);
     }
   }
 
@@ -448,6 +453,42 @@ class App extends React.Component {
     this.setState({
       activeEncounter: idx
     });
+  }
+
+  createNewEncounter() {
+    if (this.state.user) {
+      this.saveEncounter().then(() => {
+        let newEncounterName = prompt(
+          'Please enter a name for your new encounter'
+        );
+        if (newEncounterName !== null) {
+          let temp = {
+            actors: [],
+            activePosition: 0,
+            numTurns: 0,
+            owner: this.state.user.uid,
+            encounterName: newEncounterName
+          };
+          this.state.encounters.push(temp);
+          this.changeActiveEncounter(this.state.encounters.length - 1);
+        }
+      });
+    } else {
+      let newEncounterName = prompt(
+        'Please enter a name for your new encounter'
+      );
+      if (newEncounterName !== null) {
+        let temp = {
+          actors: [],
+          activePosition: 0,
+          numTurns: 0,
+          owner: '',
+          encounterName: newEncounterName
+        };
+        this.state.encounters.push(temp);
+        this.changeActiveEncounter(this.state.encounters.length - 1);
+      }
+    }
   }
 
   render() {
@@ -547,6 +588,7 @@ class App extends React.Component {
                 damageActor={this.damageActor}
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
+                createNewEncounter={this.createNewEncounter}
                 switchTurn={this.switchTurn}
                 sort={this.sort}
                 saveEncounter={this.saveEncounter}

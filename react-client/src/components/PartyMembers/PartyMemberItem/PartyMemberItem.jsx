@@ -26,7 +26,7 @@ const PartyMemberItem = props => {
           src="https://s3.amazonaws.com/the-initiative-project/left-arrow.svg"
           onClick={() => {
             if (!inEncounter) {
-              addActorToEncounter(character);
+              addActorToEncounter(character, true);
               inEncounter = true;
             }
           }}
