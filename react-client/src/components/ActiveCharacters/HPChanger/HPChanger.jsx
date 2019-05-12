@@ -17,28 +17,30 @@ class HPChanger extends React.Component {
     };
     return (
       <div className="HPChanger-wrapper">
-        <button
-          className="HPChanger-button-heal-button"
-          onClick={() =>
-            this.props.healActor(this.props.index, this.state.HPChange)
-          }
-        >
-          Heal
-        </button>
         <input
           className="HPChanger-input"
           type="number"
           name="currentHP"
           onChange={event => setChange(event.target.value)}
         />
-        <button
-          className="HPChanger-button-damage-button"
-          onClick={() =>
-            this.props.damageActor(this.props.index, this.state.HPChange)
-          }
-        >
-          Damage
-        </button>
+        <div className="HPChanger-button-wrapper">
+          <button
+            className="HPChanger-button-heal-button"
+            onClick={() =>
+              this.props.healActor(this.props.index, this.state.HPChange)
+            }
+          >
+            Heal
+          </button>
+          <button
+            className="HPChanger-button-damage-button"
+            onClick={() =>
+              this.props.damageActor(this.props.index, this.state.HPChange)
+            }
+          >
+            Damage
+          </button>
+        </div>
       </div>
     );
   }

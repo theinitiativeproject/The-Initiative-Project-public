@@ -27,9 +27,17 @@
 
 .character-name {
   font-size: 20px;
+  height: 30px;
+  line-height: 15px;
+  align-content: center;
 }
 
 .character-show-details {
+  margin-left: 10px;
+}
+
+.character-heal-wrapper {
+  display: inline;
   margin-left: 10px;
 }
 
@@ -54,6 +62,22 @@
   align-items: center;
 }
 
+.healthCounter {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  height: 30px;
+  line-height: 15px;
+}
+
+.healthCounterCurrent {
+  border-bottom: 2px solid;
+}
+
+.healthCounterMax {
+  margin-top: 1px;
+}
+
 .death-wrapper {
   display: none;
 }
@@ -71,6 +95,12 @@
   display: inline-block;
   margin-right: 0.4em;
   vertical-align: middle;
+}
+
+.character-item-summary {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
 }
 
 .character-item-summary-col {

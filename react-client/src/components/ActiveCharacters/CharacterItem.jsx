@@ -73,8 +73,15 @@ class CharacterItem extends React.Component {
                       height="25"
                       src="https://s3.amazonaws.com/the-initiative-project/little-health.svg"
                     />
-                    : {this.props.character.currentHP} /{' '}
-                    {this.props.character.maxHP}
+                    :{' '}
+                    <div className="healthCounter">
+                      <div className="healthCounterCurrent">
+                        {this.props.character.currentHP}
+                      </div>
+                      <div className="healthCounterMax">
+                        {this.props.character.maxHP}
+                      </div>
+                    </div>
                   </span>
                 )}
                 {this.props.character.armorClass && (
