@@ -1,7 +1,9 @@
 .HPChanger-wrapper {
-    display: inline;
+  display: flex;
+  flex-direction: column;
+  width: min-content;
 }
 
 .HPChanger-button {
-    
+  text-align: center;
 }
