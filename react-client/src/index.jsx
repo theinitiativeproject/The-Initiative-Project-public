@@ -90,9 +90,13 @@ class App extends React.Component {
     this.rollInitiativeToggle = this.rollInitiativeToggle.bind(this);
     this.addActorToEncounter = this.addActorToEncounter.bind(this);
     this.deleteActorFromEncounter = this.deleteActorFromEncounter.bind(this);
+    this.healActor = this.healActor.bind(this);
+    this.damageActor = this.damageActor.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(this);
+    this.firestoreAddHomebrewMonster = this.firestoreAddHomebrewMonster.bind(
+      this
+    );
     this.switchTurn = this.switchTurn.bind(this);
     this.switchTab = this.switchTab.bind(this);
     this.sort = this.sort.bind(this);
@@ -311,10 +315,43 @@ class App extends React.Component {
   deleteActorFromEncounter(index) {
     let tempEncounters = this.state.encounters;
     console.log(tempEncounters);
-    tempEncounters[this.state.activeEncounter].actors.splice(index,1);
+    tempEncounters[this.state.activeEncounter].actors.splice(index, 1);
     this.setState({
       encounters: tempEncounters
     });
+  }
+
+  healActor(index, value) {
+    if (value > 0) {
+      let encounters = this.state.encounters;
+      if (
+        encounters[this.state.activeEncounter].actors[index].currentHP +
+          value >=
+        encounters[this.state.activeEncounter].actors[index].maxHP
+      ) {
+        encounters[this.state.activeEncounter].actors[index].currentHP =
+          encounters[this.state.activeEncounter].actors[index].maxHP;
+      } else {
+        encounters[this.state.activeEncounter].actors[index].currentHP += value;
+      }
+      this.setState({ encounters });
+    }
+  }
+
+  damageActor(index, value) {
+    if (value > 0) {
+      let encounters = this.state.encounters;
+      if (
+        encounters[this.state.activeEncounter].actors[index].currentHP -
+          value <=
+        0
+      ) {
+        encounters[this.state.activeEncounter].actors[index].currentHP = 0;
+      } else {
+        encounters[this.state.activeEncounter].actors[index].currentHP -= value;
+      }
+      this.setState({ encounters });
+    }
   }
 
   addToPartyMembers(obj) {
@@ -506,6 +543,8 @@ class App extends React.Component {
                 encounters={this.state.encounters}
                 partyMembers={this.state.partyMembers}
                 addActorToEncounter={this.addActorToEncounter}
+                healActor={this.healActor}
+                damageActor={this.damageActor}
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
                 switchTurn={this.switchTurn}
