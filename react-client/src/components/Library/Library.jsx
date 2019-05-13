@@ -34,7 +34,7 @@ const Library = props => {
           />
         )}
       </div>
-      {props.user && currentTab === 'homebrew' && (
+      {currentTab === 'homebrew' && (
         <HomeBrewMonsterForm
           handleInputChange={props.handleInputChange}
           firestoreAddHomebrewMonster={props.firestoreAddHomebrewMonster}
