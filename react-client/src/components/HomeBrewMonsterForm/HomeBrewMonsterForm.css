@@ -1,7 +1,7 @@
 .homebrew-monster-form-wrapper {
     position: absolute;
     background-color: #F9F7EC;
-    width: 356px;
+    max-width: 335px;
     padding: 20px 10px;
     margin-left: 2px;
 }

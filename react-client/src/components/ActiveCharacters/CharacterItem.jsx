@@ -51,7 +51,7 @@ class CharacterItem extends React.Component {
             {...provided.dragHandleProps}
           >
             <div className="character-item-summary">
-              <div>
+              <div className="character-name-wrapper">
                 <span className="character-level">
                   {typeof this.props.character.initiative === 'number'
                     ? this.props.character.initiative
