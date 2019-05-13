@@ -29,34 +29,40 @@ class ActiveCharacterList extends React.Component {
     return (
       <DragDropContext onDragEnd={this.props.onDragEnd}>
         <div className="active-character-list-wrapper">
-          <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
-              <div
-                className="encounter-character-list"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {this.props.encounter &&
-                  this.props.encounter.actors.map((character, index) => (
-                    <CharacterItem
-                      currentTurn={this.props.encounter.activePosition}
-                      key={index}
-                      character={character}
-                      index={index}
-                      deleteActorFromEncounter={
-                        this.props.deleteActorFromEncounter
-                      }
-                      healActor={this.props.healActor}
-                      damageActor={this.props.damageActor}
-                    />
-                  ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-          <CreateCharacter
-            addActorToEncounter={this.props.addActorToEncounter}
-          />
+          <div className="active-character-list-wrapper-spacing">
+            <Droppable droppableId="droppable">
+              {(provided, snapshot) => (
+                <div className="encounter-character-list-wrapper">
+                  <div
+                    className="encounter-character-list"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {this.props.encounter &&
+                      this.props.encounter.actors.map((character, index) => (
+                        <CharacterItem
+                          currentTurn={this.props.encounter.activePosition}
+                          key={index}
+                          character={character}
+                          index={index}
+                          handleInputChange={this.props.handleInputChange}
+                          editActorFromEncounter={this.props.editActorFromEncounter}
+                          deleteActorFromEncounter={
+                            this.props.deleteActorFromEncounter
+                          }
+                          healActor={this.props.healActor}
+                          damageActor={this.props.damageActor}
+                        />
+                      ))}
+                    {provided.placeholder}
+                  </div>
+                </div>
+              )}
+            </Droppable>
+            <CreateCharacter
+              addActorToEncounter={this.props.addActorToEncounter}
+            />
+          </div>
         </div>
       </DragDropContext>
     );

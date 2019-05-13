@@ -7,21 +7,28 @@ class HPChanger extends React.Component {
     this.state = {
       HPChange: 0
     };
+
+    this.setChange = this.setChange.bind(this);
+  }
+
+  setChange(value) {
+    this.setState({
+      HPChange: parseInt(value)
+    }, () => {
+      this.HP = "";
+    })
   }
 
   render() {
-    let setChange = value => {
-      this.setState({
-        HPChange: parseInt(value)
-      });
-    };
     return (
       <div className="HPChanger-wrapper">
         <input
           className="HPChanger-input"
           type="number"
           name="currentHP"
-          onChange={event => setChange(event.target.value)}
+          ref="HP"
+          min="0"
+          onChange={event => this.setChange(event.target.value)}
         />
         <div className="HPChanger-button-wrapper">
           <button
