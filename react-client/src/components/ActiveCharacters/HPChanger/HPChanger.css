@@ -6,7 +6,7 @@
 }
 
 .HPChanger-input {
-  width: 47px;
+  width: 55px;
   height: 15px;
   border: none;
   margin: 1px 0px;
@@ -23,7 +23,7 @@
   color: green;
   background: transparent; 
   border: 1px solid white;
-  width: 50px;
+  width: 55px;
   font-family: 'Roboto Condensed', sans-serif;
   border-radius: 3px;
   outline: 0;
@@ -34,7 +34,7 @@
   color: red;
   background: transparent; 
   border: 1px solid white;
-  width: 50px;
+  width: 55px;
   font-family: 'Roboto Condensed', sans-serif;
   border-radius: 3px;
   outline: 0;
