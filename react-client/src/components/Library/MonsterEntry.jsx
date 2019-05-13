@@ -2,33 +2,33 @@ import React from 'react';
 import './MonsterEntry.css';
 
 class MonsterEntry extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      hover : false
-    }
+      hover: false
+    };
 
     this.hoverOn = this.hoverOn.bind(this);
     this.hoverOff = this.hoverOff.bind(this);
   }
 
   hoverOn() {
-    this.setState({ hover : true });
+    this.setState({ hover: true });
   }
 
   hoverOff() {
-    this.setState({ hover : false });
+    this.setState({ hover: false });
   }
 
   render() {
     let { entry, addActorToEncounter } = this.props;
     return (
-      <li className="monsterBox" 
-        onClick={() => addActorToEncounter(entry)}
+      <li
+        className="monsterBox"
+        onClick={() => addActorToEncounter(entry, true)}
         onMouseOver={this.hoverOn}
-        onMouseOut={this.hoverOff} 
+        onMouseOut={this.hoverOff}
       >
         <div className="monsterRow">
           <div>
@@ -54,9 +54,17 @@ class MonsterEntry extends React.Component {
           </div>
           <div className="HPArmor">
             <span className="HPAflex">
-              <img className="HPAicon" width="25" height="25" src={ (this.state.hover || this.props.type == "homebrew") ? 'https://s3.amazonaws.com/the-initiative-project/heart-white.svg' :'https://s3.amazonaws.com/the-initiative-project/heart-black.svg'}
-              /> :{' '}
-              {entry.maxHP}
+              <img
+                className="HPAicon"
+                width="25"
+                height="25"
+                src={
+                  this.state.hover || this.props.type == 'homebrew'
+                    ? 'https://s3.amazonaws.com/the-initiative-project/heart-white.svg'
+                    : 'https://s3.amazonaws.com/the-initiative-project/heart-black.svg'
+                }
+              />{' '}
+              : {entry.maxHP}
             </span>
             <span className="HPAflex">
               <img
@@ -72,6 +80,6 @@ class MonsterEntry extends React.Component {
       </li>
     );
   }
-};
+}
 
 export default MonsterEntry;
