@@ -23,7 +23,15 @@
     margin-right: 10px;
 }
 
-@media only screen and (max-width: 1250px) { 
+@media only screen and (max-width: 1250px) and (min-width: 950px) {
+    .roll-initiative-wrapper{
+        margin: 0; 
+        position: relative;
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: 950px) { 
     .roll-initiative-wrapper{
         position: relative;
         top: 0;

@@ -52,7 +52,34 @@
   overflow-y: auto;
 }
 
-@media only screen and (max-width: 1250px) {
+@media only screen and (max-width: 1250px) and (min-width: 950px) {
+  .superLibrary {
+    position: relative;
+    width: 40%;
+    min-width: 380px;
+    margin-top: 30px; 
+    margin-left: 30px;
+  }
+
+  .SRDButton {
+    position: relative;
+    max-width: 100%;
+    min-width: 100%;
+  }
+  
+  .homebrewButton {
+    position: relative;
+    max-width: 100%;
+    min-width: 100%;
+  }
+  
+  .creatureList {
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 950px) {
   .superLibrary {
     position: relative;
     margin: auto;

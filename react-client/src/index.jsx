@@ -560,8 +560,7 @@ class App extends React.Component {
               </button>
             </div>
           )}
-        </div>
-        <div
+          <div
             className="appWrapper"
             style={{
               backgroundImage:
@@ -627,6 +626,7 @@ class App extends React.Component {
               />
             </div>
           </div>
+        </div>
       </div>
     );
   }
