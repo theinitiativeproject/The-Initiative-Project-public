@@ -76,7 +76,7 @@ class CharacterItem extends React.Component {
               </div>
               <span className="character-description-wrapper">
                 <span className="character-heal-wrapper">
-                  <HPChanger />
+                  <HPChanger index={this.props.index} damageActor={this.props.damageActor} healActor={this.props.healActor}/>
                 </span>
                 {this.props.character.currentHP && (
                   <span className="character-description-hit-point">
