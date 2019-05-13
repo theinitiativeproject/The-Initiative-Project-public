@@ -43,9 +43,13 @@ class ActiveCharacterList extends React.Component {
                       key={index}
                       character={character}
                       index={index}
-                      deleteActorFromEncounter={this.props.deleteActorFromEncounter}
                       handleInputChange={this.props.handleInputChange}
                       editActorFromEncounter={this.props.editActorFromEncounter}
+                      deleteActorFromEncounter={
+                        this.props.deleteActorFromEncounter
+                      }
+                      healActor={this.props.healActor}
+                      damageActor={this.props.damageActor}
                     />
                   ))}
                 {provided.placeholder}

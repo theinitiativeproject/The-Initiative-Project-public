@@ -51,31 +51,33 @@ class CharacterItem extends React.Component {
             {...provided.dragHandleProps}
           >
             <div className="character-item-summary">
-              <span className="character-level">
-                {typeof this.props.character.initiative === 'number'
-                  ? this.props.character.initiative
-                  : '?'}
-              </span>
-              <span className="character-name">
-                {this.props.character.name}
-              </span>
-              { 
-                (this.props.currentTurn !== this.props.index) && (
-                  <span className="character-show-details" onClick={this.toggleDetails}>
-                    <img
-                      width="20"
-                      height="20"
-                      src={ (this.state.showDetails ? "https://s3.amazonaws.com/the-initiative-project/up-arrow.svg" : "https://s3.amazonaws.com/the-initiative-project/down-arrow.svg")}
-                    /> 
-                  </span>)
-              }
-              <span className="character-edit" onClick={this.toggleEdit}>
-                <img width="15" height="15" src="https://s3.amazonaws.com/the-initiative-project/edit.svg" />
-              </span>
-              <span className="character-heal-wrapper" style={{ 'display' : 'none' }}>
-                <HPChanger />
-              </span>
+              <div>
+                <span className="character-level">
+                  {typeof this.props.character.initiative === 'number'
+                    ? this.props.character.initiative
+                    : '?'}
+                </span>
+                <span className="character-name">
+                  {this.props.character.name}
+                </span>
+                { 
+                  (this.props.currentTurn !== this.props.index) && (
+                    <span className="character-show-details" onClick={this.toggleDetails}>
+                      <img
+                        width="20"
+                        height="20"
+                        src={ (this.state.showDetails ? "https://s3.amazonaws.com/the-initiative-project/up-arrow.svg" : "https://s3.amazonaws.com/the-initiative-project/down-arrow.svg")}
+                      /> 
+                    </span>)
+                }
+                <span className="character-edit" onClick={this.toggleEdit}>
+                  <img width="15" height="15" src="https://s3.amazonaws.com/the-initiative-project/edit.svg" />
+                </span>
+              </div>
               <span className="character-description-wrapper">
+                <span className="character-heal-wrapper">
+                  <HPChanger />
+                </span>
                 {this.props.character.currentHP && (
                   <span className="character-description-hit-point">
                     <img
@@ -83,8 +85,15 @@ class CharacterItem extends React.Component {
                       height="25"
                       src="https://s3.amazonaws.com/the-initiative-project/little-health.svg"
                     />
-                    : {this.props.character.currentHP} /{' '}
-                    {this.props.character.maxHP}
+                    :{' '}
+                    <div className="healthCounter">
+                      <div className="healthCounterCurrent">
+                        {this.props.character.currentHP}
+                      </div>
+                      <div className="healthCounterMax">
+                        {this.props.character.maxHP}
+                      </div>
+                    </div>
                   </span>
                 )}
                 {this.props.character.armorClass && (
@@ -97,11 +106,21 @@ class CharacterItem extends React.Component {
                     : {this.props.character.armorClass}
                   </span>
                 )}
-                <span className="death-wrapper" onClick={() => this.props.deleteActorFromEncounter(this.props.index)}>
-                  <img 
+                <span
+                  className="death-wrapper"
+                  onClick={() =>
+                    this.props.deleteActorFromEncounter(this.props.index)
+                  }
+                >
+                  <img
                     width="25"
                     height="25"
-                    src={ (this.props.currentTurn === this.props.index) ? "https://s3.amazonaws.com/the-initiative-project/skull-black.svg" : "https://s3.amazonaws.com/the-initiative-project/skull-light-grey.svg" }/>
+                    src={
+                      this.props.currentTurn === this.props.index
+                        ? 'https://s3.amazonaws.com/the-initiative-project/skull-black.svg'
+                        : 'https://s3.amazonaws.com/the-initiative-project/skull-light-grey.svg'
+                    }
+                  />
                 </span>
               </span>
             </div>

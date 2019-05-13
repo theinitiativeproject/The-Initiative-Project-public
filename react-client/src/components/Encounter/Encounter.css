@@ -31,6 +31,10 @@
     cursor: pointer;
 }
 
+.create-button {
+    margin-left: 10px;
+}
+
 .next-button > button {
     background-color: #0B0B0B;
     border: none;

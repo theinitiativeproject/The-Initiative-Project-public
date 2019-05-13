@@ -12,15 +12,18 @@ class Encounter extends React.Component {
     return (
       <div className="encounterWrapper">
         <div className="encounterWrapperHeader">
-          <span className="save-button">
-            <button onClick={this.props.saveEncounter}>
-              <img
-                width="20"
-                height="20"
-                src="https://s3.amazonaws.com/the-initiative-project/save.svg"
-              />
-            </button>
-          </span>
+          <div className="encounter-left-col-buttons">
+            <span className="save-button">
+              <button onClick={this.props.saveEncounter}>
+                <img
+                  width="20"
+                  height="20"
+                  src="https://s3.amazonaws.com/the-initiative-project/save.svg"
+                />
+              </button>
+            </span>
+            <span className="create-button" onClick={this.props.createNewEncounter}>+</span>
+          </div>
           <h1>
             {this.props.encounters[this.props.activeEncounter]
               ? this.props.encounters[this.props.activeEncounter].encounterName
@@ -51,6 +54,8 @@ class Encounter extends React.Component {
           deleteActorFromEncounter={this.props.deleteActorFromEncounter}
           handleInputChange={this.props.handleInputChange}
           editActorFromEncounter={this.props.editActorFromEncounter}
+          healActor={this.props.healActor}
+          damageActor={this.props.damageActor}
         />
       </div>
     );

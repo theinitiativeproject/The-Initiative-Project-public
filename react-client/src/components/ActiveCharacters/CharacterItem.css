@@ -1,32 +1,39 @@
 .character-item-wrapper {
-    border: 1px solid #28F0B2;
-    min-height: 40px;
-    line-height: 40px;
-    padding: 10px;
-    margin: 20px 0px;
-    -webkit-transition: display 2.5s ease-in-out;
-    -moz-transition: display 2.5s ease-in-out;
-    -o-transition: display 2.5s ease-in-out;
-    transition: display 2.5s ease-in-out;
+  border: 1px solid #28f0b2;
+  min-height: 40px;
+  line-height: 50px;
+  padding: 10px;
+  margin: 20px 0px;
+  -webkit-transition: display 2.5s ease-in-out;
+  -moz-transition: display 2.5s ease-in-out;
+  -o-transition: display 2.5s ease-in-out;
+  transition: display 2.5s ease-in-out;
 }
 
 .currentTurn {
-    background-color: #F9F7EC;
-    color: #000000;
-    border: 1px solid #000000;
+  background-color: #f9f7ec;
+  color: #000000;
+  border: 1px solid #000000;
 }
 
 .character-npc {
-    border: 1px solid #E01014;
+  border: 1px solid #e01014;
 }
 
 .character-level {
-    float: left;
-    margin-right: 10px;
+  float: left;
+  margin-right: 10px;
 }
 
 .character-name {
-    font-size: 20px;
+  width: 170px; 
+  font-size: 20px;
+  height: 50px;
+  line-height: 50px;
+  align-content: center;
+  overflow: hidden;
+  white-space: nowrap; /* Don't forget this one */
+  text-overflow: ellipsis;
 }
 
 .character-show-details {
@@ -35,51 +42,87 @@
 }
 
 .character-edit {
-    display: inline;
-    vertical-align: middle;
-    cursor: pointer;
-    margin-left: 7px;
+  display: inline;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-left: 7px;
+}
+
+.character-heal-wrapper {
+  display: inline;
+  margin-left: 10px;
 }
 
 .character-description-wrapper {
-    float: right;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .character-description-wrapper span {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
-.character-description-hit-point, .character-description-perception, .character-description-armour, .death-wrapper {
-    line-height: 40px;
-    margin: auto;
-    display: flex;
-    align-items:center;
+.character-description-hit-point,
+.character-description-perception,
+.character-description-armour,
+.death-wrapper {
+  line-height: 40px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.healthCounter {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  height: 30px;
+  line-height: 15px;
+}
+
+.healthCounterCurrent {
+  border-bottom: 2px solid;
+}
+
+.healthCounterMax {
+  margin-top: 1px;
 }
 
 .death-wrapper {
-    display: none;
+  display: none;
 }
 
-.character-item-wrapper:hover .death-wrapper{
-    display: inline-block;
-    margin-left: 20px;
-    cursor: pointer;
+.character-item-wrapper:hover .death-wrapper {
+  display: inline-block;
+  margin-left: 20px;
+  cursor: pointer;
+  line-height: 50px;
 }
 
-.character-description-hit-point > img, .character-description-perception > img, .character-description-armour > img, .death-wrapper > img {
-    display: inline-block;
-    margin-right: 0.4em;
-    vertical-align: middle;
+.character-description-hit-point > img,
+.character-description-perception > img,
+.character-description-armour > img,
+.death-wrapper > img {
+  display: inline-block;
+  margin-right: 0.4em;
+  vertical-align: middle;
+}
+
+.character-item-summary {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .character-item-summary-col {
-    display: grid;
-    grid-template-columns: 150px 150px 150px;
+  display: grid;
+  grid-template-columns: 150px 150px 150px;
 }
 
 .character-item-summary-col > span {
-    margin-right: 10px;
+  margin-right: 10px;
 }

@@ -1,11 +1,42 @@
 .HPChanger-wrapper {
-    display: inline;
-}
-
-.HPChanger-button {
-    
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
 }
 
 .HPChanger-input {
-    width: 30px;
+  width: 40px;
+  height: 15px;
+  border: none;
+  font-family: 'Roboto Condensed', sans-serif;
 }
+
+.HPChanger-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 7px;
+}
+
+.HPChanger-button-heal-button {
+  color: green;
+  background: transparent; 
+  border: 1px solid white;
+  width: 50px;
+  font-family: 'Roboto Condensed', sans-serif;
+  border-radius: 3px;
+  outline: 0;
+  cursor: pointer;
+}
+
+.HPChanger-button-damage-button {
+  color: red;
+  background: transparent; 
+  border: 1px solid white;
+  width: 50px;
+  font-family: 'Roboto Condensed', sans-serif;
+  border-radius: 3px;
+  outline: 0;
+  cursor: pointer;
+}
+
