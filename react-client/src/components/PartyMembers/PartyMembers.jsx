@@ -17,6 +17,7 @@ class PartyMembers extends React.Component {
           currentEncounter={this.props.currentEncounter}
           partyMembers={this.props.partyMembers}
           addActorToEncounter={this.props.addActorToEncounter}
+          addToPartyMembers={this.props.addToPartyMembers}
         />
       </div>
     );
