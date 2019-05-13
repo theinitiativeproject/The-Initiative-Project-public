@@ -317,13 +317,20 @@ class App extends React.Component {
   editActorFromEncounter(e, index, character) {
     e.preventDefault();
     let tempEncounters = this.state.encounters;
-    tempEncounters[this.state.activeEncounter].actors[index]['chaSave'] = character.charChaSave;
-    tempEncounters[this.state.activeEncounter].actors[index]['conSave'] = character.charConSave;
-    tempEncounters[this.state.activeEncounter].actors[index]['dexSave'] = character.charDexSave;
-    tempEncounters[this.state.activeEncounter].actors[index]['initMod'] = character.charInitMod;
-    tempEncounters[this.state.activeEncounter].actors[index]['intSave'] = character.charIntSave;
-    tempEncounters[this.state.activeEncounter].actors[index]['strSave'] = character.charStrSave;      
-    tempEncounters[this.state.activeEncounter].actors[index]['wisSave'] = character.charWisSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['chaSave'] =
+      character.charChaSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['conSave'] =
+      character.charConSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['dexSave'] =
+      character.charDexSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['initMod'] =
+      character.charInitMod;
+    tempEncounters[this.state.activeEncounter].actors[index]['intSave'] =
+      character.charIntSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['strSave'] =
+      character.charStrSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['wisSave'] =
+      character.charWisSave;
     this.setState({
       encounters: tempEncounters
     });
@@ -331,7 +338,7 @@ class App extends React.Component {
 
   deleteActorFromEncounter(index) {
     let tempEncounters = this.state.encounters;
-    tempEncounters[this.state.activeEncounter].actors.splice(index,1);
+    tempEncounters[this.state.activeEncounter].actors.splice(index, 1);
     this.setState({
       encounters: tempEncounters
     });
