@@ -89,9 +89,37 @@ body, html {
 }
 
 .mainWrapper {
+    display: flex;
     width: 100%;
     height: 100%;
     padding: 30px 0px;
     position: absolute;
     z-index: 5;
+}
+
+@media only screen and (max-width: 1250px) {
+    .mainWrapper {
+        flex-direction: column;
+    }
+
+    .roll-initiative-wrapper {
+        order : 1;
+    }
+
+    .superLibrary {
+        order : 3;
+    }
+
+    .encounterWrapper {
+        order: 2;
+    }
+
+    .savedEncountersWrapper {
+        order: 4;
+    }
+
+    .partyMemberWrapper {
+        order: 5;
+    }
+
 }

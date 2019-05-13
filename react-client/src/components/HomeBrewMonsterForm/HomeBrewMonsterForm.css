@@ -63,3 +63,10 @@
     background: #000000;
     color:  #F9F7EC;
 }
+
+@media only screen and (max-width: 1250px) {
+    .homebrew-monster-form-wrapper {
+        position: relative;
+        max-width: 100%;
+    }
+}
