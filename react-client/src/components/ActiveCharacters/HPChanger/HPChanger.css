@@ -9,28 +9,34 @@
   width: 40px;
   height: 15px;
   border: none;
-  background-color: black;
-  color: white;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
 .HPChanger-button-wrapper {
   display: flex;
   flex-direction: column;
+  margin-left: 7px;
 }
 
 .HPChanger-button-heal-button {
-  background-color: green;
-  color: white;
-  width: 60px;
+  color: green;
+  background: transparent; 
+  border: 1px solid white;
+  width: 50px;
   font-family: 'Roboto Condensed', sans-serif;
-  border: none;
+  border-radius: 3px;
+  outline: 0;
+  cursor: pointer;
 }
 
 .HPChanger-button-damage-button {
-  background-color: red;
-  color: white;
-  width: 60px;
+  color: red;
+  background: transparent; 
+  border: 1px solid white;
+  width: 50px;
   font-family: 'Roboto Condensed', sans-serif;
-  border: none;
+  border-radius: 3px;
+  outline: 0;
+  cursor: pointer;
 }
+

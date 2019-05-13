@@ -2,18 +2,35 @@ import React from 'react';
 import './CharacterItem.css';
 import { Draggable } from 'react-beautiful-dnd';
 import HPChanger from './HPChanger/HPChanger.jsx';
+import CharacterStats from './CharacterStats/CharacterStats.jsx';
+import CharacterInputForm from './CharacterInputForm/CharacterInputForm.jsx';
 
 class CharacterItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDetails: false
+      showDetails: false,
+      canEdit: false
     };
     this.toggleDetails = this.toggleDetails.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   toggleDetails() {
-    this.setState({ showDetails: !this.state.showDetails });
+    this.setState({ showDetails: !this.state.showDetails }, () => {
+      if(!this.state.toggleDetails) {
+        this.setState({ canEdit : false });
+      }
+    });
+    
+  }
+
+  toggleEdit() {
+    this.setState({ canEdit : !this.state.canEdit }, () => {
+      if(this.state.canEdit) {
+        this.setState({ showDetails : true });
+      }
+    });
   }
 
   render() {
@@ -34,38 +51,33 @@ class CharacterItem extends React.Component {
             {...provided.dragHandleProps}
           >
             <div className="character-item-summary">
-              <span className="character-level">
-                {typeof this.props.character.initiative === 'number'
-                  ? this.props.character.initiative
-                  : '?'}
-              </span>
-              <span className="character-name">
-                {this.props.character.name}
-              </span>
-              {this.props.currentTurn !== this.props.index && (
-                <span
-                  className="character-show-details"
-                  onClick={this.toggleDetails}
-                >
-                  <img
-                    width="20"
-                    height="20"
-                    src={
-                      this.state.showDetails
-                        ? 'https://s3.amazonaws.com/the-initiative-project/up-arrow.svg'
-                        : 'https://s3.amazonaws.com/the-initiative-project/down-arrow.svg'
-                    }
-                  />
+              <div>
+                <span className="character-level">
+                  {typeof this.props.character.initiative === 'number'
+                    ? this.props.character.initiative
+                    : '?'}
                 </span>
-              )}
-              <span className="character-heal-wrapper">
-                <HPChanger
-                  index={this.props.index}
-                  healActor={this.props.healActor}
-                  damageActor={this.props.damageActor}
-                />
-              </span>
+                <span className="character-name">
+                  {this.props.character.name}
+                </span>
+                { 
+                  (this.props.currentTurn !== this.props.index) && (
+                    <span className="character-show-details" onClick={this.toggleDetails}>
+                      <img
+                        width="20"
+                        height="20"
+                        src={ (this.state.showDetails ? "https://s3.amazonaws.com/the-initiative-project/up-arrow.svg" : "https://s3.amazonaws.com/the-initiative-project/down-arrow.svg")}
+                      /> 
+                    </span>)
+                }
+                <span className="character-edit" onClick={this.toggleEdit}>
+                  <img width="15" height="15" src="https://s3.amazonaws.com/the-initiative-project/edit.svg" />
+                </span>
+              </div>
               <span className="character-description-wrapper">
+                <span className="character-heal-wrapper">
+                  <HPChanger index={this.props.index} damageActor={this.props.damageActor} healActor={this.props.healActor}/>
+                </span>
                 {this.props.character.currentHP && (
                   <span className="character-description-hit-point">
                     <img
@@ -124,26 +136,8 @@ class CharacterItem extends React.Component {
               }}
             >
               <div className="character-item-summary-info">
-                <div className="character-item-summary-col">
-                  <span>
-                    Strength Save: {this.props.character.strSave || 0}
-                  </span>
-                  <span>
-                    Dexterity Save: {this.props.character.dexSave || 0}
-                  </span>
-                  <span>
-                    Constitution Save: {this.props.character.conSave || 0}
-                  </span>
-                </div>
-                <div className="character-item-summary-col">
-                  <span>
-                    Intelligence Save: {this.props.character.intSave || 0}
-                  </span>
-                  <span>Wisdom Save: {this.props.character.wisSave || 0}</span>
-                  <span>
-                    Charisma Save: {this.props.character.chaSave || 0}
-                  </span>
-                </div>
+                { this.state.canEdit && <CharacterInputForm index={this.props.index} character={this.props.character} handleInputChange={this.props.handleInputChange} editActorFromEncounter={this.props.editActorFromEncounter} toggleEdit={this.toggleEdit} />}
+                { !this.state.canEdit && <CharacterStats character={this.props.character} /> }
               </div>
             </div>
           </div>

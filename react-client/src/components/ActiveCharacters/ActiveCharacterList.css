@@ -1,3 +1,16 @@
 .active-character-list-wrapper {
+    padding: 0px 1px;
+}
+
+.active-character-list-wrapper-spacing {
+    padding: 0px 10px;
+}
+
+.encounter-character-list-wrapper {
+    max-height: 70vh;
+    overflow: auto;
+}
+
+.encounter-character-list {
     padding: 0px 20px;
 }
