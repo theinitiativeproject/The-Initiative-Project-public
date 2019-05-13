@@ -21,3 +21,23 @@
   font-size: 20px;
   text-align: center;
 }
+
+@media only screen and (max-width: 1250px) and (min-width: 950px) {
+  .partyMemberWrapper {
+    position: relative;
+    margin-left: 30px;
+    top: 20px;
+    max-width: 60%;
+    min-width: 40%;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .partyMemberWrapper {
+    position: relative;
+    top: 0;
+    margin-top: 40px;
+    max-width: 100%;
+    width: 75%;
+  }
+}

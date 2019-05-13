@@ -1,7 +1,7 @@
 .homebrew-monster-form-wrapper {
     position: absolute;
     background-color: #F9F7EC;
-    width: 356px;
+    max-width: 335px;
     padding: 20px 10px;
     margin-left: 2px;
 }
@@ -62,4 +62,11 @@
     cursor: pointer;
     background: #000000;
     color:  #F9F7EC;
+}
+
+@media only screen and (max-width: 1250px) {
+    .homebrew-monster-form-wrapper {
+        position: relative;
+        max-width: 100%;
+    }
 }

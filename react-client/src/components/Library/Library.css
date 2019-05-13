@@ -1,7 +1,6 @@
 .superLibrary {
   position: absolute;
   margin-top: 30px;
-  max-width: 380px;
   border-top: 2px solid;
   border-right: 2px solid;
   border-bottom: 2px solid;
@@ -20,7 +19,8 @@
   padding: 5px 5px;
   letter-spacing: 1px;
   cursor: pointer;
-  width: 190px;
+  max-width: 190px;
+  min-width: 165px;
   height: 45px;
   border: none;
   outline: 0;
@@ -35,7 +35,8 @@
   padding: 5px 5px;
   letter-spacing: 1px;
   cursor: pointer;
-  width: 190px;
+  max-width: 190px;
+  min-width: 165px;
   height: 45px;
   border: none;
   border-color: black;
@@ -49,4 +50,57 @@
   max-width: 380px;
   max-height: 50vh;
   overflow-y: auto;
+}
+
+@media only screen and (max-width: 1250px) and (min-width: 950px) {
+  .superLibrary {
+    position: relative;
+    width: 40%;
+    min-width: 380px;
+    margin-top: 30px; 
+    margin-left: 30px;
+  }
+
+  .SRDButton {
+    position: relative;
+    max-width: 100%;
+    min-width: 100%;
+  }
+  
+  .homebrewButton {
+    position: relative;
+    max-width: 100%;
+    min-width: 100%;
+  }
+  
+  .creatureList {
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .superLibrary {
+    position: relative;
+    margin: auto;
+    width: 75%;
+    margin-top: 30px; 
+  }
+
+  .SRDButton {
+    position: relative;
+    max-width: 100%;
+    min-width: 50%;
+  }
+  
+  .homebrewButton {
+    position: relative;
+    max-width: 100%;
+    min-width: 50%;
+  }
+  
+  .creatureList {
+    max-width: 100%;
+    min-width: 100%;
+  }
 }

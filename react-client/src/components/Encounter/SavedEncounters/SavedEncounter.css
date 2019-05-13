@@ -51,3 +51,22 @@
 .selected-encounter {
   color: black;
 }
+
+@media only screen and (max-width: 1250px) and (min-width: 950px) { 
+  .savedEncountersWrapper {
+    margin-right: 30px;
+    max-width: 50%;
+    min-width: 50%;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .savedEncountersWrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-top: 40px;
+    max-width: 75%;
+    min-width: 75%;
+  }
+}
