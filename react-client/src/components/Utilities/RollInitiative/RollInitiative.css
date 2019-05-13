@@ -25,9 +25,15 @@
 
 @media only screen and (max-width: 1250px) and (min-width: 950px) {
     .roll-initiative-wrapper{
-        margin: 0; 
+        margin-left: 30px; 
         position: relative;
-        width: 75%;
+        width: 100%;
+    }
+
+    .roll-initiative-form {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
     }
 }
 
