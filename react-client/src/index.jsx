@@ -378,6 +378,7 @@ class App extends React.Component {
   }
 
   addToPartyMembers(obj) {
+    obj.initMod = 0;
     let temp = this.state.partyMembers.slice();
     if (this.state.user) {
       obj.owner = this.state.user.uid;
