@@ -89,6 +89,7 @@ class App extends React.Component {
     this.retrieveEncounters = this.retrieveEncounters.bind(this);
     this.rollInitiativeToggle = this.rollInitiativeToggle.bind(this);
     this.addActorToEncounter = this.addActorToEncounter.bind(this);
+    this.editActorFromEncounter = this.editActorFromEncounter.bind(this);
     this.deleteActorFromEncounter = this.deleteActorFromEncounter.bind(this);
     this.addToPartyMembers = this.addToPartyMembers.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -308,9 +309,23 @@ class App extends React.Component {
     });
   }
 
+  editActorFromEncounter(e, index, character) {
+    e.preventDefault();
+    let tempEncounters = this.state.encounters;
+    tempEncounters[this.state.activeEncounter].actors[index]['chaSave'] = character.charChaSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['conSave'] = character.charConSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['dexSave'] = character.charDexSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['initMod'] = character.charInitMod;
+    tempEncounters[this.state.activeEncounter].actors[index]['intSave'] = character.charIntSave;
+    tempEncounters[this.state.activeEncounter].actors[index]['strSave'] = character.charStrSave;      
+    tempEncounters[this.state.activeEncounter].actors[index]['wisSave'] = character.charWisSave;
+    this.setState({
+      encounters: tempEncounters
+    });
+  }
+
   deleteActorFromEncounter(index) {
     let tempEncounters = this.state.encounters;
-    console.log(tempEncounters);
     tempEncounters[this.state.activeEncounter].actors.splice(index,1);
     this.setState({
       encounters: tempEncounters
@@ -506,12 +521,14 @@ class App extends React.Component {
                 encounters={this.state.encounters}
                 partyMembers={this.state.partyMembers}
                 addActorToEncounter={this.addActorToEncounter}
+                handleInputChange={this.handleInputChange}
                 onDragEnd={this.onDragEnd}
                 activeEncounter={this.state.activeEncounter}
                 switchTurn={this.switchTurn}
                 sort={this.sort}
                 saveEncounter={this.saveEncounter}
                 deleteActorFromEncounter={this.deleteActorFromEncounter}
+                editActorFromEncounter={this.editActorFromEncounter}
               />
               <PartyMembers
                 currentEncounter={

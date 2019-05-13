@@ -1,0 +1,17 @@
+.charcter-item-input {
+    width: 70px;
+}
+
+.charcter-item-input-button {
+    display: block;
+    background: transparent;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 5px;
+    letter-spacing: 1px;
+    margin-top: 5px;
+    cursor: pointer;
+    background: #000000;
+    color:  #F9F7EC;
+}

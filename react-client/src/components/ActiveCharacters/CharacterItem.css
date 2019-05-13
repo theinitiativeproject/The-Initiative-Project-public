@@ -31,6 +31,14 @@
 
 .character-show-details {
     margin-left: 10px;
+    vertical-align: middle;
+}
+
+.character-edit {
+    display: inline;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 7px;
 }
 
 .character-description-wrapper {

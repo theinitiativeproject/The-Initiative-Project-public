@@ -49,6 +49,8 @@ class Encounter extends React.Component {
           partyMembers={this.props.partyMembers}
           addActorToEncounter={this.props.addActorToEncounter}
           deleteActorFromEncounter={this.props.deleteActorFromEncounter}
+          handleInputChange={this.props.handleInputChange}
+          editActorFromEncounter={this.props.editActorFromEncounter}
         />
       </div>
     );

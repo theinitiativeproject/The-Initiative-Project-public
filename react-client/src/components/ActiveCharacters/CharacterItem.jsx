@@ -2,21 +2,36 @@ import React from 'react';
 import './CharacterItem.css';
 import { Draggable } from 'react-beautiful-dnd';
 import HPChanger from './HPChanger/HPChanger.jsx';
+import CharacterStats from './CharacterStats/CharacterStats.jsx';
+import CharacterInputForm from './CharacterInputForm/CharacterInputForm.jsx';
 
 class CharacterItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDetails: false
+      showDetails: false,
+      canEdit: false
     };
     this.toggleDetails = this.toggleDetails.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   toggleDetails() {
-    this.setState({ showDetails: !this.state.showDetails });
+    this.setState({ showDetails: !this.state.showDetails }, () => {
+      if(!this.state.toggleDetails) {
+        this.setState({ canEdit : false });
+      }
+    });
+    
   }
 
-  editHealth() {}
+  toggleEdit() {
+    this.setState({ canEdit : !this.state.canEdit }, () => {
+      if(this.state.canEdit) {
+        this.setState({ showDetails : true });
+      }
+    });
+  }
 
   render() {
     return (
@@ -54,7 +69,10 @@ class CharacterItem extends React.Component {
                     /> 
                   </span>)
               }
-              <span className="character-heal-wrapper">
+              <span className="character-edit" onClick={this.toggleEdit}>
+                <img width="15" height="15" src="https://s3.amazonaws.com/the-initiative-project/edit.svg" />
+              </span>
+              <span className="character-heal-wrapper" style={{ 'display' : 'none' }}>
                 <HPChanger />
               </span>
               <span className="character-description-wrapper">
@@ -99,26 +117,8 @@ class CharacterItem extends React.Component {
               }}
             >
               <div className="character-item-summary-info">
-                <div className="character-item-summary-col">
-                  <span>
-                    Strength Save: {this.props.character.strSave || 0}
-                  </span>
-                  <span>
-                    Dexterity Save: {this.props.character.dexSave || 0}
-                  </span>
-                  <span>
-                    Constitution Save: {this.props.character.conSave || 0}
-                  </span>
-                </div>
-                <div className="character-item-summary-col">
-                  <span>
-                    Intelligence Save: {this.props.character.intSave || 0}
-                  </span>
-                  <span>Wisdom Save: {this.props.character.wisSave || 0}</span>
-                  <span>
-                    Charisma Save: {this.props.character.chaSave || 0}
-                  </span>
-                </div>
+                { this.state.canEdit && <CharacterInputForm index={this.props.index} character={this.props.character} handleInputChange={this.props.handleInputChange} editActorFromEncounter={this.props.editActorFromEncounter} toggleEdit={this.toggleEdit} />}
+                { !this.state.canEdit && <CharacterStats character={this.props.character} /> }
               </div>
             </div>
           </div>

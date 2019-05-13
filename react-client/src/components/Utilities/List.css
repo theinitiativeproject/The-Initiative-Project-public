@@ -6,4 +6,6 @@
 .party-member-list {
     background-color: #F9F7EC;
     color: black;
+    max-height: 353px;
+    overflow: auto;
 }

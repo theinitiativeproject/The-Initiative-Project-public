@@ -10,7 +10,7 @@ class HPChanger extends React.Component {
         return(
             <div className="HPChanger-wrapper">
                 <button className="HPChanger-button heal-button">Heal</button>
-                <input type="number" name="currentHP"/>
+                <input className="HPChanger-input" type="number" name="currentHP" min="0"/>
                 <button className="HPChanger-button damage-button">Damage</button>
             </div>
         );
