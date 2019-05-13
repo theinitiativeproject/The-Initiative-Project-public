@@ -26,7 +26,7 @@
 }
 
 .character-name {
-  width: 170px; 
+  width: 170px;
   font-size: 20px;
   height: 50px;
   line-height: 50px;
@@ -37,8 +37,8 @@
 }
 
 .character-show-details {
-    margin-left: 10px;
-    vertical-align: middle;
+  margin-left: 10px;
+  vertical-align: middle;
 }
 
 .character-edit {
@@ -84,6 +84,7 @@
 
 .healthCounterCurrent {
   border-bottom: 2px solid;
+  text-align: center;
 }
 
 .healthCounterMax {

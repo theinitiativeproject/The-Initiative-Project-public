@@ -18,17 +18,16 @@ class CharacterItem extends React.Component {
 
   toggleDetails() {
     this.setState({ showDetails: !this.state.showDetails }, () => {
-      if(!this.state.toggleDetails) {
-        this.setState({ canEdit : false });
+      if (!this.state.toggleDetails) {
+        this.setState({ canEdit: false });
       }
     });
-    
   }
 
   toggleEdit() {
-    this.setState({ canEdit : !this.state.canEdit }, () => {
-      if(this.state.canEdit) {
-        this.setState({ showDetails : true });
+    this.setState({ canEdit: !this.state.canEdit }, () => {
+      if (this.state.canEdit) {
+        this.setState({ showDetails: true });
       }
     });
   }
@@ -60,25 +59,39 @@ class CharacterItem extends React.Component {
                 <span className="character-name">
                   {this.props.character.name}
                 </span>
-                { 
-                  (this.props.currentTurn !== this.props.index) && (
-                    <span className="character-show-details" onClick={this.toggleDetails}>
-                      <img
-                        width="20"
-                        height="20"
-                        src={ (this.state.showDetails ? "https://s3.amazonaws.com/the-initiative-project/up-arrow.svg" : "https://s3.amazonaws.com/the-initiative-project/down-arrow.svg")}
-                      /> 
-                    </span>)
-                }
+                {this.props.currentTurn !== this.props.index && (
+                  <span
+                    className="character-show-details"
+                    onClick={this.toggleDetails}
+                  >
+                    <img
+                      width="20"
+                      height="20"
+                      src={
+                        this.state.showDetails
+                          ? 'https://s3.amazonaws.com/the-initiative-project/up-arrow.svg'
+                          : 'https://s3.amazonaws.com/the-initiative-project/down-arrow.svg'
+                      }
+                    />
+                  </span>
+                )}
                 <span className="character-edit" onClick={this.toggleEdit}>
-                  <img width="15" height="15" src="https://s3.amazonaws.com/the-initiative-project/edit.svg" />
+                  <img
+                    width="15"
+                    height="15"
+                    src="https://s3.amazonaws.com/the-initiative-project/edit.svg"
+                  />
                 </span>
               </div>
               <span className="character-description-wrapper">
                 <span className="character-heal-wrapper">
-                  <HPChanger index={this.props.index} damageActor={this.props.damageActor} healActor={this.props.healActor}/>
+                  <HPChanger
+                    index={this.props.index}
+                    damageActor={this.props.damageActor}
+                    healActor={this.props.healActor}
+                  />
                 </span>
-                {this.props.character.currentHP && (
+                {typeof this.props.character.currentHP === 'number' && (
                   <span className="character-description-hit-point">
                     <img
                       width="25"
@@ -136,8 +149,18 @@ class CharacterItem extends React.Component {
               }}
             >
               <div className="character-item-summary-info">
-                { this.state.canEdit && <CharacterInputForm index={this.props.index} character={this.props.character} handleInputChange={this.props.handleInputChange} editActorFromEncounter={this.props.editActorFromEncounter} toggleEdit={this.toggleEdit} />}
-                { !this.state.canEdit && <CharacterStats character={this.props.character} /> }
+                {this.state.canEdit && (
+                  <CharacterInputForm
+                    index={this.props.index}
+                    character={this.props.character}
+                    handleInputChange={this.props.handleInputChange}
+                    editActorFromEncounter={this.props.editActorFromEncounter}
+                    toggleEdit={this.toggleEdit}
+                  />
+                )}
+                {!this.state.canEdit && (
+                  <CharacterStats character={this.props.character} />
+                )}
               </div>
             </div>
           </div>
