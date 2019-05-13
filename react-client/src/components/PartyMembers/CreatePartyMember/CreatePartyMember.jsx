@@ -22,7 +22,7 @@ class CreatePartyMember extends React.Component {
 
   onSubmitCreateCreature(e) {
     e.preventDefault();
-    this.props.addActorToEncounter(this.state);
+    this.props.addToPartyMembers(this.state);
     //this.props.addCharacter(this.state);
   }
 
