@@ -122,6 +122,10 @@ body, html {
         justify-content: space-around;
         flex-wrap: wrap;
     }
+
+    .darkWrapper {
+        top: 25px;
+    }
 }
 
 @media only screen and (max-width: 950px) {
@@ -149,4 +153,7 @@ body, html {
         order: 5;
     }
 
+    .darkWrapper {
+        top: 0px;
+    }
 }
