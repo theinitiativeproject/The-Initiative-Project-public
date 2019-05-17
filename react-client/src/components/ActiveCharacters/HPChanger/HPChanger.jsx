@@ -22,14 +22,6 @@ class HPChanger extends React.Component {
   render() {
     return (
       <div className="HPChanger-wrapper">
-        <input
-          className="HPChanger-input"
-          type="number"
-          name="currentHP"
-          ref="HP"
-          min="0"
-          onChange={event => this.setChange(event.target.value)}
-        />
         <div className="HPChanger-button-wrapper">
           <button
             className="HPChanger-button-heal-button"
@@ -39,6 +31,14 @@ class HPChanger extends React.Component {
           >
             Heal
           </button>
+          <input
+            className="HPChanger-input"
+            type="number"
+            name="currentHP"
+            ref="HP"
+            min="0"
+            onChange={event => this.setChange(event.target.value)}
+          />
           <button
             className="HPChanger-button-damage-button"
             onClick={() =>

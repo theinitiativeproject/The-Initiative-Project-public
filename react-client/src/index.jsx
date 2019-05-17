@@ -378,14 +378,26 @@ class App extends React.Component {
   }
 
   addToPartyMembers(obj) {
-    db.collection('party_members')
-      .add(obj)
-      .then(() => {
-        console.log('Added to Party Members');
-      })
-      .catch(err =>
-        console.log('error adding character to Party Members', err)
-      );
+    obj.initMod = 0;
+    let temp = this.state.partyMembers.slice();
+    if (this.state.user) {
+      obj.owner = this.state.user.uid;
+      db.collection('party_members')
+        .add(obj)
+        .then(() => {
+          console.log('Added to Party Members');
+        })
+        .then(() => {
+          temp.push(obj);
+          this.setState({ partyMembers: temp });
+        })
+        .catch(err =>
+          console.log('error adding character to Party Members', err)
+        );
+    } else {
+      temp.push(obj);
+      this.setState({ partyMembers: temp });
+    }
   }
 
   onDragEnd(result) {
@@ -625,6 +637,7 @@ class App extends React.Component {
                 partyMembers={this.state.partyMembers}
                 addActorToEncounter={this.addActorToEncounter}
                 onDragEnd={this.onDragEnd}
+                addToPartyMembers={this.addToPartyMembers}
               />
               <SavedEncounters
                 encounters={this.state.encounters}

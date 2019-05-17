@@ -34,24 +34,24 @@ class CharacterInputForm extends React.Component {
     render() {
         return(
             <form onSubmit={(e) => this.onSubmitEdits(e)}>
-                <div className="character-item-summary-col">
-                <span>
+                <div className="character-item-summary-col-input">
+                <span className="charcter-item-span">
                     Strength Save: <input className="charcter-item-input" type="number" name="charStrSave" value={this.state.charStrSave || 0} onChange={this.handleInputChange} />
                 </span>
-                <span>
+                <span className="charcter-item-span">
                     Dexterity Save: <input className="charcter-item-input" type="number" name="charDexSave" value={this.state.charDexSave || 0} onChange={this.handleInputChange} /> 
                 </span>
-                <span>
+                <span className="charcter-item-span">
                     Constitution Save: <input className="charcter-item-input" type="number" name="charConSave" value={this.state.charConSave || 0} onChange={this.handleInputChange} /> 
                 </span>
                 </div>
                 <div className="character-item-summary-col">
-                <span>
+                <span className="charcter-item-span">
                     Intelligence Save: <input className="charcter-item-input" type="number" name="charIntSave" value={this.state.charIntSave || 0} onChange={this.handleInputChange} />
                 </span>
-                <span>Wisdom Save: <input className="charcter-item-input" type="number" name="charWisSave" value={this.state.charWisSave || 0} onChange={this.handleInputChange} /> 
+                <span className="charcter-item-span">Wisdom Save: <input className="charcter-item-input" type="number" name="charWisSave" value={this.state.charWisSave || 0} onChange={this.handleInputChange} /> 
                 </span>
-                <span>
+                <span className="charcter-item-span">
                     Charisma Save: <input className="charcter-item-input" type="number" name="charChaSave" value={this.state.charChaSave || 0} onChange={this.handleInputChange} /> 
                 </span>
                 </div>

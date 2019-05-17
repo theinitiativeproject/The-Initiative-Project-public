@@ -6,9 +6,10 @@
 }
 
 .HPChanger-input {
-  width: 40px;
+  width: 55px;
   height: 15px;
   border: none;
+  margin: 1px 0px;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -22,7 +23,7 @@
   color: green;
   background: transparent; 
   border: 1px solid white;
-  width: 50px;
+  width: 55px;
   font-family: 'Roboto Condensed', sans-serif;
   border-radius: 3px;
   outline: 0;
@@ -33,10 +34,13 @@
   color: red;
   background: transparent; 
   border: 1px solid white;
-  width: 50px;
+  width: 55px;
   font-family: 'Roboto Condensed', sans-serif;
   border-radius: 3px;
   outline: 0;
   cursor: pointer;
 }
 
+.HPChanger-button {
+  text-align: center;
+}

@@ -35,7 +35,7 @@ class List extends React.Component {
               />
             ))}
         </div>
-        <CreatePartyMember />
+        <CreatePartyMember addToPartyMembers={this.props.addToPartyMembers} />
       </div>
     );
   }
