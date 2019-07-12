@@ -11,6 +11,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { maxWidth } from '@material-ui/system';
+import FormControl from '@material-ui/core/FormControl';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,9 +20,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   fab: {
-    position: 'absolute',
-    right: '10px',
-    top: '10px'
+    margin: '10px'
   },
   paper: {
     // padding: theme.spacing(2),
@@ -28,15 +28,38 @@ const useStyles = makeStyles(theme => ({
     margin: '50px auto',
     position: 'relative',
     minHeight: '76px',
-    width: '100%'
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
     // color: theme.palette.text.secondary
   },
+  formControl: {
+    padding: '10px',
+    display: 'flex',
+    flexDirection: 'row'
+  },
   textField: {
-    marginLeft: '5px',
-    marginTop: '16px'
+    // marginLeft: '5px',
+    // marginTop: '16px'
   },
   statField: {
-    width: '40px'
+    width: '60px',
+    marginLeft: '20px'
+  },
+  initInput: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline'
+  },
+  initMod: {
+    marginLeft: '3px',
+    width: '60px',
+    marginRight: '20px'
+  },
+  initIcon: {
+    // color: 'dimgrey'
+    color: 'black'
   }
 }));
 
@@ -44,7 +67,9 @@ const ActorCreator = props => {
   const [values, setValues] = useState({
     editing: false,
     name: '',
-    initMod: ''
+    initMod: '',
+    armorClass: '',
+    maxHP: ''
   });
   const classes = useStyles();
 
@@ -78,22 +103,47 @@ const ActorCreator = props => {
   return (
     <span className={classes.root}>
       <Paper className={classes.paper}>
-        <TextField
-          id={`name-${props.flavor}`}
-          label="Name"
-          className={classes.textField}
-          value={values.name}
-          onChange={handleChange('name')}
-          margin="dense"
-        />
-        <TextField
-          id={`initMod-${props.flavor}`}
-          label="+ Init"
-          className={classes.textField + ' ' + classes.statField}
-          value={values.initMod}
-          onChange={handleChange('initMod')}
-          margin="dense"
-        />
+        <FormControl className={classes.formControl}>
+          <TextField
+            id={`name-${props.flavor}`}
+            label="Name"
+            className={classes.textField}
+            value={values.name}
+            onChange={handleChange('name')}
+            margin="dense"
+          />
+          <div>d20 icon</div>
+          <div className={classes.initInput}>
+            <div className={classes.initIcon}>+</div>
+            <TextField
+              id={`initMod-${props.flavor}`}
+              label="Init Mod"
+              className={classes.initMod}
+              value={values.initMod}
+              onChange={handleChange('initMod')}
+              margin="dense"
+              type="number"
+            />
+          </div>
+          <TextField
+            id={`armorClass-${props.flavor}`}
+            label="AC"
+            className={classes.textField + ' ' + classes.statField}
+            value={values.armorClass}
+            onChange={handleChange('armorClass')}
+            margin="dense"
+            type="number"
+          />
+          <TextField
+            id={`maxHP-${props.flavor}`}
+            label="Max HP"
+            className={classes.textField + ' ' + classes.statField}
+            value={values.maxHP}
+            onChange={handleChange('maxHP')}
+            margin="dense"
+            type="number"
+          />
+        </FormControl>
         {fabs.map((fab, idx) => (
           <Zoom
             key={fab.color}
