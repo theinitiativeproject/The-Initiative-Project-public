@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import { maxWidth } from '@material-ui/system';
 import FormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -114,17 +115,26 @@ const ActorCreator = props => {
           />
           <div>d20 icon</div>
           <div className={classes.initInput}>
-            <div className={classes.initIcon}>+</div>
-            <TextField
-              id={`initMod-${props.flavor}`}
-              label="Init Mod"
-              className={classes.initMod}
-              value={values.initMod}
-              onChange={handleChange('initMod')}
-              margin="dense"
-              type="number"
-            />
+            <Grid container spacing={1} alignItems="flex-end">
+              <Grid item>
+                <AddIcon fontSize="small" />
+              </Grid>
+              <Grid item>
+                <TextField
+                  className={classes.initMod}
+                  id={`initMod-${props.flavor}`}
+                  label="Init Mod"
+                  onChange={handleChange('initMod')}
+                  value={values.initMod}
+                  margin="dense"
+                  type="number"
+                />
+              </Grid>
+            </Grid>
           </div>
+          <SvgIcon>
+            <path href="https://image.flaticon.com/icons/svg/26/26631.svg" />
+          </SvgIcon>
           <TextField
             id={`armorClass-${props.flavor}`}
             label="AC"
