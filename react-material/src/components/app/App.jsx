@@ -15,7 +15,13 @@ class App extends React.Component {
         <Button variant="contained" color="primary">
           Hello World
         </Button>
-        <ActorCreator flavor="player character" />
+        <ActorCreator
+          flavor="player character"
+          cb={(vals, childBack) => {
+            console.log(vals);
+            childBack();
+          }}
+        />
       </div>
     );
   }
