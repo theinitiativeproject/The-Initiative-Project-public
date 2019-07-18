@@ -22,6 +22,7 @@ class App extends React.Component {
           </Button>
           <ActorCreator
             flavor="player character"
+            role="creator"
             cb={(vals, childBack) => {
               console.log(vals);
               childBack();

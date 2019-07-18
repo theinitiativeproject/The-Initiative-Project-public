@@ -26,34 +26,21 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   fab: {
-    margin: '10px'
+    margin: '5px'
   },
   paper: {
     // padding: theme.spacing(2),
     verticalAlign: 'middle',
     margin: '50px auto',
     position: 'relative',
-    minHeight: '76px'
-    // width: '50%'
+    minHeight: '76px',
+    width: '40%'
 
     // color: theme.palette.text.secondary
   },
-  statField: {
-    width: '60px'
-    // marginLeft: '20px'
-  },
-  initInput: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'baseline'
-  },
-  savesField: {
-    width: '30px',
-    marginLeft: '20px'
-  },
-  ACIcon: {
-    color: 'black'
-  }
+  nameField: { marginLeft: '5px' },
+  modField: { marginLeft: '5px' },
+  chaField: { marginRight: '5px' }
 }));
 
 const saves = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
@@ -94,8 +81,7 @@ const ActorCreator = props => {
         conSave: '',
         intSave: '',
         wisSave: '',
-        chaSave: '',
-        creator: values.creator
+        chaSave: ''
       })
     );
   };
@@ -122,41 +108,32 @@ const ActorCreator = props => {
   return (
     <span className={classes.root}>
       <Paper className={classes.paper} ref={refTest}>
-        <Grid container spacing={0} alignItems="center" justify="space-between">
-          <Grid
-            container
-            item
-            xs={12}
-            sm={8}
-            spacing={3}
-            justify={matches ? 'space-between' : 'flex-start'}
-          >
-            <Grid item xs={3}>
+        <Grid container>
+          <Grid container item xs={12} spacing={1}>
+            <Grid item xs={6}>
               <TextField
                 id={`name-${props.flavor}`}
+                className={classes.nameField}
                 label="Name"
-                className={classes.textField}
                 value={values.name}
                 onChange={handleChange('name')}
                 margin="dense"
               />
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs>
               <TextField
                 id={`armorClass-${props.flavor}`}
                 label="AC"
-                className={classes.textField + ' ' + classes.statField}
                 value={values.armorClass}
                 onChange={handleChange('armorClass')}
                 margin="dense"
                 type="number"
               />
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs>
               <TextField
                 id={`maxHP-${props.flavor}`}
                 label="Max HP"
-                className={classes.textField + ' ' + classes.statField}
                 value={values.maxHP}
                 onChange={handleChange('maxHP')}
                 margin="dense"
@@ -166,22 +143,31 @@ const ActorCreator = props => {
           </Grid>
           <Grid
             container
-            justify={matches ? 'flex-end' : 'space-between'}
-            spacing={matches ? 3 : 0}
             item
-            xs={12}
-            sm={4}
+            spacing={0}
+            xs
             alignItems="center"
+            justify="space-between"
           >
+            <Grid item xs={4}>
+              <TextField
+                className={classes.modField}
+                id={`initMod-${props.flavor}`}
+                label="Init Mod"
+                onChange={handleChange('initMod')}
+                value={values.initMod}
+                margin="dense"
+                type="number"
+              />
+            </Grid>
             <Grid item>
               <Button
                 variant="contained"
                 color="default"
-                className={classes.button}
+                className={classes.modButton}
                 onClick={editToggle}
               >
-                <EditIcon className={classes.rightIcon} />
-                {' Modifiers'}
+                {'Saves'}
               </Button>
             </Grid>
             <Grid item>
@@ -195,28 +181,26 @@ const ActorCreator = props => {
               </Fab>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} container>
             <Collapse in={values.editing}>
-              <Grid container spacing={5} justify="flex-start">
-                <Grid item xs={3}>
-                  <TextField
-                    className={classes.initMod}
-                    id={`initMod-${props.flavor}`}
-                    label="Init Mod"
-                    onChange={handleChange('initMod')}
-                    value={values.initMod}
-                    margin="dense"
-                    type="number"
-                  />
-                </Grid>
+              <Grid container spacing={1}>
                 {saves.map((save, idx) => (
-                  <Grid item xs={1} key={idx}>
+                  <Grid
+                    item
+                    key={idx}
+                    xs
+                    className={
+                      save === 'str'
+                        ? classes.modField
+                        : save === 'cha'
+                        ? classes.chaField
+                        : null
+                    }
+                  >
                     <TextField
                       id={`${save}-${props.flavor}`}
                       label={save.charAt(0).toUpperCase() + save.slice(1)}
-                      className={classes.savesField}
                       value={values[`${save}Save`]}
-                      disabled
                       onChange={handleChange(`${save}Save`)}
                       margin="dense"
                       type="number"
