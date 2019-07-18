@@ -113,6 +113,7 @@ const ActorCreator = props => {
   };
 
   const refTest = React.useRef(null);
+
   React.useEffect(() => {
     if (!refTest.current || !refTest.current.offsetWidth) return;
     console.log('do something with', refTest.current.offsetWidth);
@@ -121,14 +122,14 @@ const ActorCreator = props => {
   return (
     <span className={classes.root}>
       <Paper className={classes.paper} ref={refTest}>
-        <Grid container spacing={0} justify="space-between" alignItems="center">
+        <Grid container spacing={0} alignItems="center" justify="space-between">
           <Grid
             container
             item
             xs={12}
             sm={8}
-            spacing={0}
-            justify="space-between"
+            spacing={3}
+            justify={matches ? 'space-between' : 'flex-start'}
           >
             <Grid item xs={3}>
               <TextField
