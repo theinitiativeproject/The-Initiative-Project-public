@@ -1,6 +1,6 @@
 //high level goals: refactor this where sub-components are defined elsewhere, and this layer allows generic "actorRow" to be abstracted and customized with params
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -18,6 +18,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Collapse from '@material-ui/core/Collapse';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,50 +28,27 @@ const useStyles = makeStyles(theme => ({
   fab: {
     margin: '10px'
   },
-  upperRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
   paper: {
     // padding: theme.spacing(2),
     verticalAlign: 'middle',
     margin: '50px auto',
     position: 'relative',
-    minHeight: '76px',
-    width: '50%'
+    minHeight: '76px'
+    // width: '50%'
 
     // color: theme.palette.text.secondary
   },
-  formControl: {
-    padding: '10px',
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  textField: {
-    // marginLeft: '5px',
-    // marginTop: '16px'
-  },
   statField: {
-    width: '60px',
-    marginLeft: '20px'
+    width: '60px'
+    // marginLeft: '20px'
   },
   initInput: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'baseline'
   },
-  initMod: {
-    marginLeft: '3px',
-    width: '60px',
-    marginRight: '20px'
-  },
-  initIcon: {
-    // color: 'dimgrey'
-    color: 'black'
-  },
   savesField: {
-    width: '80px',
+    width: '30px',
     marginLeft: '20px'
   },
   ACIcon: {
@@ -81,8 +59,12 @@ const useStyles = makeStyles(theme => ({
 const saves = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
 
 const ActorCreator = props => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+
   const [values, setValues] = useState({
     editing: false,
+    expanded: false,
     name: '',
     initMod: '',
     armorClass: '',
@@ -92,7 +74,8 @@ const ActorCreator = props => {
     conSave: '',
     intSave: '',
     wisSave: '',
-    chaSave: ''
+    chaSave: '',
+    creator: true
   });
   const classes = useStyles();
 
@@ -101,6 +84,7 @@ const ActorCreator = props => {
     props.cb(values, () =>
       setValues({
         editing: false,
+        expanded: false,
         name: '',
         initMod: '',
         armorClass: '',
@@ -110,43 +94,110 @@ const ActorCreator = props => {
         conSave: '',
         intSave: '',
         wisSave: '',
-        chaSave: ''
+        chaSave: '',
+        creator: values.creator
       })
     );
   };
 
-  const handleClick = e => {
+  const editToggle = e => {
     setValues({ ...values, editing: !values.editing });
   };
 
-  const handleClickAway = () => {
-    console.log('clicked away');
-    setValues({ ...values, editing: !values.editing });
+  const expandToggle = e => {
+    setValues({ ...values, expanded: !values.expanded, editing: false });
   };
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
 
+  const refTest = React.useRef(null);
+  React.useEffect(() => {
+    if (!refTest.current || !refTest.current.offsetWidth) return;
+    console.log('do something with', refTest.current.offsetWidth);
+  }, [refTest.current]);
+
   return (
     <span className={classes.root}>
-      <Paper className={classes.paper}>
-        <div className={classes.upperRow}>
-          <FormControl className={classes.formControl}>
-            <TextField
-              id={`name-${props.flavor}`}
-              label="Name"
-              className={classes.textField}
-              value={values.name}
-              onChange={handleChange('name')}
-              margin="dense"
-            />
-            <div className={classes.initInput}>
-              <Grid container spacing={1} alignItems="flex-end">
-                {/* <Grid item>
-                  <AddIcon fontSize="small" />
-                </Grid> */}
-                <Grid item>
+      <Paper className={classes.paper} ref={refTest}>
+        <Grid container spacing={0} justify="space-between" alignItems="center">
+          <Grid
+            container
+            item
+            xs={12}
+            sm={8}
+            spacing={0}
+            justify="space-between"
+          >
+            <Grid item xs={3}>
+              <TextField
+                id={`name-${props.flavor}`}
+                label="Name"
+                className={classes.textField}
+                value={values.name}
+                onChange={handleChange('name')}
+                margin="dense"
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <TextField
+                id={`armorClass-${props.flavor}`}
+                label="AC"
+                className={classes.textField + ' ' + classes.statField}
+                value={values.armorClass}
+                onChange={handleChange('armorClass')}
+                margin="dense"
+                type="number"
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <TextField
+                id={`maxHP-${props.flavor}`}
+                label="Max HP"
+                className={classes.textField + ' ' + classes.statField}
+                value={values.maxHP}
+                onChange={handleChange('maxHP')}
+                margin="dense"
+                type="number"
+              />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            justify={matches ? 'flex-end' : 'space-between'}
+            spacing={matches ? 3 : 0}
+            item
+            xs={12}
+            sm={4}
+            alignItems="center"
+          >
+            <Grid item>
+              <Button
+                variant="contained"
+                color="default"
+                className={classes.button}
+                onClick={editToggle}
+              >
+                <EditIcon className={classes.rightIcon} />
+                {' Modifiers'}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Fab
+                color="primary"
+                onClick={handleSubmit}
+                className={classes.fab}
+                label="Add"
+              >
+                <AddIcon />
+              </Fab>
+            </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Collapse in={values.editing}>
+              <Grid container spacing={5} justify="flex-start">
+                <Grid item xs={3}>
                   <TextField
                     className={classes.initMod}
                     id={`initMod-${props.flavor}`}
@@ -157,71 +208,27 @@ const ActorCreator = props => {
                     type="number"
                   />
                 </Grid>
+                {saves.map((save, idx) => (
+                  <Grid item xs={1} key={idx}>
+                    <TextField
+                      id={`${save}-${props.flavor}`}
+                      label={save.charAt(0).toUpperCase() + save.slice(1)}
+                      className={classes.savesField}
+                      value={values[`${save}Save`]}
+                      disabled
+                      onChange={handleChange(`${save}Save`)}
+                      margin="dense"
+                      type="number"
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            </div>
-            {/* <SvgIcon className={classes.ACIcon}> */}
-            {/* <img
-            src="https://image.flaticon.com/icons/svg/26/26631.svg"
-            width="24px"
-            height="24px"
-          /> */}
-            {/* </SvgIcon> */}
-            <TextField
-              id={`armorClass-${props.flavor}`}
-              label="AC"
-              className={classes.textField + ' ' + classes.statField}
-              value={values.armorClass}
-              onChange={handleChange('armorClass')}
-              margin="dense"
-              type="number"
-            />
-            <TextField
-              id={`maxHP-${props.flavor}`}
-              label="Max HP"
-              className={classes.textField + ' ' + classes.statField}
-              value={values.maxHP}
-              onChange={handleChange('maxHP')}
-              margin="dense"
-              type="number"
-            />
-            {/* <ClickAwayListener> */}
-            <Button
-              variant="contained"
-              color="default"
-              className={classes.button}
-              onClick={handleClick}
-            >
-              {'Saves '}
-              <EditIcon className={classes.rightIcon} />
-            </Button>
-            {/* </ClickAwayListener> */}
-          </FormControl>
-          <Fab
-            color="primary"
-            onClick={handleSubmit}
-            className={classes.fab}
-            label="Add"
-          >
-            <AddIcon />
-          </Fab>
-        </div>
-        <Collapse in={values.editing}>
-          <div>
-            {saves.map((save, idx) => (
-              <TextField
-                id={`${save}-${props.flavor}`}
-                key={idx}
-                label={save.charAt(0).toUpperCase() + save.slice(1) + ' Save'}
-                className={classes.savesField}
-                value={values[`${save}Save`]}
-                onChange={handleChange(`${save}Save`)}
-                margin="dense"
-                type="number"
-              />
-            ))}
-          </div>
-        </Collapse>
+            </Collapse>
+          </Grid>
+        </Grid>
       </Paper>
+      <div>{'matches: ' + matches}</div>
+      <div>{refTest.current !== null ? refTest.current.offsetWidth : ':('}</div>
     </span>
   );
 };
