@@ -6,17 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import Zoom from '@material-ui/core/Zoom';
-import Fade from '@material-ui/core/Fade';
-import RemoveIcon from '@material-ui/icons/Remove';
-import { Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { maxWidth } from '@material-ui/system';
-import FormControl from '@material-ui/core/FormControl';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Collapse from '@material-ui/core/Collapse';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -55,7 +45,7 @@ const ActorCreator = props => {
     name: '',
     initMod: '',
     armorClass: '',
-    maxHP: '',
+    maxHP: 30,
     strSave: '',
     dexSave: '',
     conSave: '',
@@ -134,6 +124,7 @@ const ActorCreator = props => {
               <TextField
                 id={`maxHP-${props.flavor}`}
                 label="Max HP"
+                disabled
                 value={values.maxHP}
                 onChange={handleChange('maxHP')}
                 margin="dense"
