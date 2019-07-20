@@ -25,40 +25,46 @@ class App extends React.Component {
           chaSave: 6,
           initMod: 7,
           maxHP: 420,
-          owner: 'charlie'
+          owner: 'charlie',
+          id: '12345'
         },
         {
           name: 'Adult Blue Dragon',
-          mods: {
-            strSave: 1,
-            dexSave: 2,
-            conSave: 3,
-            intSave: 4,
-            wisSave: 5,
-            chaSave: 6,
-            initMod: 7
-          }
+          armorClass: 20,
+          strSave: 1,
+          dexSave: 2,
+          conSave: 3,
+          intSave: 4,
+          wisSave: 5,
+          chaSave: 6,
+          initMod: 7,
+          maxHP: 420,
+          owner: 'charlie',
+          id: '123456'
         },
         {
           name: 'Adult AWESOME Dragon',
-          mods: {
-            strSave: 1,
-            dexSave: 2,
-            conSave: 3,
-            intSave: 4,
-            wisSave: 5,
-            chaSave: 6,
-            initMod: 7
-          }
+          armorClass: 20,
+          strSave: 1,
+          dexSave: 2,
+          conSave: 3,
+          intSave: 4,
+          wisSave: 5,
+          chaSave: 6,
+          initMod: 7,
+          maxHP: 420,
+          owner: 'charlie',
+          id: '123457'
         }
       ]
     };
-    this.handleStatChange = this.handleStatChange.bind(this);
+
+    this.editActor = this.editActor.bind(this);
   }
 
-  handleStatChange = e => {
+  editActor(e) {
     console.log(e);
-  };
+  }
 
   render() {
     return (
@@ -73,7 +79,7 @@ class App extends React.Component {
             <Grid item xs={2} container spacing={1}>
               {this.state.homebrewMonsters.map((mob, idx) => (
                 <Grid item xs={12} key={idx}>
-                  <ActorItem actor={mob} />
+                  <ActorItem actor={mob} editActor={this.editActor}/>
                 </Grid>
               ))}
               <Grid item xs={12}>

@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { Grid, Paper, TextField } from '@material-ui/core';
 
-const mods = ['init', 'str', 'dex', 'con', 'int', 'wis', 'cha'];
 const ActorEditor = props => {
   console.log(props);
+  const [values, setValues] = useState();
+
   return (
     <Paper>
       <Grid container spacing={2}>
-        {mods.map((mod, idx) => {
+        {Object.keys(props.actor).map((objKey, idx) => {
           return (
             <Grid item xs={4} key={idx}>
               <TextField
                 margin="dense"
-                label={mod.charAt(0).toUpperCase() + mod.slice(1)}
-                value={props.mods[`${mod}${mod === 'init' ? 'Mod' : 'Save'}`]}
-                name={`${mod}${mod === 'init' ? 'Mod' : 'Save'}`}
-                onChange={props.handleChange}
+                label={objKey.charAt(0).toUpperCase() + objKey.slice(1)}
+                value={props.actor[objKey]}
+                name={objKey}
+                onChange={props.handleStatChange}
               />
             </Grid>
           );

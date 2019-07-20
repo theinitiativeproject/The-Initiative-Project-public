@@ -53,7 +53,7 @@ const ActorItem = props => {
   };
 
   const ref = React.useRef(null);
-
+  
   return (
     <Paper
       className={classes.root}
@@ -86,7 +86,10 @@ const ActorItem = props => {
               horizontal: 'left'
             }}
           >
-            <ActorEditor handleChange={handleChange} mods={props.actor.mods} />
+            <ActorEditor
+              editActor={props.editActor}
+              actor={props.actor}
+            />
           </Popover>
         </Grid>
         <Grid item>
