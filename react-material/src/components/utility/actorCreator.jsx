@@ -21,10 +21,8 @@ const useStyles = makeStyles(theme => ({
   paper: {
     // padding: theme.spacing(2),
     verticalAlign: 'middle',
-    margin: '50px auto',
     position: 'relative',
-    minHeight: '76px',
-    width: '40%'
+    minHeight: '76px'
 
     // color: theme.palette.text.secondary
   },
@@ -45,7 +43,7 @@ const ActorCreator = props => {
     name: '',
     initMod: '',
     armorClass: '',
-    maxHP: 30,
+    maxHP: '',
     strSave: '',
     dexSave: '',
     conSave: '',
@@ -88,16 +86,16 @@ const ActorCreator = props => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const refTest = React.useRef(null);
+  const ref = React.useRef(null);
 
-  React.useEffect(() => {
-    if (!refTest.current || !refTest.current.offsetWidth) return;
-    console.log('do something with', refTest.current.offsetWidth);
-  }, [refTest.current]);
+  // React.useEffect(() => {
+  //   if (!ref.current || !ref.current.offsetWidth) return;
+  //   console.log('do something with', ref.current.offsetWidth);
+  // }, [ref.current]);
 
   return (
     <span className={classes.root}>
-      <Paper className={classes.paper} ref={refTest}>
+      <Paper className={classes.paper} ref={ref}>
         <Grid container>
           <Grid container item xs={12} spacing={1}>
             <Grid item xs={6}>
@@ -124,7 +122,6 @@ const ActorCreator = props => {
               <TextField
                 id={`maxHP-${props.flavor}`}
                 label="Max HP"
-                disabled
                 value={values.maxHP}
                 onChange={handleChange('maxHP')}
                 margin="dense"
@@ -153,7 +150,6 @@ const ActorCreator = props => {
             </Grid>
             <Grid item>
               <Button
-                variant="contained"
                 color="default"
                 className={classes.modButton}
                 onClick={editToggle}
@@ -204,7 +200,7 @@ const ActorCreator = props => {
         </Grid>
       </Paper>
       <div>{'matches: ' + matches}</div>
-      <div>{refTest.current !== null ? refTest.current.offsetWidth : ':('}</div>
+      <div>{ref.current !== null ? ref.current.offsetWidth : ':('}</div>
     </span>
   );
 };

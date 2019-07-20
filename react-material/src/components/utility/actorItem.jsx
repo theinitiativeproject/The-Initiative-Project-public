@@ -1,222 +1,106 @@
-//high level goals: refactor this where sub-components are defined elsewhere, and this layer allows generic "actorRow" to be abstracted and customized with params
 import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { getThemeProps } from '@material-ui/styles';
+import { Paper, Typography, Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
-import Zoom from '@material-ui/core/Zoom';
-import Fade from '@material-ui/core/Fade';
-import RemoveIcon from '@material-ui/icons/Remove';
-import { Typography } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import { maxWidth } from '@material-ui/system';
-import FormControl from '@material-ui/core/FormControl';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Collapse from '@material-ui/core/Collapse';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import IconButton from '@material-ui/core/IconButton';
+import EditOutlineIcon from '@material-ui/icons/EditOutlined';
+import Popover from '@material-ui/core/Popover';
+
+import ActorEditor from './actorEditor.jsx';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    position: 'relative'
+    // padding: theme.spacing(1)
   },
-  fab: {
-    margin: '5px'
+  button: {
+    // padding: theme.spacing(1)
+    // width: '80%'
   },
-  paper: {
-    // padding: theme.spacing(2),
-    verticalAlign: 'middle',
-    margin: '50px auto',
-    position: 'relative',
-    minHeight: '76px',
-    width: '40%'
-
-    // color: theme.palette.text.secondary
+  buttonText: {
+    justifyContent: 'left'
   },
-  nameField: { marginLeft: '5px' },
-  modField: { marginLeft: '5px' },
-  chaField: { marginRight: '5px' }
+  editIcon: { visibility: 'hidden' },
+  activeCard: {
+    visibility: 'visible'
+  }
 }));
 
-const saves = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
-
-const ActorCreator = props => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
-
-  const [values, setValues] = useState({
-    editing: false,
-    expanded: false,
-    name: '',
-    initMod: '',
-    armorClass: '',
-    maxHP: 30,
-    strSave: '',
-    dexSave: '',
-    conSave: '',
-    intSave: '',
-    wisSave: '',
-    chaSave: '',
-    creator: true
-  });
+const ActorItem = props => {
   const classes = useStyles();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    props.cb(values, () =>
-      setValues({
-        editing: false,
-        expanded: false,
-        name: '',
-        initMod: '',
-        armorClass: '',
-        maxHP: '',
-        strSave: '',
-        dexSave: '',
-        conSave: '',
-        intSave: '',
-        wisSave: '',
-        chaSave: ''
-      })
-    );
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [values, setValues] = useState({
+    hovered: false
+  });
+
+  const open = Boolean(anchorEl);
+
+  const handlePaperEnter = e => {
+    setValues({ ...values, hovered: true });
   };
 
-  const editToggle = e => {
-    setValues({ ...values, editing: !values.editing });
+  const handlePaperLeave = e => {
+    setValues({ ...values, hovered: false });
   };
 
-  const expandToggle = e => {
-    setValues({ ...values, expanded: !values.expanded, editing: false });
+  const handleClick = e => {
+    setAnchorEl(ref.current);
   };
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
-  const refTest = React.useRef(null);
-
-  React.useEffect(() => {
-    if (!refTest.current || !refTest.current.offsetWidth) return;
-    console.log('do something with', refTest.current.offsetWidth);
-  }, [refTest.current]);
+  const ref = React.useRef(null);
 
   return (
-    <span className={classes.root}>
-      <Paper className={classes.paper} ref={refTest}>
-        <Grid container>
-          <Grid container item xs={12} spacing={1}>
-            <Grid item xs={6}>
-              <TextField
-                id={`name-${props.flavor}`}
-                className={classes.nameField}
-                label="Name"
-                value={values.name}
-                onChange={handleChange('name')}
-                margin="dense"
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id={`armorClass-${props.flavor}`}
-                label="AC"
-                value={values.armorClass}
-                onChange={handleChange('armorClass')}
-                margin="dense"
-                type="number"
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id={`maxHP-${props.flavor}`}
-                label="Max HP"
-                disabled
-                value={values.maxHP}
-                onChange={handleChange('maxHP')}
-                margin="dense"
-                type="number"
-              />
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            item
-            spacing={0}
-            xs
-            alignItems="center"
-            justify="space-between"
+    <Paper
+      className={classes.root}
+      onMouseEnter={handlePaperEnter}
+      onMouseLeave={handlePaperLeave}
+      ref={ref}
+    >
+      <Grid container justify="space-between">
+        <Grid item xs>
+          <Button
+            className={classes.button}
+            color="default"
+            size="small"
+            variant="text"
+            classes={{ label: classes.buttonText }}
+            fullWidth={true}
           >
-            <Grid item xs={4}>
-              <TextField
-                className={classes.modField}
-                id={`initMod-${props.flavor}`}
-                label="Init Mod"
-                onChange={handleChange('initMod')}
-                value={values.initMod}
-                margin="dense"
-                type="number"
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="default"
-                className={classes.modButton}
-                onClick={editToggle}
-              >
-                {'Saves'}
-              </Button>
-            </Grid>
-            <Grid item>
-              <Fab
-                color="primary"
-                onClick={handleSubmit}
-                className={classes.fab}
-                label="Add"
-              >
-                <AddIcon />
-              </Fab>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} container>
-            <Collapse in={values.editing}>
-              <Grid container spacing={1}>
-                {saves.map((save, idx) => (
-                  <Grid
-                    item
-                    key={idx}
-                    xs
-                    className={
-                      save === 'str'
-                        ? classes.modField
-                        : save === 'cha'
-                        ? classes.chaField
-                        : null
-                    }
-                  >
-                    <TextField
-                      id={`${save}-${props.flavor}`}
-                      label={save.charAt(0).toUpperCase() + save.slice(1)}
-                      value={values[`${save}Save`]}
-                      onChange={handleChange(`${save}Save`)}
-                      margin="dense"
-                      type="number"
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </Collapse>
-          </Grid>
+            {props.actor.name}
+          </Button>
+          <Popover
+            open={open}
+            onClose={handleClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left'
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left'
+            }}
+          >
+            <ActorEditor handleChange={handleChange} mods={props.actor.mods} />
+          </Popover>
         </Grid>
-      </Paper>
-      <div>{'matches: ' + matches}</div>
-      <div>{refTest.current !== null ? refTest.current.offsetWidth : ':('}</div>
-    </span>
+        <Grid item>
+          <IconButton
+            size="small"
+            className={values.hovered ? classes.activeCard : classes.editIcon}
+            onClick={handleClick}
+          >
+            <EditOutlineIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 
-export default ActorCreator;
+export default ActorItem;
