@@ -62,8 +62,12 @@ class App extends React.Component {
     this.editActor = this.editActor.bind(this);
   }
 
-  editActor(e) {
-    console.log(e);
+  editActor(id, newActor) {
+    console.log(id);
+    console.log(newActor);
+    let newHomebrews = this.state.homebrewMonsters.slice();
+    newHomebrews[newHomebrews.findIndex(mob => mob.id === id)] = newActor;
+    this.setState({ homebrewMonsters: newHomebrews });
   }
 
   render() {
@@ -79,7 +83,7 @@ class App extends React.Component {
             <Grid item xs={2} container spacing={1}>
               {this.state.homebrewMonsters.map((mob, idx) => (
                 <Grid item xs={12} key={idx}>
-                  <ActorItem actor={mob} editActor={this.editActor}/>
+                  <ActorItem actor={mob} editActor={this.editActor} />
                 </Grid>
               ))}
               <Grid item xs={12}>
