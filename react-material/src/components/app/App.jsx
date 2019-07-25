@@ -62,12 +62,10 @@ class App extends React.Component {
     this.editActor = this.editActor.bind(this);
   }
 
-  editActor(id, newActor) {
-    console.log(id);
-    console.log(newActor);
+  editActor(id, newActor, cb) {
     let newHomebrews = this.state.homebrewMonsters.slice();
     newHomebrews[newHomebrews.findIndex(mob => mob.id === id)] = newActor;
-    this.setState({ homebrewMonsters: newHomebrews });
+    this.setState({ homebrewMonsters: newHomebrews }, cb);
   }
 
   render() {
@@ -79,25 +77,27 @@ class App extends React.Component {
               Hello World
             </Button>
           </Grid>
-          <Paper>
-            <Grid item xs={2} container spacing={1}>
-              {this.state.homebrewMonsters.map((mob, idx) => (
-                <Grid item xs={12} key={idx}>
-                  <ActorItem actor={mob} editActor={this.editActor} />
+          <Grid item>
+            <Paper>
+              <Grid item xs={2} container spacing={1}>
+                {this.state.homebrewMonsters.map((mob, idx) => (
+                  <Grid item xs={12} key={idx}>
+                    <ActorItem actor={mob} editActor={this.editActor} />
+                  </Grid>
+                ))}
+                <Grid item xs={12}>
+                  <ActorCreator
+                    flavor="player character"
+                    role="creator"
+                    cb={(vals, childBack) => {
+                      console.log(vals);
+                      childBack();
+                    }}
+                  />
                 </Grid>
-              ))}
-              <Grid item xs={12}>
-                <ActorCreator
-                  flavor="player character"
-                  role="creator"
-                  cb={(vals, childBack) => {
-                    console.log(vals);
-                    childBack();
-                  }}
-                />
               </Grid>
-            </Grid>
-          </Paper>
+            </Paper>
+          </Grid>
           <Grid item xs={2} />
         </Grid>
       </ThemeProvider>

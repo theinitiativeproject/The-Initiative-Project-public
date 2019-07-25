@@ -8,6 +8,7 @@ import EditOutlineIcon from '@material-ui/icons/EditOutlined';
 import Popover from '@material-ui/core/Popover';
 
 import ActorEditor from './actorEditor.jsx';
+import { height } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +24,10 @@ const useStyles = makeStyles(theme => ({
   editIcon: { visibility: 'hidden' },
   activeCard: {
     visibility: 'visible'
+  },
+  popover: {
+    width: '42vw'
+    // height: '245px'
   }
 }));
 
@@ -53,11 +58,11 @@ const ActorItem = props => {
   };
 
   const ref = React.useRef(null);
-  
+
   return (
     <Paper
       className={classes.root}
-      onMouseEnter={handlePaperEnter}
+      onMouseOver={handlePaperEnter}
       onMouseLeave={handlePaperLeave}
       ref={ref}
     >
@@ -75,6 +80,9 @@ const ActorItem = props => {
           </Button>
           <Popover
             open={open}
+            classes={{
+              paper: classes.popover
+            }}
             onClose={handleClose}
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -89,6 +97,8 @@ const ActorItem = props => {
             <ActorEditor
               editActor={props.editActor}
               actor={props.actor}
+              handleClose={handleClose}
+              handlePaperLeave={handlePaperLeave}
             />
           </Popover>
         </Grid>
