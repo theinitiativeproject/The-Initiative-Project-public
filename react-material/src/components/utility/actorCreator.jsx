@@ -199,8 +199,6 @@ const ActorCreator = props => {
           </Grid>
         </Grid>
       </Paper>
-      <div>{'matches: ' + matches}</div>
-      <div>{ref.current !== null ? ref.current.offsetWidth : ':('}</div>
     </span>
   );
 };

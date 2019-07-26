@@ -3,9 +3,7 @@ import Mui, { Grid, Typography, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-
-import ActorCreator from '../utility/actorCreator.jsx';
-import ActorItem from '../utility/actorItem.jsx';
+import Library from '../library/Library.jsx';
 
 const theme = createMuiTheme();
 
@@ -78,7 +76,22 @@ class App extends React.Component {
             </Button>
           </Grid>
           <Grid item>
-            <Paper>
+            <Library
+              homebrewMonsters={this.state.homebrewMonsters}
+              editActor={this.editActor}
+            />
+          </Grid>
+          <Grid item xs={2} />
+        </Grid>
+      </ThemeProvider>
+    );
+  }
+}
+
+export default App;
+
+{
+  /* <Paper>
               <Grid item xs={2} container spacing={1}>
                 {this.state.homebrewMonsters.map((mob, idx) => (
                   <Grid item xs={12} key={idx}>
@@ -96,13 +109,5 @@ class App extends React.Component {
                   />
                 </Grid>
               </Grid>
-            </Paper>
-          </Grid>
-          <Grid item xs={2} />
-        </Grid>
-      </ThemeProvider>
-    );
-  }
+            </Paper> */
 }
-
-export default App;
