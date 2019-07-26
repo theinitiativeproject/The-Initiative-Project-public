@@ -54,24 +54,25 @@ const ActorCreator = props => {
   });
   const classes = useStyles();
 
+  const disgardChanges = () =>
+    setValues({
+      editing: false,
+      expanded: false,
+      name: '',
+      initMod: '',
+      armorClass: '',
+      maxHP: '',
+      strSave: '',
+      dexSave: '',
+      conSave: '',
+      intSave: '',
+      wisSave: '',
+      chaSave: ''
+    });
+
   const handleSubmit = e => {
     e.preventDefault();
-    props.cb(values, () =>
-      setValues({
-        editing: false,
-        expanded: false,
-        name: '',
-        initMod: '',
-        armorClass: '',
-        maxHP: '',
-        strSave: '',
-        dexSave: '',
-        conSave: '',
-        intSave: '',
-        wisSave: '',
-        chaSave: ''
-      })
-    );
+    props.cb(values, disgardChanges);
   };
 
   const editToggle = e => {
@@ -133,7 +134,7 @@ const ActorCreator = props => {
               <IconButton
                 name="close"
                 size="small"
-                onClick={props.handleClose}
+                onClick={props.closeCreator}
                 className={classes.closeButton}
               >
                 <Close size="small" />
