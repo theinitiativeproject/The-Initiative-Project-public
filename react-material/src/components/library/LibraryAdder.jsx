@@ -20,13 +20,15 @@ const LibraryAdder = props => {
   const theme = useTheme();
 
   return (
-    <ActorCreator
-      className={classes.tabPanel}
-      cb={(vals, childBack) => {
-        console.log(vals);
-        childBack();
-      }}
-    />
+    <Box className={classes.root}>
+      <ActorCreator
+        className={classes.tabPanel}
+        cb={(vals, childBack) => {
+          console.log(vals);
+          childBack();
+        }}
+      />
+    </Box>
   );
 };
 

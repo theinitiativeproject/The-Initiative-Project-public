@@ -35,7 +35,6 @@ const Library = props => {
     setValue(idx);
   };
 
-  console.log(props);
   return (
     <Box className={classes.root}>
       <AppBar position="static" color="default">

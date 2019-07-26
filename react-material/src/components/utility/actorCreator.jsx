@@ -9,11 +9,14 @@ import AddIcon from '@material-ui/icons/Add';
 import TextField from '@material-ui/core/TextField';
 import Collapse from '@material-ui/core/Collapse';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   fab: {
-    margin: '5px'
+    margin: '10px'
   },
+  closeButton: { marginTop: '10px', marginRight: '10px' },
   paper: {
     // padding: theme.spacing(2),
     verticalAlign: 'middle',
@@ -22,9 +25,10 @@ const useStyles = makeStyles(theme => ({
 
     // color: theme.palette.text.secondary
   },
-  nameField: { marginLeft: '5px' },
-  modField: { marginLeft: '5px' },
-  chaField: { marginRight: '5px' }
+  leftSpacer: {
+    marginLeft: '10px'
+  },
+  chaField: { marginRight: '10px' }
 }));
 
 const saves = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
@@ -92,11 +96,11 @@ const ActorCreator = props => {
   return (
     <Paper className={classes.paper + ' ' + props.className} ref={ref}>
       <Grid container>
-        <Grid container item xs={12} spacing={1}>
+        <Grid container item xs={12}>
           <Grid item xs={6}>
             <TextField
               id={`name-${props.flavor}`}
-              className={classes.nameField}
+              className={classes.leftSpacer}
               label="Name"
               value={values.name}
               onChange={handleChange('name')}
@@ -121,20 +125,26 @@ const ActorCreator = props => {
               onChange={handleChange('maxHP')}
               margin="dense"
               type="number"
+              className={classes.leftSpacer}
             />
           </Grid>
+          <Grid item container xs={1} justify="flex-end">
+            <Grid item>
+              <IconButton
+                name="close"
+                size="small"
+                onClick={props.handleClose}
+                className={classes.closeButton}
+              >
+                <Close size="small" />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid
-          container
-          item
-          spacing={0}
-          xs
-          alignItems="center"
-          justify="space-between"
-        >
+        <Grid container item xs alignItems="center" justify="space-between">
           <Grid item xs={4}>
             <TextField
-              className={classes.modField}
+              className={classes.leftSpacer}
               id={`initMod-${props.flavor}`}
               label="Init Mod"
               onChange={handleChange('initMod')}
@@ -165,22 +175,15 @@ const ActorCreator = props => {
         </Grid>
         <Grid item xs={12} container>
           <Collapse in={values.editing}>
-            <Grid container spacing={1}>
+            <Grid container>
               {saves.map((save, idx) => (
-                <Grid
-                  item
-                  key={idx}
-                  xs
-                  className={
-                    save === 'str'
-                      ? classes.modField
-                      : save === 'cha'
-                      ? classes.chaField
-                      : null
-                  }
-                >
+                <Grid item key={idx} xs>
                   <TextField
-                    id={`${save}-${props.flavor}`}
+                    className={
+                      save === 'cha'
+                        ? `${classes.leftSpacer} ${classes.chaField}`
+                        : classes.leftSpacer
+                    }
                     label={save.charAt(0).toUpperCase() + save.slice(1)}
                     value={values[`${save}Save`]}
                     onChange={handleChange(`${save}Save`)}
