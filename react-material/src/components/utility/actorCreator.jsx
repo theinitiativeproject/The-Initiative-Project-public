@@ -100,7 +100,7 @@ const ActorCreator = props => {
         <Grid container item xs={12}>
           <Grid item xs={6}>
             <TextField
-              id={`name-${props.flavor}`}
+              autoFocus
               className={classes.leftSpacer}
               label="Name"
               value={values.name}

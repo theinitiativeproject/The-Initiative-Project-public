@@ -12,7 +12,9 @@ import Box from '@material-ui/core/Box';
 import LibraryAdder from '../library/LibraryAdder.jsx';
 import ActorItem from '../utility/actorItem.jsx';
 
-const useStyles = makeStyles(theme => ({}));
+const useStyles = makeStyles(theme => ({
+  mobList: { height: '450px', overflowY: 'auto' }
+}));
 
 const ActorColumn = props => {
   const classes = useStyles();
@@ -20,7 +22,7 @@ const ActorColumn = props => {
 
   return (
     <Box>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} className={classes.mobList}>
         {props.actors.map((mob, idx) => (
           <Grid item xs={12} key={idx}>
             <ActorItem actor={mob} editActor={props.editActor} />
