@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
-import ActorCreator from '../utility/actorCreator.jsx';
+import LibraryAdder from '../library/LibraryAdder.jsx';
 import ActorItem from '../utility/actorItem.jsx';
 
 const useStyles = makeStyles(theme => ({}));
@@ -19,23 +19,16 @@ const ActorColumn = props => {
   const [adding, setAdding] = useState(false);
 
   return (
-    <Grid container className={props.className}>
-      <Grid item container>
+    <Box>
+      <Grid container spacing={1}>
         {props.actors.map((mob, idx) => (
           <Grid item xs={12} key={idx}>
             <ActorItem actor={mob} editActor={props.editActor} />
           </Grid>
         ))}
       </Grid>
-      <Grid item xs={12}>
-        <ActorCreator
-          cb={(vals, childBack) => {
-            console.log(vals);
-            childBack();
-          }}
-        />
-      </Grid>
-    </Grid>
+      <LibraryAdder />
+    </Box>
   );
 };
 

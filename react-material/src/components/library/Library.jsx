@@ -55,11 +55,12 @@ const Library = props => {
         <Box value={value} index={0} className={classes.tabPanel}>
           srd mobs
         </Box>
-        <ActorColumn
-          className={classes.tabPanel}
-          actors={props.homebrewMonsters}
-          editActor={props.editActor}
-        />
+        <Box value={value} index={1} className={classes.tabPanel}>
+          <ActorColumn
+            actors={props.homebrewMonsters}
+            editActor={props.editActor}
+          />
+        </Box>
         <Box value={value} index={2} className={classes.tabPanel}>
           party members
         </Box>

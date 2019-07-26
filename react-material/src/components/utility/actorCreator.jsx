@@ -11,10 +11,6 @@ import Collapse from '@material-ui/core/Collapse';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    position: 'relative'
-  },
   fab: {
     margin: '5px'
   },
@@ -94,112 +90,110 @@ const ActorCreator = props => {
   // }, [ref.current]);
 
   return (
-    <span className={classes.root}>
-      <Paper className={classes.paper} ref={ref}>
-        <Grid container>
-          <Grid container item xs={12} spacing={1}>
-            <Grid item xs={6}>
-              <TextField
-                id={`name-${props.flavor}`}
-                className={classes.nameField}
-                label="Name"
-                value={values.name}
-                onChange={handleChange('name')}
-                margin="dense"
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id={`armorClass-${props.flavor}`}
-                label="AC"
-                value={values.armorClass}
-                onChange={handleChange('armorClass')}
-                margin="dense"
-                type="number"
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id={`maxHP-${props.flavor}`}
-                label="Max HP"
-                value={values.maxHP}
-                onChange={handleChange('maxHP')}
-                margin="dense"
-                type="number"
-              />
-            </Grid>
+    <Paper className={classes.paper + ' ' + props.className} ref={ref}>
+      <Grid container>
+        <Grid container item xs={12} spacing={1}>
+          <Grid item xs={6}>
+            <TextField
+              id={`name-${props.flavor}`}
+              className={classes.nameField}
+              label="Name"
+              value={values.name}
+              onChange={handleChange('name')}
+              margin="dense"
+            />
           </Grid>
-          <Grid
-            container
-            item
-            spacing={0}
-            xs
-            alignItems="center"
-            justify="space-between"
-          >
-            <Grid item xs={4}>
-              <TextField
-                className={classes.modField}
-                id={`initMod-${props.flavor}`}
-                label="Init Mod"
-                onChange={handleChange('initMod')}
-                value={values.initMod}
-                margin="dense"
-                type="number"
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                color="default"
-                className={classes.modButton}
-                onClick={editToggle}
-              >
-                {'Saves'}
-              </Button>
-            </Grid>
-            <Grid item>
-              <Fab
-                color="primary"
-                onClick={handleSubmit}
-                className={classes.fab}
-                label="Add"
-              >
-                <AddIcon />
-              </Fab>
-            </Grid>
+          <Grid item xs>
+            <TextField
+              id={`armorClass-${props.flavor}`}
+              label="AC"
+              value={values.armorClass}
+              onChange={handleChange('armorClass')}
+              margin="dense"
+              type="number"
+            />
           </Grid>
-          <Grid item xs={12} container>
-            <Collapse in={values.editing}>
-              <Grid container spacing={1}>
-                {saves.map((save, idx) => (
-                  <Grid
-                    item
-                    key={idx}
-                    xs
-                    className={
-                      save === 'str'
-                        ? classes.modField
-                        : save === 'cha'
-                        ? classes.chaField
-                        : null
-                    }
-                  >
-                    <TextField
-                      id={`${save}-${props.flavor}`}
-                      label={save.charAt(0).toUpperCase() + save.slice(1)}
-                      value={values[`${save}Save`]}
-                      onChange={handleChange(`${save}Save`)}
-                      margin="dense"
-                      type="number"
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </Collapse>
+          <Grid item xs>
+            <TextField
+              id={`maxHP-${props.flavor}`}
+              label="Max HP"
+              value={values.maxHP}
+              onChange={handleChange('maxHP')}
+              margin="dense"
+              type="number"
+            />
           </Grid>
         </Grid>
-      </Paper>
-    </span>
+        <Grid
+          container
+          item
+          spacing={0}
+          xs
+          alignItems="center"
+          justify="space-between"
+        >
+          <Grid item xs={4}>
+            <TextField
+              className={classes.modField}
+              id={`initMod-${props.flavor}`}
+              label="Init Mod"
+              onChange={handleChange('initMod')}
+              value={values.initMod}
+              margin="dense"
+              type="number"
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              color="default"
+              className={classes.modButton}
+              onClick={editToggle}
+            >
+              {'Saves'}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Fab
+              color="primary"
+              onClick={handleSubmit}
+              className={classes.fab}
+              label="Add"
+            >
+              <AddIcon />
+            </Fab>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} container>
+          <Collapse in={values.editing}>
+            <Grid container spacing={1}>
+              {saves.map((save, idx) => (
+                <Grid
+                  item
+                  key={idx}
+                  xs
+                  className={
+                    save === 'str'
+                      ? classes.modField
+                      : save === 'cha'
+                      ? classes.chaField
+                      : null
+                  }
+                >
+                  <TextField
+                    id={`${save}-${props.flavor}`}
+                    label={save.charAt(0).toUpperCase() + save.slice(1)}
+                    value={values[`${save}Save`]}
+                    onChange={handleChange(`${save}Save`)}
+                    margin="dense"
+                    type="number"
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Collapse>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 
