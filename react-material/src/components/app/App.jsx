@@ -27,7 +27,7 @@ class App extends React.Component {
           id: '12345'
         },
         {
-          name: 'Adult Blue Dragon',
+          name: 'Blue Dragon',
           armorClass: 20,
           strSave: 1,
           dexSave: 2,
@@ -41,7 +41,7 @@ class App extends React.Component {
           id: '123456'
         },
         {
-          name: 'Adult AWESOME Dragon',
+          name: 'COOL AWESOME Dragon',
           armorClass: 20,
           strSave: 1,
           dexSave: 2,
@@ -58,12 +58,31 @@ class App extends React.Component {
     };
 
     this.editActor = this.editActor.bind(this);
+    this.addActor = this.addActor.bind(this);
+    this.removeActor = this.removeActor.bind(this);
   }
 
-  editActor(id, newActor, cb) {
-    let newHomebrews = this.state.homebrewMonsters.slice();
-    newHomebrews[newHomebrews.findIndex(mob => mob.id === id)] = newActor;
-    this.setState({ homebrewMonsters: newHomebrews }, cb);
+  editActor(id, newActor, category, cb) {
+    let relevantMobs = this.state[category].slice();
+    relevantMobs[relevantMobs.findIndex(mob => mob.id === id)] = newActor;
+    this.setState({ [category]: relevantMobs }, cb);
+  }
+
+  addActor(newActor, category, cb) {
+    let relevantMobs = this.state[category].slice();
+    relevantMobs.push(newActor);
+    relevantMobs.sort((a, b) => {
+      let aName = a.name.slice().toUpperCase();
+      let bName = b.name.slice().toUpperCase();
+      return aName.localeCompare(bName, 'sort', { sensitivity: 'base' });
+    });
+    this.setState({ [category]: relevantMobs }, cb);
+  }
+
+  removeActor(id, category, cb) {
+    let relevantMobs = this.state[category].slice();
+    relevantMobs.splice(relevantMobs.findIndex(a => a.id === id), 1);
+    this.setState({ [category]: relevantMobs }, cb);
   }
 
   render() {
@@ -79,6 +98,8 @@ class App extends React.Component {
             <Library
               homebrewMonsters={this.state.homebrewMonsters}
               editActor={this.editActor}
+              addActor={this.addActor}
+              removeActor={this.removeActor}
             />
           </Grid>
           <Grid item xs={2} />

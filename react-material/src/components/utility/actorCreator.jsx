@@ -39,7 +39,6 @@ const ActorCreator = props => {
 
   const [values, setValues] = useState({
     editing: false,
-    expanded: false,
     name: '',
     initMod: '',
     armorClass: '',
@@ -49,15 +48,13 @@ const ActorCreator = props => {
     conSave: '',
     intSave: '',
     wisSave: '',
-    chaSave: '',
-    creator: true
+    chaSave: ''
   });
   const classes = useStyles();
 
-  const disgardChanges = () =>
+  const disgardChanges = () => {
     setValues({
       editing: false,
-      expanded: false,
       name: '',
       initMod: '',
       armorClass: '',
@@ -69,18 +66,44 @@ const ActorCreator = props => {
       wisSave: '',
       chaSave: ''
     });
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.cb(values, disgardChanges);
+    const {
+      name,
+      initMod,
+      armorClass,
+      maxHP,
+      strSave,
+      dexSave,
+      conSave,
+      intSave,
+      wisSave,
+      chaSave
+    } = values;
+
+    if (name === '') {
+      alert('Please enter a name for your creature');
+    } else {
+      let newActor = {
+        name,
+        initMod,
+        armorClass,
+        maxHP,
+        strSave,
+        dexSave,
+        conSave,
+        intSave,
+        wisSave,
+        chaSave
+      };
+      props.addActor(newActor, props.category, disgardChanges);
+    }
   };
 
   const editToggle = e => {
     setValues({ ...values, editing: !values.editing });
-  };
-
-  const expandToggle = e => {
-    setValues({ ...values, expanded: !values.expanded, editing: false });
   };
 
   const handleChange = name => event => {
@@ -110,7 +133,6 @@ const ActorCreator = props => {
           </Grid>
           <Grid item xs>
             <TextField
-              id={`armorClass-${props.flavor}`}
               label="AC"
               value={values.armorClass}
               onChange={handleChange('armorClass')}
@@ -120,7 +142,6 @@ const ActorCreator = props => {
           </Grid>
           <Grid item xs>
             <TextField
-              id={`maxHP-${props.flavor}`}
               label="Max HP"
               value={values.maxHP}
               onChange={handleChange('maxHP')}
@@ -146,7 +167,7 @@ const ActorCreator = props => {
           <Grid item xs={4}>
             <TextField
               className={classes.leftSpacer}
-              id={`initMod-${props.flavor}`}
+              name="initMod"
               label="Init Mod"
               onChange={handleChange('initMod')}
               value={values.initMod}

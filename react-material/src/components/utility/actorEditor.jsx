@@ -43,7 +43,7 @@ const ActorEditor = props => {
     // if (e.relatedTarget.name !== 'close') {
     //   props.editActor(values.id, values);
     // }
-    props.editActor(values.id, values, cb);
+    props.editActor(values.id, values, props.category, cb);
     props.handlePaperLeave();
   };
 
@@ -144,10 +144,9 @@ const ActorEditor = props => {
           className={classes.deleteButton}
           variant="contained"
           color="secondary"
-          onClick={() => {
-            let confirm = window.confirm(`Delete ${props.actor.name}?`);
-            confirm ? console.log('deleted') : console.log('not deleted');
-          }}
+          onClick={() =>
+            props.removeActor(props.actor.id, props.category, props.handleClose)
+          }
         >
           <DeleteForever />
           Delete

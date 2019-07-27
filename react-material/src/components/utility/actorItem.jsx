@@ -96,9 +96,11 @@ const ActorItem = props => {
           >
             <ActorEditor
               editActor={props.editActor}
+              removeActor={props.removeActor}
               actor={props.actor}
               handleClose={handleClose}
               handlePaperLeave={handlePaperLeave}
+              category={props.category}
             />
           </Popover>
         </Grid>

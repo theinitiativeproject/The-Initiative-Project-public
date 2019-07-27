@@ -58,6 +58,10 @@ const Library = props => {
           <ActorColumn
             actors={props.homebrewMonsters}
             editActor={props.editActor}
+            addActor={props.addActor}
+            removeActor={props.removeActor}
+            category="homebrewMonsters"
+            editable
           />
         </Box>
         <Box value={value} index={2} className={classes.tabPanel}>

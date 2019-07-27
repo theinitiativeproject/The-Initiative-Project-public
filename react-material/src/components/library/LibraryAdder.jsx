@@ -58,10 +58,8 @@ const LibraryAdder = props => {
             <ActorCreator
               className={classes.tabPanel}
               closeCreator={closeCreator}
-              cb={(vals, childBack) => {
-                console.log(vals);
-                childBack();
-              }}
+              addActor={props.addActor}
+              category={props.category}
             />
           </div>
         </ClickAwayListener>
