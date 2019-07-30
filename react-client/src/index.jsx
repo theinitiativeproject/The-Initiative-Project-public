@@ -80,6 +80,8 @@ class App extends React.Component {
       hbStrSave: '',
       hbWisSave: ''
     };
+
+    // use arrow functions to avoid these binds (might need bable plugin)
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLogIn = this.handleLogIn.bind(this);
     this.handleSignUp = this.handleSignUp.bind(this);
@@ -138,6 +140,8 @@ class App extends React.Component {
     if (!uid) {
       alert('can not save monster while not logged in');
     } else {
+      // I would strongly try to avoid modifying objects that are passed in as arguments
+      // make a new monter object
       monster.owner = uid;
       db.collection('homebrew_monsters')
         .add(monster)
@@ -159,6 +163,7 @@ class App extends React.Component {
         .then(() => {
           let hbMonsters = this.state.homebrewMonsters.slice();
           hbMonsters.push(monster);
+          // whenever you are changing state based on existing state, use setState callback
           this.setState({ homebrewMonsters: hbMonsters });
         })
         .catch(err => console.log(err));
@@ -182,6 +187,8 @@ class App extends React.Component {
             }
           ];
         }
+
+        // Seems like you want a map here
         let resultsArr = [];
         snapshot.forEach(doc => {
           let data = doc.data();
@@ -203,6 +210,7 @@ class App extends React.Component {
           console.log('no user owned party members in database');
           return [];
         }
+        // Another ase where you want a map
         let resultsArr = [];
         snapshot.forEach(doc => {
           let data = doc.data();
@@ -223,6 +231,8 @@ class App extends React.Component {
           console.log('no user owned monsters in homebrew database');
           return [];
         }
+
+        // use map
         let resultsArr = [];
         snapshot.forEach(doc => {
           let data = {
@@ -300,16 +310,20 @@ class App extends React.Component {
   }
 
   rollInitiativeToggle() {
+    // Use setstate callback
     this.setState({
       rollInitiativeToggle: !this.state.rollInitiativeToggle
     });
   }
 
   addActorToEncounter(actor, isActorCard = false) {
+    // Dont modify passed in arguments
     actor.currentHP = actor.maxHP;
     if (this.state.rollInitiativeToggle && isActorCard) {
       actor.initiative = Math.floor(Math.random() * 20 + 1) + actor.initMod;
     }
+
+    // This isnt working like you expect, you are modifying  this.state.encounters
     let tempEncounters = this.state.encounters.slice();
     tempEncounters[this.state.activeEncounter].actors.push(actor);
     this.setState({
@@ -320,6 +334,7 @@ class App extends React.Component {
   editActorFromEncounter(e, index, character) {
     e.preventDefault();
     let tempEncounters = this.state.encounters;
+    // destructure and make vars to clean this up
     tempEncounters[this.state.activeEncounter].actors[index]['chaSave'] =
       character.charChaSave;
     tempEncounters[this.state.activeEncounter].actors[index]['conSave'] =
@@ -348,6 +363,9 @@ class App extends React.Component {
   }
 
   healActor(index, value) {
+    // how I would write
+    const finalVal = min(currentHp + value, maxHP)
+
     if (value > 0) {
       let encounters = this.state.encounters;
       if (
@@ -365,6 +383,8 @@ class App extends React.Component {
   }
 
   damageActor(index, value) {
+    // how I would write
+    const finalVal = max(currentHP - value, 0)
     if (value > 0) {
       let encounters = this.state.encounters;
       if (
@@ -381,6 +401,7 @@ class App extends React.Component {
   }
 
   addToPartyMembers(obj) {
+    // Dont modify passed in arguments
     obj.initMod = 0;
     let temp = this.state.partyMembers.slice();
     if (this.state.user) {
@@ -415,6 +436,7 @@ class App extends React.Component {
       result.destination.index
     );
 
+    // this doesnt work like you expect
     let temp = this.state.encounters.slice();
     temp[this.state.activeEncounter].actors = characters;
     this.setState({
@@ -423,6 +445,7 @@ class App extends React.Component {
   }
 
   switchTurn() {
+    // this doesnt work like you expect
     let temp = this.state.encounters.slice();
     temp[this.state.activeEncounter].activePosition++;
     if (
@@ -460,6 +483,7 @@ class App extends React.Component {
       }
     });
 
+    // this doesnt work like you expect
     let tempEncounters = this.state.encounters.slice();
     tempEncounters[this.state.activeEncounter].actors = temp;
     this.setState({
@@ -472,6 +496,7 @@ class App extends React.Component {
       alert('You must be signed in to save an encounter to the server');
       return;
     }
+    // you are modifying this.state
     let temp = this.state.encounters[this.state.activeEncounter];
     if (temp.id) {
       let docID = temp.id;
@@ -486,6 +511,7 @@ class App extends React.Component {
     }
   }
 
+  // I would call this "set"
   changeActiveEncounter(idx) {
     this.setState({
       activeEncounter: idx
@@ -534,6 +560,8 @@ class App extends React.Component {
       <div className="appContainer">
         <div className="signInPanelWrapper">
           <h1 className="signInPanelHeader">THE INITIATIVE PROJECT</h1>
+
+          {/* use a ternery */}
           {!this.state.user && (
             <div id="signInPanel">
               <input

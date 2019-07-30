@@ -1,6 +1,7 @@
 import React from 'react';
 import './HPChanger.css';
 
+// USE hooks for state here
 class HPChanger extends React.Component {
   constructor(props) {
     super(props);

@@ -13,6 +13,7 @@ class HomeBrewMonsterForm extends React.Component {
           className="homebrew-monster-form"
           onSubmit={e => {
             e.preventDefault();
+            // kinda weird
             this.props.firestoreAddHomebrewMonster(
               {
                 armorClass: parseInt(this.props.hbAC),

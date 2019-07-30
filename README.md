@@ -1,3 +1,8 @@
+# Main things
+- lots of components just passs props through, might want to use something like redux
+- seperation of container components and presnetational compoents
+
+
 react-client folder is the MVP folder
 
 react-material is where all of the client side code refactoring is happening

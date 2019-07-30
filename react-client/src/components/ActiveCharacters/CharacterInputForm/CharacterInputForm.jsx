@@ -5,6 +5,7 @@ class CharacterInputForm extends React.Component {
     constructor(props) {
         super(props);
 
+        // Props dont belong in state like this, have these as initial value
         this.state = {
             charChaSave: this.props.character.chaSave,
             charConSave: this.props.character.conSave,
