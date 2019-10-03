@@ -19,8 +19,12 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "@material-ui/core": "^4.2.0",
+    "@material-ui/icons": "^4.2.1",
+    "@material-ui/styles": "^4.2.0",
     "axios": "^0.18.0",
     "body-parser": "^1.17.2",
+    "chai": "^4.2.0",
     "css-loader": "^2.1.1",
     "express": "^4.15.0",
     "firebase": "^6.0.0",
@@ -28,16 +32,17 @@
     "mysql": "^2.13.0",
     "node-gyp": "^4.0.0",
     "node-sass": "^4.12.0",
+    "nodemon": "^1.19.0",
+    "path": "^0.12.7",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.3",
     "react-dom": "^16.8.6",
+    "react-swipeable-views": "^0.13.3",
     "sass": "^1.17.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack-cli": "^3.3.2",
-    "nodemon": "^1.19.0",
-    "path": "^0.12.7",
     "webpack-combine-loaders": "^2.0.4"
   }
 }

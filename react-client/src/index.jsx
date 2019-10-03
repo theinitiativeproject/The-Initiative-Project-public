@@ -225,7 +225,10 @@ class App extends React.Component {
         }
         let resultsArr = [];
         snapshot.forEach(doc => {
-          let data = doc.data();
+          let data = {
+            id: doc.id,
+            ...doc.data()
+          };
           resultsArr.push(data);
         });
         return resultsArr;

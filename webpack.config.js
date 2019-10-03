@@ -1,6 +1,6 @@
 var path = require('path');
-var SRC_DIR = path.join(__dirname, '/react-client/src');
-var DIST_DIR = path.join(__dirname, '/react-client/dist');
+var SRC_DIR = path.join(__dirname, '/react-material/src');
+var DIST_DIR = path.join(__dirname, '/react-material/dist');
 const combinedLoaders = require('webpack-combine-loaders');
 
 module.exports = {
@@ -9,17 +9,15 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR
   },
-  module : {
-    rules : [
+  module: {
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: [
-            "@babel/env",
-            "@babel/react"]
-        },
+          presets: ['@babel/env', '@babel/react']
+        }
       },
       {
         test: /\.css$/,
@@ -28,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg|otf)(\?[a-z0-9=.]+)?$/,
-        loader: 'url-loader?limit=100000' 
+        loader: 'url-loader?limit=100000'
       }
     ]
   }
