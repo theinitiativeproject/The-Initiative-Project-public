@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
   },
   editIcon: { visibility: 'hidden' },
   activeCard: {
-    visibility: 'visible'
+    visibility: 'visible',
+    marginRight: '10px'
   },
   popover: {
     width: '42vw'

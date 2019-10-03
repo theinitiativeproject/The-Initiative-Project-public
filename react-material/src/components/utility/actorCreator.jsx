@@ -1,5 +1,5 @@
 //high level goals: refactor this where sub-components are defined elsewhere, and this layer allows generic "actorRow" to be abstracted and customized with params
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -38,7 +38,7 @@ const ActorCreator = props => {
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   const [values, setValues] = useState({
-    editing: false,
+    expanded: false,
     name: '',
     initMod: '',
     armorClass: '',
@@ -54,7 +54,7 @@ const ActorCreator = props => {
 
   const disgardChanges = () => {
     setValues({
-      editing: false,
+      expanded: false,
       name: '',
       initMod: '',
       armorClass: '',
@@ -103,12 +103,27 @@ const ActorCreator = props => {
   };
 
   const editToggle = e => {
-    setValues({ ...values, editing: !values.editing });
+    setValues({ ...values, expanded: !values.expanded });
   };
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
   };
+
+  const escKeyListener = e => {
+    if (e.key === 'Escape') {
+      props.closeCreator();
+    }
+  };
+
+  useEffect(() => {
+    // document.addEventListener('keypress', enterKeyListener);
+    // document.addEventListener('keydown', escKeyListener);
+    return () => {
+      // document.removeEventListener('keypress', enterKeyListener);
+      // document.removeEventListener('keydown', escKeyListener);
+    };
+  });
 
   const ref = React.useRef(null);
 
@@ -119,105 +134,107 @@ const ActorCreator = props => {
 
   return (
     <Paper className={classes.paper + ' ' + props.className} ref={ref}>
-      <Grid container>
-        <Grid container item xs={12}>
-          <Grid item xs={6}>
-            <TextField
-              autoFocus
-              className={classes.leftSpacer}
-              label="Name"
-              value={values.name}
-              onChange={handleChange('name')}
-              margin="dense"
-            />
+      <form onSubmit={handleSubmit}>
+        <Grid container>
+          <Grid container item xs={12}>
+            <Grid item xs={6}>
+              <TextField
+                autoFocus
+                className={classes.leftSpacer}
+                label="Name"
+                value={values.name}
+                onChange={handleChange('name')}
+                margin="dense"
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="AC"
+                value={values.armorClass}
+                onChange={handleChange('armorClass')}
+                margin="dense"
+                type="number"
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                label="Max HP"
+                value={values.maxHP}
+                onChange={handleChange('maxHP')}
+                margin="dense"
+                type="number"
+                className={classes.leftSpacer}
+              />
+            </Grid>
+            <Grid item container xs={1} justify="flex-end">
+              <Grid item>
+                <IconButton
+                  name="close"
+                  size="small"
+                  onClick={props.closeCreator}
+                  className={classes.closeButton}
+                >
+                  <Close size="small" />
+                </IconButton>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs>
-            <TextField
-              label="AC"
-              value={values.armorClass}
-              onChange={handleChange('armorClass')}
-              margin="dense"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs>
-            <TextField
-              label="Max HP"
-              value={values.maxHP}
-              onChange={handleChange('maxHP')}
-              margin="dense"
-              type="number"
-              className={classes.leftSpacer}
-            />
-          </Grid>
-          <Grid item container xs={1} justify="flex-end">
+          <Grid container item xs alignItems="center" justify="space-between">
+            <Grid item xs={4}>
+              <TextField
+                className={classes.leftSpacer}
+                name="initMod"
+                label="Init Mod"
+                onChange={handleChange('initMod')}
+                value={values.initMod}
+                margin="dense"
+                type="number"
+              />
+            </Grid>
             <Grid item>
-              <IconButton
-                name="close"
-                size="small"
-                onClick={props.closeCreator}
-                className={classes.closeButton}
+              <Button
+                color="default"
+                className={classes.modButton}
+                onClick={editToggle}
               >
-                <Close size="small" />
-              </IconButton>
+                {'Saves'}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Fab
+                color="primary"
+                className={classes.fab}
+                label="Add"
+                type="submit"
+              >
+                <AddIcon />
+              </Fab>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid container item xs alignItems="center" justify="space-between">
-          <Grid item xs={4}>
-            <TextField
-              className={classes.leftSpacer}
-              name="initMod"
-              label="Init Mod"
-              onChange={handleChange('initMod')}
-              value={values.initMod}
-              margin="dense"
-              type="number"
-            />
-          </Grid>
-          <Grid item>
-            <Button
-              color="default"
-              className={classes.modButton}
-              onClick={editToggle}
-            >
-              {'Saves'}
-            </Button>
-          </Grid>
-          <Grid item>
-            <Fab
-              color="primary"
-              onClick={handleSubmit}
-              className={classes.fab}
-              label="Add"
-            >
-              <AddIcon />
-            </Fab>
+          <Grid item xs={12} container>
+            <Collapse in={values.expanded}>
+              <Grid container>
+                {saves.map((save, idx) => (
+                  <Grid item key={idx} xs>
+                    <TextField
+                      className={
+                        save === 'cha'
+                          ? `${classes.leftSpacer} ${classes.chaField}`
+                          : classes.leftSpacer
+                      }
+                      label={save.charAt(0).toUpperCase() + save.slice(1)}
+                      value={values[`${save}Save`]}
+                      onChange={handleChange(`${save}Save`)}
+                      margin="dense"
+                      type="number"
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Collapse>
           </Grid>
         </Grid>
-        <Grid item xs={12} container>
-          <Collapse in={values.editing}>
-            <Grid container>
-              {saves.map((save, idx) => (
-                <Grid item key={idx} xs>
-                  <TextField
-                    className={
-                      save === 'cha'
-                        ? `${classes.leftSpacer} ${classes.chaField}`
-                        : classes.leftSpacer
-                    }
-                    label={save.charAt(0).toUpperCase() + save.slice(1)}
-                    value={values[`${save}Save`]}
-                    onChange={handleChange(`${save}Save`)}
-                    margin="dense"
-                    type="number"
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </Collapse>
-        </Grid>
-      </Grid>
+      </form>
     </Paper>
   );
 };
