@@ -8,8 +8,11 @@ import {
   MODIFY_CURRENT_HP
 } from '../actions/types';
 
+import uuid from 'uuid';
+
 const initialState = {
   initiativeBlocks: [],
+  combatants: {},
   activeBlock: 0
 };
 
