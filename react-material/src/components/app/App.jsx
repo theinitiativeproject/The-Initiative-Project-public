@@ -110,25 +110,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-{
-  /* <Paper>
-              <Grid item xs={2} container spacing={1}>
-                {this.state.homebrewMonsters.map((mob, idx) => (
-                  <Grid item xs={12} key={idx}>
-                    <ActorItem actor={mob} editActor={this.editActor} />
-                  </Grid>
-                ))}
-                <Grid item xs={12}>
-                  <ActorCreator
-                    flavor="player character"
-                    role="creator"
-                    cb={(vals, childBack) => {
-                      console.log(vals);
-                      childBack();
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Paper> */
-}

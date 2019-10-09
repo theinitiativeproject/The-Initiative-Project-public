@@ -1,7 +1,7 @@
 {
   "name": "the-initiative-project",
-  "version": "0.2",
-  "description": "Flexible, mobile-first D&D 5e initiative tracker",
+  "version": "0.2.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",

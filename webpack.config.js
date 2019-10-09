@@ -1,7 +1,6 @@
 var path = require('path');
-var SRC_DIR = path.join(__dirname, '/react-material/src');
-var DIST_DIR = path.join(__dirname, '/react-material/dist');
-const combinedLoaders = require('webpack-combine-loaders');
+var SRC_DIR = path.join(__dirname, '/react-redux-material/src');
+var DIST_DIR = path.join(__dirname, '/react-redux-material/dist');
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
@@ -9,6 +8,7 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR
   },
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
