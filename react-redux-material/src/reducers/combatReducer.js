@@ -70,6 +70,7 @@ export default function(state = initialState, action) {
       let mobIdx = action.payload.mobIdx;
       let healing = action.payload.hpDelta >= 0;
       let copy = state.initiativeBlocks.slice();
+      console.log(copy[blockIdx] === state.initiativeBlocks[blockIdx]);
       let mob = copy[blockIdx].mobs[mobIdx];
       mob.currentHP = healing
         ? Math.min(mob.hp, (mob.currentHP += action.payload.hpDelta))

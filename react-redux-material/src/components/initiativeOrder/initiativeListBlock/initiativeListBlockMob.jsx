@@ -8,6 +8,7 @@ import { Button, Typography, Grid } from '@material-ui/core';
 import BlockMobHPEditor from './blockMobHPEditor.jsx';
 
 const InitiativeListBlockMob = props => {
+  console.log(props);
   const [expanded, setExpanded] = useState(false);
   return (
     <Grid container direction="row" spacing={2} alignItems="center">
