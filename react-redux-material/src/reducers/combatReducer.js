@@ -53,8 +53,6 @@ export default function(state = initialState, action) {
     }
 
     case REMOVE_COMBATANT_FROM_BLOCK: {
-      console.log(state);
-      console.log(action.payload);
       let blockIdx = action.payload.blockIdx;
       let mobIdx = action.payload.mobIdx;
       let copy = state.initiativeBlocks.slice();
@@ -73,6 +71,7 @@ export default function(state = initialState, action) {
       let mobIdx = action.payload.mobIdx;
       let healing = action.payload.hpDelta >= 0;
       let copy = state.initiativeBlocks.slice();
+      // cause of incorrect re-render timing vvvvvvvvv
       console.log(copy[blockIdx] === state.initiativeBlocks[blockIdx]);
       let mob = copy[blockIdx].mobs[mobIdx];
       mob.currentHP = healing
