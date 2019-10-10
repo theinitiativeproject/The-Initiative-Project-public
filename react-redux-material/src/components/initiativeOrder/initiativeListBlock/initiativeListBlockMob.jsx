@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { removeCombatantFromBlock } from '../../../actions/combatActions';
+import {
+  deleteCombatantFromBlock,
+  deleteLastCombatantFromBlock
+} from '../../../actions/combatActions';
 
 import { Button, Typography, Grid } from '@material-ui/core';
 
 import BlockMobHPEditor from './blockMobHPEditor.jsx';
 
 const InitiativeListBlockMob = props => {
-  console.log(props);
   const [expanded, setExpanded] = useState(false);
+
+  const handleDelete = () => {
+    if (props.solo) {
+      props.deleteLastCombatantFromBlock(props.blockID, props.mobID);
+    } else {
+      props.deleteCombatantFromBlock(props.blockID, props.mobID);
+    }
+  };
+
   return (
     <Grid container direction="row" spacing={2} alignItems="center">
       <Grid item xs={2}>
@@ -23,20 +34,14 @@ const InitiativeListBlockMob = props => {
       </Grid>
       {(expanded || props.solo) && props.mob.hp !== '' && (
         <Grid item>
-          <BlockMobHPEditor blockIdx={props.blockIdx} mobIdx={props.mobIdx} />
+          <BlockMobHPEditor mobID={props.mobID} />
         </Grid>
       )}
       <Grid item>
         <Typography>AC: {props.mob.ac === '' ? '?' : props.mob.ac}</Typography>
       </Grid>
       <Grid item>
-        <Button
-          onClick={() => {
-            props.removeCombatantFromBlock(props.blockIdx, props.mobIdx);
-          }}
-        >
-          Delete Mob
-        </Button>
+        <Button onClick={handleDelete}>Delete Mob</Button>
       </Grid>
     </Grid>
   );
@@ -44,5 +49,5 @@ const InitiativeListBlockMob = props => {
 
 export default connect(
   null,
-  { removeCombatantFromBlock }
+  { deleteCombatantFromBlock, deleteLastCombatantFromBlock }
 )(InitiativeListBlockMob);

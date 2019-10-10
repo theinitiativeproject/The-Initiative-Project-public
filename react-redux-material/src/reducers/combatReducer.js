@@ -1,90 +1,190 @@
 import {
   ADD_COMBATANT_BLOCK,
   INCREMENT_TURN,
-  REMOVE_COMBATANT_FROM_BLOCK,
+  DELETE_COMBATANT_FROM_BLOCK,
+  DELETE_LAST_COMBATANT_FROM_BLOCK,
   ADD_COMBATANT_TO_BLOCK,
-  APPLY_DAMAGE,
-  APPLY_HEALING,
-  MODIFY_CURRENT_HP
+  HEAL_CURRENT_HP,
+  DAMAGE_CURRENT_HP,
+  RESET_TURN
 } from '../actions/types';
 
-import uuid from 'uuid';
+import uuidv4 from 'uuid/v4';
 
 const initialState = {
-  initiativeBlocks: [],
+  blockOrder: [],
+  initiativeBlocks: {},
   combatants: {},
-  activeBlock: 0
+  activeBlock: ''
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADD_COMBATANT_BLOCK: {
-      let blockToInsert = {
-        init: action.payload.init,
-        mobs: [{ ...action.payload.mob, currentHP: action.payload.mob.hp }]
+      // payload: { mob, initiative }
+
+      let newMobID = uuidv4();
+      let newMob = {
+        ...action.payload.mob,
+        currentHP: action.payload.mob.hp
       };
-      let blocksCopy = state.initiativeBlocks.slice();
-      if (blocksCopy.length === 0) {
-        blocksCopy.push(blockToInsert);
+
+      let newBlockID = uuidv4();
+      let newBlock = {
+        mobs: [newMobID],
+        initiative: action.payload.initiative
+      };
+
+      let newBlockOrder = [...state.blockOrder];
+      if (newBlockOrder.length === 0) {
+        newBlockOrder.push(newBlockID);
       } else {
-        if (blockToInsert.init === -Infinity) {
-          blocksCopy.push(blockToInsert);
-        } else {
-          for (let i = 0; i < blocksCopy.length; i++) {
-            if (blockToInsert.init > blocksCopy[i].init) {
-              blocksCopy.splice(i, 0, blockToInsert);
-              break;
-            } else if (i === blocksCopy.length - 1) {
-              blocksCopy.push(blockToInsert);
+        for (let i = 0; i < newBlockOrder.length; i++) {
+          let blockID = newBlockOrder[i];
+          if (
+            state.initiativeBlocks[blockID].initiative < newBlock.initiative
+          ) {
+            newBlockOrder.splice(i, 0, newBlockID);
+            break;
+          } else {
+            if (i === newBlockOrder.length - 1) {
+              newBlockOrder.push(newBlockID);
               break;
             }
           }
         }
       }
-      return { initiativeBlocks: blocksCopy, activeBlock: state.activeBlock };
+
+      return {
+        ...state,
+        combatants: { ...state.combatants, [newMobID]: newMob },
+        initiativeBlocks: { ...state.initiativeBlocks, [newBlockID]: newBlock },
+        blockOrder: newBlockOrder
+      };
     }
 
     case ADD_COMBATANT_TO_BLOCK: {
-      let copy = state.initiativeBlocks.slice();
-      let mob = { ...action.payload.mob, currentHP: action.payload.mob.hp };
+      // payload: { mob, blockID }
+      let newMob = { ...action.payload.mob, currentHP: action.payload.mob.hp };
+      let newMobID = uuidv4();
 
-      copy[action.payload.targetBlock].mobs.push(mob);
-      return { initiativeBlocks: copy, activeBlock: state.activeBlock };
+      let newBlock = { ...state.initiativeBlocks[action.payload.blockID] };
+      newBlock.mobs.push(newMobID);
+
+      return {
+        ...state,
+        combatants: {
+          ...state.combatants,
+          [newMobID]: newMob
+        },
+        initiativeBlocks: {
+          ...state.initiativeBlocks,
+          [action.payload.blockID]: newBlock
+        }
+      };
     }
 
-    case REMOVE_COMBATANT_FROM_BLOCK: {
-      let blockIdx = action.payload.blockIdx;
-      let mobIdx = action.payload.mobIdx;
-      let copy = state.initiativeBlocks.slice();
-      console.log(copy);
-      let activeBlockCopy = state.activeBlock;
-      copy[blockIdx].mobs.splice(mobIdx, 1);
-      if (copy[blockIdx].mobs.length === 0) {
-        copy.splice(blockIdx, 1);
-        if (state.activeBlock >= blockIdx) activeBlockCopy--;
+    case DELETE_COMBATANT_FROM_BLOCK: {
+      // payload: { blockID, mobID }
+      let { blockID, mobID } = action.payload;
+
+      let newCombatants = { ...state.combatants };
+      delete newCombatants[action.payload.mobID];
+
+      let newBlockMobs = [...state.initiativeBlocks[blockID].mobs];
+      newBlockMobs.splice(newBlockMobs.indexOf(mobID), 1);
+      return {
+        ...state,
+        combatants: newCombatants,
+        initiativeBlocks: {
+          ...state.initiativeBlocks,
+          [blockID]: { ...state.initiativeBlocks[blockID], mobs: newBlockMobs }
+        }
+      };
+    }
+
+    case DELETE_LAST_COMBATANT_FROM_BLOCK: {
+      // payload: { blockID, mobID }
+      let { blockID, mobID } = action.payload;
+      let nextActiveBlock =
+        state.blockOrder[
+          (state.blockOrder.indexOf(blockID) + 1) % state.blockOrder.length
+        ];
+      if (state.blockOrder.length === 1 || state.activeBlock === '') {
+        nextActiveBlock = '';
       }
-      return { initiativeBlocks: copy, activeBlock: activeBlockCopy };
+
+      let newCombatants = { ...state.combatants };
+      delete newCombatants[mobID];
+      let newBlocks = { ...state.initiativeBlocks };
+      delete newBlocks[blockID];
+      let newOrder = [...state.blockOrder];
+      newOrder.splice(newOrder.indexOf(blockID), 1);
+
+      return {
+        ...state,
+        initiativeBlocks: newBlocks,
+        blockOrder: newOrder,
+        combatants: newCombatants,
+        activeBlock: nextActiveBlock
+      };
     }
 
-    case MODIFY_CURRENT_HP: {
-      let blockIdx = action.payload.blockIdx;
-      let mobIdx = action.payload.mobIdx;
-      let healing = action.payload.hpDelta >= 0;
-      let copy = state.initiativeBlocks.slice();
-      // cause of incorrect re-render timing vvvvvvvvv
-      console.log(copy[blockIdx] === state.initiativeBlocks[blockIdx]);
-      let mob = copy[blockIdx].mobs[mobIdx];
-      mob.currentHP = healing
-        ? Math.min(mob.hp, (mob.currentHP += action.payload.hpDelta))
-        : Math.max(0, (mob.currentHP += action.payload.hpDelta));
-      return { initiativeBlocks: copy, activeBlock: state.activeBlock };
+    case HEAL_CURRENT_HP: {
+      // payload: { healing, mobID }
+      return {
+        ...state,
+        combatants: {
+          ...state.combatants,
+          [action.payload.mobID]: {
+            ...state.combatants[action.payload.mobID],
+            currentHP: Math.min(
+              state.combatants[action.payload.mobID].hp,
+              state.combatants[action.payload.mobID].currentHP +
+                action.payload.healing
+            )
+          }
+        }
+      };
+    }
+
+    case DAMAGE_CURRENT_HP: {
+      // payload: { damage, mobID }
+      return {
+        ...state,
+        combatants: {
+          ...state.combatants,
+          [action.payload.mobID]: {
+            ...state.combatants[action.payload.mobID],
+            currentHP: Math.max(
+              0,
+              state.combatants[action.payload.mobID].currentHP -
+                action.payload.damage
+            )
+          }
+        }
+      };
     }
 
     case INCREMENT_TURN: {
-      let newState = { ...state };
-      newState.activeBlock =
-        (newState.activeBlock + 1) % newState.initiativeBlocks.length || 0;
-      return newState;
+      // payload: { activeBlock }
+      if (state.activeBlock === '') {
+        return { ...state, activeBlock: state.blockOrder[0] || '' };
+      }
+      let nextActiveIdx =
+        (state.blockOrder.indexOf(state.activeBlock) + 1) %
+        state.blockOrder.length;
+      return {
+        ...state,
+        activeBlock: state.blockOrder[nextActiveIdx]
+      };
+    }
+
+    case RESET_TURN: {
+      return {
+        ...state,
+        activeBlock: ''
+      };
     }
 
     default:

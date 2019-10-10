@@ -11,16 +11,18 @@ const InitiativeListBlockContainer = props => {
       <Grid container alignItems="center">
         <Grid item xs={1}>
           <Typography>
-            {props.block.init === -Infinity ? '?' : props.block.init}
+            {props.block.initiative === -Infinity
+              ? '?'
+              : props.block.initiative}
           </Typography>
         </Grid>
         <Grid container item xs={9} direction="column" spacing={1}>
-          {props.block.mobs.map((mob, idxInBlock) => (
+          {props.block.mobs.map((mobID, idxInBlock) => (
             <Grid item key={idxInBlock} className="source-of-weird-spacing">
               <InitiativeListBlockMob
-                blockIdx={props.blockIdx}
-                mobIdx={idxInBlock}
-                mob={mob}
+                blockID={props.blockID}
+                mobID={mobID}
+                mob={props.combatants[mobID]}
                 solo={props.block.mobs.length === 1}
               />
             </Grid>
@@ -33,6 +35,7 @@ const InitiativeListBlockContainer = props => {
           </Grid>
         )}
       </Grid>
+      <div>{props.blockID}</div>
     </Paper>
   );
 };

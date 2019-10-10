@@ -11,19 +11,20 @@ const InitiativeListWrapper = props => {
     <div id="initiative-list-wrapper">
       <Grid container direction="column" justify="center" spacing={2}>
         <Grid item>
-          <InitiativeListControls />
+          <InitiativeListControls activeBlock={props.activeBlock} />
         </Grid>
-        {props.initiativeBlocks.map((block, idx) => (
+        {props.blockOrder.map((blockID, idx) => (
           <Grid item key={idx}>
             <InitiativeListBlockContainer
-              block={block}
-              blockIdx={idx}
-              active={props.activeBlock === idx}
+              block={props.initiativeBlocks[blockID]}
+              blockID={blockID}
+              combatants={props.combatants}
+              active={props.activeBlock === blockID}
             />
           </Grid>
         ))}
         <Grid item>
-          <InitiativeListAdder />
+          <InitiativeListAdder blockOrder={props.blockOrder} />
         </Grid>
       </Grid>
     </div>

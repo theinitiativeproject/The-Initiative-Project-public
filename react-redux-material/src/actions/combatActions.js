@@ -2,29 +2,53 @@ import {
   ADD_COMBATANT_BLOCK,
   ADD_COMBATANT_TO_BLOCK,
   INCREMENT_TURN,
-  REMOVE_COMBATANT_FROM_BLOCK,
-  MODIFY_CURRENT_HP
+  DELETE_COMBATANT_FROM_BLOCK,
+  HEAL_CURRENT_HP,
+  DAMAGE_CURRENT_HP,
+  RESET_TURN,
+  DELETE_LAST_COMBATANT_FROM_BLOCK
 } from './types';
 
-export const addCombatantBlock = (mob, init = -Infinity) => dispatch => {
-  dispatch({ type: ADD_COMBATANT_BLOCK, payload: { mob, init } });
+export const addCombatantBlock = (mob, initiative) => dispatch => {
+  dispatch({ type: ADD_COMBATANT_BLOCK, payload: { mob, initiative } });
 };
 
-export const addCombatantToBlock = (mob, targetBlock) => dispatch => {
-  dispatch({ type: ADD_COMBATANT_TO_BLOCK, payload: { mob, targetBlock } });
+export const addCombatantToBlock = (mob, blockID) => dispatch => {
+  dispatch({ type: ADD_COMBATANT_TO_BLOCK, payload: { mob, blockID } });
 };
 
-export const incrementTurn = () => dispatch => {
-  dispatch({ type: INCREMENT_TURN });
+export const incrementTurn = activeBlock => dispatch => {
+  dispatch({ type: INCREMENT_TURN, payload: { activeBlock } });
 };
 
-export const removeCombatantFromBlock = (blockIdx, mobIdx) => dispatch => {
+export const deleteCombatantFromBlock = (blockID, mobID) => dispatch => {
   dispatch({
-    type: REMOVE_COMBATANT_FROM_BLOCK,
-    payload: { blockIdx, mobIdx }
+    type: DELETE_COMBATANT_FROM_BLOCK,
+    payload: { blockID, mobID }
   });
 };
 
-export const modifyCurrentHP = (hpDelta, blockIdx, mobIdx) => dispatch => {
-  dispatch({ type: MODIFY_CURRENT_HP, payload: { hpDelta, blockIdx, mobIdx } });
+export const deleteLastCombatantFromBlock = (blockID, mobID) => dispatch => {
+  dispatch({
+    type: DELETE_LAST_COMBATANT_FROM_BLOCK,
+    payload: { blockID, mobID }
+  });
+};
+
+export const healCurrentHP = (healing, mobID) => dispatch => {
+  dispatch({
+    type: HEAL_CURRENT_HP,
+    payload: { healing, mobID }
+  });
+};
+
+export const damageCurrentHP = (damage, mobID) => dispatch => {
+  dispatch({
+    type: DAMAGE_CURRENT_HP,
+    payload: { damage, mobID }
+  });
+};
+
+export const resetTurn = () => dispatch => {
+  dispatch({ type: RESET_TURN });
 };
