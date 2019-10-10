@@ -11,10 +11,7 @@ const InitiativeListAdder = props => {
   const [ac, setAC] = useState('');
   const [hp, setHP] = useState('');
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    let init = typeof initiative === 'string' ? -Infinity : initiative;
-    props.addCombatantBlock({ name, ac, hp }, init);
+  const reset = () => {
     setInitiative('');
     setName('');
     setAC('');
@@ -22,16 +19,17 @@ const InitiativeListAdder = props => {
     document.getElementById('name_field').focus();
     document.getElementById('name_field').select();
   };
+  const handleSubmit = e => {
+    e.preventDefault();
+    let init = typeof initiative === 'string' ? -Infinity : initiative;
+    props.addCombatantBlock({ name, ac, hp }, init);
+    reset();
+  };
 
   const handleAlternateSubmit = e => {
-    let targetBlock = prompt('Which 0 indexed block would you like to add to?');
+    let targetBlock = document.getElementById('block_selector').value;
     props.addCombatantToBlock({ name, ac, hp }, targetBlock);
-    setInitiative('');
-    setName('');
-    setAC('');
-    setHP('');
-    document.getElementById('name_field').focus();
-    document.getElementById('name_field').select();
+    reset();
   };
 
   return (
@@ -44,6 +42,7 @@ const InitiativeListAdder = props => {
           name="name"
           placeholder="Name"
           value={name}
+          required
         />
         <input
           type="number"
@@ -83,6 +82,13 @@ const InitiativeListAdder = props => {
         >
           Add to existing block
         </button>
+        <select id="block_selector">
+          {props.blockOrder.map((blockID, idx) => (
+            <option value={blockID} key={idx}>
+              {blockID}
+            </option>
+          ))}
+        </select>
       </form>
     </div>
   );

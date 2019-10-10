@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { Button, Grid, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { modifyCurrentHP } from '../../../actions/combatActions';
+import { healCurrentHP, damageCurrentHP } from '../../../actions/combatActions';
 
 const BlockMobHPEditor = props => {
   const [hpDelta, setHPDelta] = useState('');
 
-  const handleClick = healing => {
-    let delta = healing ? hpDelta : -hpDelta;
-    props.modifyCurrentHP(delta, props.blockIdx, props.mobIdx);
-    setHPDelta('');
-  };
-
   return (
     <Grid container direction="row" justify="center" alignItems="center">
       <Grid item>
-        <Button onClick={() => handleClick(true)}>Heal</Button>
+        <Button
+          onClick={() => {
+            props.healCurrentHP(hpDelta, props.mobID);
+            setHPDelta('');
+          }}
+        >
+          Heal
+        </Button>
       </Grid>
       <Grid item>
         <TextField
@@ -29,7 +30,14 @@ const BlockMobHPEditor = props => {
         />
       </Grid>
       <Grid item>
-        <Button onClick={() => handleClick(false)}>Damage</Button>
+        <Button
+          onClick={() => {
+            props.damageCurrentHP(hpDelta, props.mobID);
+            setHPDelta('');
+          }}
+        >
+          Damage
+        </Button>
       </Grid>
     </Grid>
   );
@@ -37,5 +45,5 @@ const BlockMobHPEditor = props => {
 
 export default connect(
   null,
-  { modifyCurrentHP }
+  { healCurrentHP, damageCurrentHP }
 )(BlockMobHPEditor);
