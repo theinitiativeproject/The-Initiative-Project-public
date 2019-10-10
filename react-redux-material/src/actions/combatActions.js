@@ -6,8 +6,8 @@ import {
   MODIFY_CURRENT_HP
 } from './types';
 
-export const addCombatantBlock = (mob, init = -Infinity) => dispatch => {
-  dispatch({ type: ADD_COMBATANT_BLOCK, payload: { mob, init } });
+export const addCombatantBlock = (mob, initiative) => dispatch => {
+  dispatch({ type: ADD_COMBATANT_BLOCK, payload: { mob, initiative } });
 };
 
 export const addCombatantToBlock = (mob, targetBlock) => dispatch => {
