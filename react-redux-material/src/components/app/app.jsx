@@ -11,12 +11,12 @@ import { Provider } from 'react-redux';
 import store from '../../store';
 
 // component imports
-import InitiativeListWrapper from '../initiativeOrder/initiativeListWrapper.jsx';
+import CombatManagerContainer from '../combatManager/CombatManagerContainer.jsx';
 
 function App() {
   return (
     <Provider store={store}>
-      <InitiativeListWrapper />
+      <CombatManagerContainer />
     </Provider>
   );
 }
