@@ -4,7 +4,7 @@ import InitiativeBlockContainer from './initiativeBlock/initiativeBlockContainer
 
 const InitiativeListPresentation = props => {
   return (
-    <Grid container>
+    <Grid container direction="column" spacing={0}>
       {props.blockOrder.map((blockID, idx) => (
         <Grid item key={idx}>
           <InitiativeBlockContainer blockID={blockID} />
