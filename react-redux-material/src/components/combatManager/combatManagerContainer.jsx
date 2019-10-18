@@ -9,4 +9,4 @@ const InitiativeListWrapper = props => {
 
 const mapStateToProps = state => ({ blockOrder: state.app.combat.blockOrder });
 
-export default connect(mapStateToProps)(InitiativeListWrapper);
+export default connect()(InitiativeListWrapper);
