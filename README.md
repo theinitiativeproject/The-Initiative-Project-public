@@ -1,11 +1,12 @@
-react-material is where all of the client side code refactoring is happening
+react-redux-material is where all of the client side code refactoring is happening
 
-The server just exists to serve up the files while developing. The eventual app will be firebase based, which allows for embedding of database access directly in the front-end, so it'll never be connected to a specific server.
+The server just exists to serve up the files while developing. Editing path in '/server/index.js' to 'react-material' serves previous library proof of concept.
 
-Currently the app has no connectivity to firebase. Currently skeleton-ing out the front end and establishing local versions of data handling.
+Currently the app has no connectivity to firebase. Skeleton-ing out the front end and establishing local versions of data handling.
 
-to start:`
+to start, open two terminal instances:
+
 npm install
-npm run react-dev
-npm run server-dev
+npm run react-dev (in one terminal)
+npm run server-dev (in second terminal)
 visit localhost:3000
