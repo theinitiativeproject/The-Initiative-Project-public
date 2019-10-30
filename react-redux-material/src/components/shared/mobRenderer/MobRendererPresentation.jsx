@@ -8,8 +8,6 @@ import HPEditorContainer from './HP/HPEditor/HPEditorContainer.jsx';
 import { Grid, Typography, Button } from '@material-ui/core';
 
 const MobRenderer = props => {
-  console.log('mob renderer presentation props:');
-  console.log(props);
   return (
     <Grid container direction="row">
       <Grid item xs>
@@ -19,10 +17,10 @@ const MobRenderer = props => {
         <ACPresentation ac={props.mob.ac} />
       </Grid>
       <Grid item xs>
-        <HPEditorContainer mobID={props.mobID} />
+        <HPPresentation maxHP={props.mob.hp} currentHP={props.mob.currentHP} />
       </Grid>
       <Grid item xs>
-        <HPPresentation maxHP={props.mob.hp} currentHP={props.mob.currentHP} />
+        <HPEditorContainer mobID={props.mobID} />
       </Grid>
       <Grid item xs>
         <Button onClick={props.handleDelete}>Delete</Button>

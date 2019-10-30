@@ -10,7 +10,6 @@ import MobRendererPresentation from './MobRendererPresentation.jsx';
 
 const MobRendererContainer = props => {
   let mob = props.combatants[props.mobID];
-  console.log(props);
   const handleDelete = () => {
     if (props.solo) {
       props.deleteLastCombatantFromBlock(props.blockID, props.mobID);
