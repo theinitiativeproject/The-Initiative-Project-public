@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import store from '../../store';
 
 // component imports
-import CombatManagerContainer from '../combatManager/CombatManagerContainer.jsx';
+import CombatManagerContainer from '../combatManager/CombatManager.jsx';
 
 function App() {
   return (

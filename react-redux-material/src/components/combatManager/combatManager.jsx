@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
 // component imports
 import CombatControlsContainer from './CombatControls/CombatControlsContainer.jsx';
@@ -8,7 +9,8 @@ import CombatAdderContainer from './combatAdder/combatAdderContainer.jsx';
 // MUI imports
 import { Grid } from '@material-ui/core';
 
-const CombatManagerPresentation = props => {
+
+const CombatManager = props => {
   return (
     <Grid container direction="column" justify="center" spacing={2}>
       <Grid item>
@@ -24,4 +26,4 @@ const CombatManagerPresentation = props => {
   );
 };
 
-export default CombatManagerPresentation;
+export default CombatManager;
