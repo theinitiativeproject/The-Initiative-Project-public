@@ -1,10 +1,4 @@
-import React from 'react';
-
-// import { ThemeProvider } from '@material-ui/styles';
-// import { createMuiTheme } from '@material-ui/core/styles';
-// import Mui, { Grid, Typography, Paper } from '@material-ui/core';
-// import Button from '@material-ui/core/Button';
-// const theme = createMuiTheme();
+import React, { useEffect } from 'react';
 
 // redux imports
 import { Provider } from 'react-redux';
@@ -12,6 +6,33 @@ import store from '../../store';
 
 // component imports
 import CombatManagerContainer from '../combatManager/CombatManager.jsx';
+
+//firebase
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+const firebaseConfig = {
+  apiKey: 'AIzaSyAGahwK6t-je1eiqnBQO830RoXqRAXUgYc',
+  authDomain: 'theinitiativeproject-eaec3.firebaseapp.com',
+  databaseURL: 'https://theinitiativeproject-eaec3.firebaseio.com',
+  projectId: 'theinitiativeproject-eaec3',
+  storageBucket: 'theinitiativeproject-eaec3.appspot.com',
+  messagingSenderId: '292781873005',
+  appId: '1:292781873005:web:7d50d488cb69e930'
+};
+firebase.initializeApp(firebaseConfig);
+
+var db = firebase.firestore();
+
+const srd = db
+  .collection('srd_monsters_bulk')
+  .get()
+  .then(querySnapshot => {
+    querySnapshot.forEach(doc => {
+      // window.localStorage.setItem('srd', doc.data());
+      window.localStorage.setItem('srd', JSON.stringify(doc.data().monsters));
+    });
+  })
+  .catch(err => console.log('failed to fetch'));
 
 function App() {
   return (

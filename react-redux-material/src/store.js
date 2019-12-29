@@ -2,7 +2,10 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
-const initialState = {};
+import { saveState, loadState } from '../../localStorage.js';
+import { throttle } from 'lodash';
+
+const initialState = loadState();
 
 const middleware = [thunk];
 
@@ -13,5 +16,7 @@ const store = createStore(
   initialState,
   composeEnhancers(applyMiddleware(...middleware))
 );
+
+store.subscribe(throttle(() => saveState(store.getState()), 250));
 
 export default store;
