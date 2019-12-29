@@ -1,34 +1,62 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   deleteCombatantFromBlock,
   deleteLastCombatantFromBlock
 } from '../../../actions/combatActions';
 
-import MobRendererPresentation from './MobRendererPresentation.jsx';
+import ACPresentation from './AC/ACPresentation.jsx';
+import HPPresentation from './HP/HPPresentation.jsx';
+import HPEditorPresentation from './HP/HPEditor/HPEditorPresentation.jsx';
+
+import { Grid, Typography, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import { useState } from 'react';
+const useStyles = makeStyles(theme => ({
+  'mob-renderer-container': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: '3px'
+  },
+  //for responsive design, refactor this sizing
+  'mob-name': {
+    width: '20vw',
+    marginLeft: '5px'
+  }
+}));
 
 const MobRendererContainer = props => {
-  let mob = props.combatants[props.mobID];
-  const handleDelete = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const combatants = useSelector(state => state.app.combat.combatants);
+  const mob = combatants[props.mobID];
+
+  const handleDelete = useCallback(() => {
     if (props.solo) {
-      props.deleteLastCombatantFromBlock(props.blockID, props.mobID);
+      dispatch(deleteLastCombatantFromBlock(props.blockID, props.mobID));
     } else {
-      props.deleteCombatantFromBlock(props.blockID, props.mobID);
+      dispatch(deleteCombatantFromBlock(props.blockID, props.mobID));
     }
-  };
+  }, [dispatch, props.blockID, props.solo]);
+
   return (
-    <MobRendererPresentation
-      mobID={props.mobID}
-      mob={mob}
-      handleDelete={handleDelete}
-    />
+    <div className={classes['mob-renderer-container']}>
+      <Typography
+        variant="h6"
+        noWrap={true}
+        display="block"
+        className={classes['mob-name']}
+      >
+        {mob.name}
+      </Typography>
+      <ACPresentation ac={mob.ac} />
+      <HPPresentation maxHP={mob.hp} currentHP={mob.currentHP} />
+      <HPEditorPresentation mobID={props.mobID} />
+      <Button onClick={handleDelete}>Delete</Button>
+    </div>
   );
 };
 
-const mapStateToProps = state => ({ combatants: state.app.combat.combatants });
-
-export default connect(
-  mapStateToProps,
-  { deleteCombatantFromBlock, deleteLastCombatantFromBlock }
-)(MobRendererContainer);
+export default MobRendererContainer;

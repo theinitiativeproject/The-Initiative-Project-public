@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { Box, Grid, Typography, Divider } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -12,22 +12,25 @@ const useStyles = makeStyles(theme => ({
     height: '65px'
   },
   displayBase: {
-    paddingTop: '15px',
-    margin: 'auto',
-    width: 'min-content'
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: '15px'
   },
   divider: {
-    height: '1px',
-    background: 'black'
+    height: '2px',
+    background: 'black',
+    marginBottom: '1px'
   },
   text: {
     fontSize: '1.1rem',
     fontWeight: '420',
     textAlign: 'center',
-    lineHeight: '1rem'
+    lineHeight: '1rem',
+    padding: '0px 3px'
   },
   unknownHPText: {
-    paddingTop: '5px',
+    padding: '5px 3px 0px',
     fontWeight: '450',
     fontSize: '1.3rem',
     lineHeight: '1.2rem'
@@ -37,19 +40,19 @@ const useStyles = makeStyles(theme => ({
 const HPPresentation = props => {
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <Box className={classes.displayBase}>
+    <div className={classes.root}>
+      <div className={classes.displayBase}>
         {props.maxHP ? (
-          <Box>
+          <div>
             <Typography className={classes.text}>{props.currentHP}</Typography>
             <div className={classes.divider} />
             <Typography className={classes.text}>{props.maxHP}</Typography>
-          </Box>
+          </div>
         ) : (
           <Typography className={classes.unknownHPText}> ? </Typography>
         )}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 
