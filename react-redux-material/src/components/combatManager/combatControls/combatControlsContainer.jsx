@@ -1,18 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { incrementTurn, resetTurn } from '../../../actions/combatActions';
 
-import CombatControlsPresentation from './combatControlsPresentation.jsx';
-
 const CombatControlsContainer = props => {
-  return <CombatControlsPresentation {...props} />;
+  const activeBlock = useSelector(state => state.app.combat.activeBlock);
+  const dispatch = useDispatch();
+
+  const incrementTurnWrapper = useCallback(
+    activeBlock => dispatch(incrementTurn(activeBlock)),
+    [dispatch, activeBlock]
+  );
+  const resetTurnWrapper = useCallback(() => dispatch(resetTurn()), dispatch);
+
+  return (
+    <div>
+      <span>Active Turn: {activeBlock} </span>
+      <button onClick={incrementTurnWrapper}>
+        {activeBlock === '' ? 'Start Combat!' : 'Increment Turn'}
+      </button>
+      <button onClick={resetTurnWrapper}>Reset Turn</button>
+    </div>
+  );
 };
 
-const mapStateToProps = state => ({
-  activeBlock: state.app.combat.activeBlock
-});
-
-export default connect(
-  mapStateToProps,
-  { incrementTurn, resetTurn }
-)(CombatControlsContainer);
+export default CombatControlsContainer;

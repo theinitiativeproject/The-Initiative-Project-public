@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  healCurrentHP,
+  damageCurrentHP
+} from '../../../../../actions/combatActions.js';
+
 import { Button, Grid, TextField, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
 const useStyles = makeStyles(theme => ({
   gridBase: { width: '146px' }
 }));
 
 const HPEditorPresentation = props => {
-  const [hpDelta, setHPDelta] = useState('');
   const classes = useStyles();
+
+  const [hpDelta, setHPDelta] = useState('');
+  const dispatch = useDispatch();
+
+  const healCurrentHPWrapper = useCallback(() => {
+    dispatch(healCurrentHP(hpDelta, props.mobID));
+    setHPDelta('');
+  }, [dispatch, hpDelta]);
+
+  const damageCurrentHPWrapper = useCallback(() => {
+    dispatch(damageCurrentHP(hpDelta, props.mobID));
+    setHPDelta('');
+  }, [dispatch, hpDelta]);
+
   return (
     <Grid container direction="column" className={classes.gridBase}>
       <Grid item>
@@ -18,9 +36,10 @@ const HPEditorPresentation = props => {
           type="number"
           margin="dense"
           value={hpDelta}
-          onChange={e =>
-            setHPDelta(e.target.value === '' ? '' : parseInt(e.target.value))
-          }
+          onChange={e => {
+            setHPDelta(e.target.value === '' ? '' : parseInt(e.target.value));
+            console.log(hpDelta);
+          }}
         />
       </Grid>
       <Grid item>
@@ -32,10 +51,7 @@ const HPEditorPresentation = props => {
                 fullWidth
                 size="small"
                 variant="outlined"
-                onClick={() => {
-                  props.healCurrentHP(hpDelta, props.mobID);
-                  setHPDelta('');
-                }}
+                onClick={healCurrentHPWrapper}
               >
                 Heal
               </Button>
@@ -46,10 +62,7 @@ const HPEditorPresentation = props => {
                 fullWidth
                 size="small"
                 variant="outlined"
-                onClick={() => {
-                  props.damageCurrentHP(hpDelta, props.mobID);
-                  setHPDelta('');
-                }}
+                onClick={damageCurrentHPWrapper}
               >
                 Damage
               </Button>

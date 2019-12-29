@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -35,25 +35,31 @@ const InitiativeListAdder = props => {
   };
 
   // collect fields from local state, dispatch action
-  const handlePrimarySubmit = e => {
-    e.preventDefault();
-    const { initiative, ...mob } = values;
-    dispatch(
-      addCombatantBlock(
-        mob,
-        typeof values.initiative === 'number' ? initiative : -Infinity
-      )
-    );
-    reset();
-  };
+  const handlePrimarySubmit = useCallback(
+    e => {
+      e.preventDefault();
+      const { initiative, ...mob } = values;
+      dispatch(
+        addCombatantBlock(
+          mob,
+          typeof values.initiative === 'number' ? initiative : -Infinity
+        )
+      );
+      reset();
+    },
+    [dispatch, values]
+  );
 
   // collect fields from local state, dispatch action
-  const handleSecondarySubmit = e => {
-    let targetBlockID = document.getElementById('block_selector').value;
-    const { initiative, ...mob } = values;
-    dispatch(addCombatantToBlock(mob, targetBlockID));
-    reset();
-  };
+  const handleSecondarySubmit = useCallback(
+    e => {
+      let targetBlockID = document.getElementById('block_selector').value;
+      const { initiative, ...mob } = values;
+      dispatch(addCombatantToBlock(mob, targetBlockID));
+      reset();
+    },
+    [dispatch, values]
+  );
 
   return (
     <div>
