@@ -1,12 +1,37 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import InitiativeBlockContainer from './initiativeBlock/initiativeBlockContainer.jsx';
 
-import InitiativeListPresentation from './InitiativeListPresentation.jsx';
+// MUI imports
+import { makeStyles } from '@material-ui/core';
+const useStyles = makeStyles(theme => ({
+  'initiative-block': { padding: '5px' },
+  'even-initiative-block': { backgroundColor: '#f2f2f0' },
+  'odd-initiative-block': { backgroundColor: '#bfbfbf' }
+}));
 
 const InitiativeListContainer = props => {
-  return <InitiativeListPresentation blockOrder={props.blockOrder} />;
+  const blockOrder = useSelector(state => state.app.combat.blockOrder);
+  const classes = useStyles();
+
+  return (
+    <ol>
+      {blockOrder.map((blockID, idx) => (
+        <li
+          key={idx}
+          className={
+            classes['initiative-block'] +
+            ' ' +
+            (idx % 2 === 0
+              ? classes['even-initiative-block']
+              : classes['odd-initiative-block'])
+          }
+        >
+          <InitiativeBlockContainer blockID={blockID} />
+        </li>
+      ))}
+    </ol>
+  );
 };
 
-const mapStateToProps = state => ({ blockOrder: state.app.combat.blockOrder });
-
-export default connect(mapStateToProps)(InitiativeListContainer);
+export default InitiativeListContainer;

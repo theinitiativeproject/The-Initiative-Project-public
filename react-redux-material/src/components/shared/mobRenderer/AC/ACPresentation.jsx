@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
     height: '65px'
   },
   gridBase: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     paddingTop: '15px'
   },
   ac: {
@@ -20,33 +23,23 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '1.2rem'
   },
   subtitle: {
-    lineHeight: '0'
+    paddingTop: '2px'
   }
 }));
 
 const ACPresentation = props => {
   const classes = useStyles();
   return (
-    <Box className={classes.root}>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justify="center"
-        className={classes.gridBase}
-      >
-        <Grid item>
-          <Typography className={classes.ac}>
-            {props.ac ? props.ac : '?'}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Typography variant="caption" className={classes.subtitle}>
-            AC
-          </Typography>
-        </Grid>
-      </Grid>
-    </Box>
+    <div className={classes.root}>
+      <div className={classes.gridBase}>
+        <Typography className={classes.ac}>
+          {props.ac ? props.ac : '?'}
+        </Typography>
+        <Typography variant="caption" className={classes.subtitle}>
+          AC
+        </Typography>
+      </div>
+    </div>
   );
 };
 
