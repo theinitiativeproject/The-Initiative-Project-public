@@ -6,7 +6,7 @@ import MobRendererContainer from '../../../shared/mobRenderer/MobRendererContain
 import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
-  'initiative-display': { margin: '5px' },
+  'initiative-display': { margin: '5px', width: '55px', textAlign: 'center' },
   'active-block': {
     background: 'green'
   },

@@ -28,6 +28,7 @@ export default function(state = initialState, action) {
         ...action.payload.mob,
         currentHP: action.payload.mob.hp
       };
+      newMob.name = newMob.name.charAt(0).toUpperCase() + newMob.name.slice(1);
 
       let newBlockID = uuidv4();
       let newBlock = {

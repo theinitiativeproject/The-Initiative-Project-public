@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -18,8 +18,9 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '15px'
   },
   divider: {
-    height: '1px',
-    background: 'black'
+    height: '2px',
+    background: 'black',
+    marginBottom: '1px'
   },
   text: {
     fontSize: '1.1rem',
@@ -42,11 +43,11 @@ const HPPresentation = props => {
     <div className={classes.root}>
       <div className={classes.displayBase}>
         {props.maxHP ? (
-          <Box>
+          <div>
             <Typography className={classes.text}>{props.currentHP}</Typography>
             <div className={classes.divider} />
             <Typography className={classes.text}>{props.maxHP}</Typography>
-          </Box>
+          </div>
         ) : (
           <Typography className={classes.unknownHPText}> ? </Typography>
         )}

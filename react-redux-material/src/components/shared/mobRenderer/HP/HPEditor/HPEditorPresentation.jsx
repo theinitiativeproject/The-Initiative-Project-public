@@ -8,7 +8,17 @@ import {
 import { Button, Grid, TextField, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
-  gridBase: { width: '146px' }
+  'hp-editor-container': {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '146px'
+  },
+  'button-container': {
+    display: 'flex',
+    marginBottom: '3px'
+  },
+  'heal-button': { marginRight: '2px' },
+  'damage-button': { marginLeft: '2px' }
 }));
 
 const HPEditorPresentation = props => {
@@ -28,49 +38,39 @@ const HPEditorPresentation = props => {
   }, [dispatch, hpDelta]);
 
   return (
-    <Grid container direction="column" className={classes.gridBase}>
-      <Grid item>
-        <TextField
+    <div className={classes['hp-editor-container']}>
+      <TextField
+        fullWidth
+        placeholder="Heal / Damage"
+        type="number"
+        margin="dense"
+        value={hpDelta}
+        onChange={e => {
+          setHPDelta(e.target.value === '' ? '' : parseInt(e.target.value));
+          console.log(hpDelta);
+        }}
+      />
+      <div className={classes['button-container']}>
+        <Button
+          className={classes['heal-button']}
           fullWidth
-          placeholder="Heal / Damage"
-          type="number"
-          margin="dense"
-          value={hpDelta}
-          onChange={e => {
-            setHPDelta(e.target.value === '' ? '' : parseInt(e.target.value));
-            console.log(hpDelta);
-          }}
-        />
-      </Grid>
-      <Grid item>
-        <Box>
-          <Grid container direction="row" spacing={1}>
-            <Grid item>
-              <Button
-                className={classes.hpEditButton}
-                fullWidth
-                size="small"
-                variant="outlined"
-                onClick={healCurrentHPWrapper}
-              >
-                Heal
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                className={classes.hpEditButton}
-                fullWidth
-                size="small"
-                variant="outlined"
-                onClick={damageCurrentHPWrapper}
-              >
-                Damage
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Grid>
-    </Grid>
+          size="small"
+          variant="outlined"
+          onClick={healCurrentHPWrapper}
+        >
+          Heal
+        </Button>
+        <Button
+          className={classes['damage-button']}
+          fullWidth
+          size="small"
+          variant="outlined"
+          onClick={damageCurrentHPWrapper}
+        >
+          Damage
+        </Button>
+      </div>
+    </div>
   );
 };
 

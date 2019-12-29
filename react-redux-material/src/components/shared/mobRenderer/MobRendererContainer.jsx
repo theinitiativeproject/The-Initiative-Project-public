@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
   },
   //for responsive design, refactor this sizing
   'mob-name': {
-    width: '20vw'
+    width: '20vw',
+    marginLeft: '5px'
   }
 }));
 
@@ -42,28 +43,18 @@ const MobRendererContainer = props => {
 
   return (
     <div className={classes['mob-renderer-container']}>
-      <div>
-        <Typography
-          variant="h6"
-          noWrap={true}
-          display="block"
-          className={classes['mob-name']}
-        >
-          {mob.name}
-        </Typography>
-      </div>
-      <div>
-        <ACPresentation ac={mob.ac} />
-      </div>
-      <div>
-        <HPPresentation maxHP={mob.hp} currentHP={mob.currentHP} />
-      </div>
-      <div>
-        <HPEditorPresentation mobID={props.mobID} />
-      </div>
-      <div>
-        <Button onClick={handleDelete}>Delete</Button>
-      </div>
+      <Typography
+        variant="h6"
+        noWrap={true}
+        display="block"
+        className={classes['mob-name']}
+      >
+        {mob.name}
+      </Typography>
+      <ACPresentation ac={mob.ac} />
+      <HPPresentation maxHP={mob.hp} currentHP={mob.currentHP} />
+      <HPEditorPresentation mobID={props.mobID} />
+      <Button onClick={handleDelete}>Delete</Button>
     </div>
   );
 };
