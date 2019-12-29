@@ -2,3 +2,4 @@ node_modules/
 package-lock.json
 react-client/dist/bundle.js
 react-material/dist/bundle.js
+react-redux-material/dist/bundle.js
