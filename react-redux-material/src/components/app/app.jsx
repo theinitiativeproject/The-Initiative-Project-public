@@ -23,18 +23,23 @@ firebase.initializeApp(firebaseConfig);
 
 var db = firebase.firestore();
 
-const srd = db
-  .collection('srd_monsters_bulk')
-  .get()
-  .then(querySnapshot => {
-    querySnapshot.forEach(doc => {
-      // window.localStorage.setItem('srd', doc.data());
-      window.localStorage.setItem('srd', JSON.stringify(doc.data().monsters));
-    });
-  })
-  .catch(err => console.log('failed to fetch'));
-
 function App() {
+  useEffect(() => {
+    let srd;
+    db.collection('srd_monsters_bulk')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          // window.localStorage.setItem('srd', doc.data());
+          srd = doc.data().monsters;
+          window.localStorage.setItem('srd', JSON.stringify(srd));
+        });
+      })
+      .catch(err => console.log('failed to fetch'));
+    return () => {
+      //cleanup;
+    };
+  }, []);
   return (
     <Provider store={store}>
       <CombatManagerContainer />

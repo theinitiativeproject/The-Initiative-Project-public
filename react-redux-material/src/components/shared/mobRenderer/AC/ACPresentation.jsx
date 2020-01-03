@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setCombatantAC } from '../../../../actions/combatActions.js';
 
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';

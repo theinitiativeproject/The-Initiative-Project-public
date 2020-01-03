@@ -5,6 +5,10 @@ import {
   DELETE_COMBATANT_FROM_BLOCK,
   HEAL_CURRENT_HP,
   DAMAGE_CURRENT_HP,
+  SET_CURRENT_HP,
+  SET_MAX_HP,
+  SET_COMBATANT_NAME,
+  SET_COMBATANT_AC,
   RESET_TURN,
   DELETE_LAST_COMBATANT_FROM_BLOCK
 } from './types';
@@ -47,6 +51,22 @@ export const damageCurrentHP = (damage, mobID) => dispatch => {
     type: DAMAGE_CURRENT_HP,
     payload: { damage, mobID }
   });
+};
+
+export const setCurrentHP = (hp, mobID) => dispatch => {
+  dispatch({ type: SET_CURRENT_HP, payload: { hp, mobID } });
+};
+
+export const setMaxHP = (hp, mobID) => dispatch => {
+  dispatch({ type: SET_MAX_HP, payload: { hp, mobID } });
+};
+
+export const setCombatantName = (name, mobID) => dispatch => {
+  dispatch({ type: SET_COMBATANT_NAME, payload: { name, mobID } });
+};
+
+export const setCombatantAC = (ac, mobID) => dispatch => {
+  dispatch({ type: SET_COMBATANT_AC, payload: { ac, mobID } });
 };
 
 export const resetTurn = () => dispatch => {

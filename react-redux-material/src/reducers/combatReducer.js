@@ -6,6 +6,10 @@ import {
   ADD_COMBATANT_TO_BLOCK,
   HEAL_CURRENT_HP,
   DAMAGE_CURRENT_HP,
+  SET_CURRENT_HP,
+  SET_MAX_HP,
+  SET_COMBATANT_NAME,
+  SET_COMBATANT_AC,
   RESET_TURN
 } from '../actions/types';
 
@@ -162,6 +166,57 @@ export default function(state = initialState, action) {
               state.combatants[action.payload.mobID].currentHP -
                 action.payload.damage
             )
+          }
+        }
+      };
+    }
+
+    case SET_CURRENT_HP: {
+      return {
+        ...state,
+        combatants: {
+          ...state.combatants,
+          [action.payload.mobID]: {
+            ...state.combatants[action.payload.mobID],
+            currentHP: action.payload.hp
+          }
+        }
+      };
+    }
+
+    case SET_MAX_HP: {
+      return {
+        ...state,
+        combatants: {
+          ...state.combatants,
+          [action.payload.mobID]: {
+            ...state.combatants[action.payload.mobID],
+            currentHP: action.payload.hp,
+            hp: action.payload.hp
+          }
+        }
+      };
+    }
+    case SET_COMBATANT_NAME: {
+      return {
+        ...state,
+        combatants: {
+          ...state.combatants,
+          [action.payload.mobID]: {
+            ...state.combatants[action.payload.mobID],
+            name: action.payload.name
+          }
+        }
+      };
+    }
+    case SET_COMBATANT_AC: {
+      return {
+        ...state,
+        combatants: {
+          ...state.combatants,
+          [action.payload.mobID]: {
+            ...state.combatants[action.payload.mobID],
+            ac: action.payload.ac
           }
         }
       };

@@ -1,12 +1,18 @@
-// combatantReducer related actions
-export const ADD_COMBATANT_BLOCK = 'ADD_COMBATANT_BLOCK';
-export const ADD_COMBATANT_TO_BLOCK = 'ADD_COMBATANT_TO_BLOCK';
+// combat controls
+export const RESET_TURN = 'RESET_TURN';
 export const INCREMENT_TURN = 'INCREMENT_TURN';
-export const MODIFY_CURRENT_HP = 'MODIFY_CURRENT_HP';
+
+// mob editing
+export const SET_CURRENT_HP = 'SET_CURRENT_HP';
+export const SET_MAX_HP = 'SET_MAX_HP';
 export const HEAL_CURRENT_HP = 'HEAL_CURRENT_HP';
 export const DAMAGE_CURRENT_HP = 'DAMAGE_CURRENT_HP';
-export const RESET_TURN = 'RESET_TURN';
+export const SET_COMBATANT_NAME = 'SET_COMBATANT_NAME';
+export const SET_COMBATANT_AC = 'SET_COMBATANT_AC';
 
+// block editing
+export const ADD_COMBATANT_BLOCK = 'ADD_COMBATANT_BLOCK';
+export const ADD_COMBATANT_TO_BLOCK = 'ADD_COMBATANT_TO_BLOCK';
 export const DELETE_COMBATANT_FROM_BLOCK = 'DELETE_COMBATANT_FROM_BLOCK';
 export const DELETE_LAST_COMBATANT_FROM_BLOCK =
   'DELETE_LAST_COMBATANT_FROM_BLOCK';

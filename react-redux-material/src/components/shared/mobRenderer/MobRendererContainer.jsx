@@ -52,7 +52,11 @@ const MobRendererContainer = props => {
         {mob.name}
       </Typography>
       <ACPresentation ac={mob.ac} />
-      <HPPresentation maxHP={mob.hp} currentHP={mob.currentHP} />
+      <HPPresentation
+        maxHP={mob.hp}
+        currentHP={mob.currentHP}
+        mobID={props.mobID}
+      />
       <HPEditorPresentation mobID={props.mobID} />
       <Button onClick={handleDelete}>Delete</Button>
     </div>
