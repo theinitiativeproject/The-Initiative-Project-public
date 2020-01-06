@@ -23,8 +23,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    textAlign: 'center',
-    paddingTop: '15px'
+    marginTop: '15px'
   },
   divider: {
     height: '2px',
@@ -34,6 +33,7 @@ const useStyles = makeStyles(theme => ({
   text: {
     fontSize: '1.1rem',
     fontWeight: '420',
+    textAlign: 'center',
     lineHeight: '1rem',
     padding: '0px 3px'
   },
@@ -44,7 +44,6 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '1.2rem'
   },
   'hp-input-field': {
-    padding: '5px 3px 0px',
     fontWeight: '450',
     fontSize: '1.3rem',
     lineHeight: '1.2rem',
@@ -52,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     border: 'none',
     background: 'transparent',
     width: '100%',
-    display: 'inline-block'
+    textAlign: 'center'
   }
 }));
 
@@ -74,8 +73,6 @@ const HPPresentation = props => {
       } else {
         dispatch(healCurrentHP(value, props.mobID));
       }
-    } else if (input === '') {
-      handleDiscard();
     } else {
       dispatch(setCurrentHP(input, props.mobID));
     }
@@ -89,28 +86,28 @@ const HPPresentation = props => {
   };
 
   return (
-    <div className={classes.root} onClick={() => setEditing(true)}>
-      <div className={classes['display-base']}>
+    <div className={classes.root}>
+      <div className={classes['display-base']} onClick={() => setEditing(true)}>
         {editing ? (
-          // <ClickAwayListener onClickAway={handleDiscard}>
-          <input
-            className={classes['hp-input-field']}
-            type="text"
-            placeholder={props.currentHP}
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyUp={e => {
-              if (e.keyCode === 13) {
-                handleHPEdit();
-              } else if (e.keyCode === 27) {
-                handleDiscard();
-              }
-            }}
-            // onBlur={handleDiscard}
-            autoFocus
-          />
-        ) : // </ClickAwayListener>
-        props.maxHP ? (
+          <ClickAwayListener onClickAway={handleDiscard}>
+            <input
+              className={classes['hp-input-field']}
+              type="text"
+              placeholder={props.currentHP}
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyUp={e => {
+                if (e.keyCode === 13) {
+                  handleHPEdit();
+                } else if (e.keyCode === 27) {
+                  handleDiscard();
+                }
+              }}
+              onBlur={handleDiscard}
+              autoFocus
+            />
+          </ClickAwayListener>
+        ) : props.maxHP ? (
           <div>
             <Typography className={classes.text}>{props.currentHP}</Typography>
             <div className={classes.divider} />

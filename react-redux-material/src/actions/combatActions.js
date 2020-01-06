@@ -3,14 +3,15 @@ import {
   ADD_COMBATANT_TO_BLOCK,
   INCREMENT_TURN,
   DELETE_COMBATANT_FROM_BLOCK,
+  DELETE_LAST_COMBATANT_FROM_BLOCK,
+  EDIT_BLOCK_INITIATIVE,
   HEAL_CURRENT_HP,
   DAMAGE_CURRENT_HP,
   SET_CURRENT_HP,
   SET_MAX_HP,
   SET_COMBATANT_NAME,
   SET_COMBATANT_AC,
-  RESET_TURN,
-  DELETE_LAST_COMBATANT_FROM_BLOCK
+  RESET_TURN
 } from './types';
 
 export const addCombatantBlock = (mob, initiative) => dispatch => {
@@ -36,6 +37,13 @@ export const deleteLastCombatantFromBlock = (blockID, mobID) => dispatch => {
   dispatch({
     type: DELETE_LAST_COMBATANT_FROM_BLOCK,
     payload: { blockID, mobID }
+  });
+};
+
+export const editBlockInitiative = (blockID, newInit) => dispatch => {
+  dispatch({
+    type: EDIT_BLOCK_INITIATIVE,
+    payload: { blockID, newInit }
   });
 };
 

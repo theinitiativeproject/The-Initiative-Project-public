@@ -9,6 +9,7 @@ import {
 import ACPresentation from './AC/ACPresentation.jsx';
 import HPPresentation from './HP/HPPresentation.jsx';
 import HPEditorPresentation from './HP/HPEditor/HPEditorPresentation.jsx';
+import CombatantName from './Name/combatantName.jsx';
 
 import { Grid, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -19,11 +20,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: '3px'
-  },
-  //for responsive design, refactor this sizing
-  'mob-name': {
-    width: '20vw',
-    marginLeft: '5px'
   }
 }));
 
@@ -43,15 +39,8 @@ const MobRendererContainer = props => {
 
   return (
     <div className={classes['mob-renderer-container']}>
-      <Typography
-        variant="h6"
-        noWrap={true}
-        display="block"
-        className={classes['mob-name']}
-      >
-        {mob.name}
-      </Typography>
-      <ACPresentation ac={mob.ac} />
+      <CombatantName name={mob.name} mobID={props.mobID} />
+      <ACPresentation ac={mob.ac} mobID={props.mobID} />
       <HPPresentation
         maxHP={mob.hp}
         currentHP={mob.currentHP}

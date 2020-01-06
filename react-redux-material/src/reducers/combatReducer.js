@@ -4,6 +4,7 @@ import {
   DELETE_COMBATANT_FROM_BLOCK,
   DELETE_LAST_COMBATANT_FROM_BLOCK,
   ADD_COMBATANT_TO_BLOCK,
+  EDIT_BLOCK_INITIATIVE,
   HEAL_CURRENT_HP,
   DAMAGE_CURRENT_HP,
   SET_CURRENT_HP,
@@ -41,24 +42,12 @@ export default function(state = initialState, action) {
       };
 
       let newBlockOrder = [...state.blockOrder];
-      if (newBlockOrder.length === 0) {
-        newBlockOrder.push(newBlockID);
-      } else {
-        for (let i = 0; i < newBlockOrder.length; i++) {
-          let blockID = newBlockOrder[i];
-          if (
-            state.initiativeBlocks[blockID].initiative < newBlock.initiative
-          ) {
-            newBlockOrder.splice(i, 0, newBlockID);
-            break;
-          } else {
-            if (i === newBlockOrder.length - 1) {
-              newBlockOrder.push(newBlockID);
-              break;
-            }
-          }
-        }
-      }
+      newBlockOrder.push(newBlockID);
+      newBlockOrder.sort((a, b) => {
+        let aInit = state.initiativeBlocks[a].initiative;
+        let bInit = state.initiativeBlocks[b].initiative;
+        return bInit - aInit;
+      });
 
       return {
         ...state,
@@ -133,6 +122,24 @@ export default function(state = initialState, action) {
         combatants: newCombatants,
         activeBlock: nextActiveBlock
       };
+    }
+
+    case EDIT_BLOCK_INITIATIVE: {
+      let newState = { ...state };
+      newState.blockOrder = state.blockOrder.slice(0);
+      newState.initiativeBlocks = {
+        ...newState.initiativeBlocks,
+        [action.payload.blockID]: {
+          ...newState.initiativeBlocks[action.payload.blockID],
+          initiative: action.payload.newInit
+        }
+      };
+      newState.blockOrder.sort(
+        (a, b) =>
+          newState.initiativeBlocks[b].initiative -
+          newState.initiativeBlocks[a].initiative
+      );
+      return newState;
     }
 
     case HEAL_CURRENT_HP: {
