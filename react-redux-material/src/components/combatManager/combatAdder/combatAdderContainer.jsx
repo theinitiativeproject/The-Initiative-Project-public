@@ -71,6 +71,7 @@ const InitiativeListAdder = props => {
           name="name"
           placeholder="Name"
           value={values.name}
+          autoFocus
           required
         />
         <input

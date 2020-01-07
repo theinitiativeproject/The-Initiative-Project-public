@@ -5,6 +5,7 @@ import InitiativeBlockContainer from './initiativeBlock/initiativeBlockContainer
 // MUI imports
 import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
+  'initiative-list': { height: '100%', overflowY: 'scroll' },
   'initiative-block': { padding: '5px' },
   'even-initiative-block': { backgroundColor: '#f2f2f0' },
   'odd-initiative-block': { backgroundColor: '#bfbfbf' }
@@ -15,7 +16,7 @@ const InitiativeListContainer = props => {
   const classes = useStyles();
 
   return (
-    <ol>
+    <ol className={classes['initiative-list']}>
       {blockOrder.map((blockID, idx) => (
         <li
           key={idx}

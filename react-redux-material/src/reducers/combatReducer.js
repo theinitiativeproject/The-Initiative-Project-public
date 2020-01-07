@@ -41,18 +41,22 @@ export default function(state = initialState, action) {
         initiative: action.payload.initiative
       };
 
+      let newInitiativeBlocks = {
+        ...state.initiativeBlocks,
+        [newBlockID]: newBlock
+      };
       let newBlockOrder = [...state.blockOrder];
       newBlockOrder.push(newBlockID);
       newBlockOrder.sort((a, b) => {
-        let aInit = state.initiativeBlocks[a].initiative;
-        let bInit = state.initiativeBlocks[b].initiative;
+        let aInit = newInitiativeBlocks[a].initiative;
+        let bInit = newInitiativeBlocks[b].initiative;
         return bInit - aInit;
       });
 
       return {
         ...state,
         combatants: { ...state.combatants, [newMobID]: newMob },
-        initiativeBlocks: { ...state.initiativeBlocks, [newBlockID]: newBlock },
+        initiativeBlocks: newInitiativeBlocks,
         blockOrder: newBlockOrder
       };
     }
